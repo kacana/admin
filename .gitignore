@@ -1,0 +1,8 @@
+/vendor
+/node_modules
+.env
+/public/css/admin.css
+/public/css/admin.min.css
+/public/js/admin.js
+/public/js/admin.min.js
+composer.lock
