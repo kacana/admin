@@ -4,6 +4,7 @@ var datatablePackage = {
             var element = $("#table");
             element.DataTable({
                 bLengthChange: false,
+                aTargets: ['nosort'],
                 processing: true,
                 serverSide: true,
                 ajax: url,

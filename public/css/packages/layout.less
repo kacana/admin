@@ -6,12 +6,20 @@
   }
 }
 .content-wrapper{
-  .dataTables_wrapper{
-    padding: 15px;
-    height: auto;
+  .custom-box{
+    padding:5px;
+    margin-bottom:10px;
+    border-bottom: 2px solid #ddd;
+    background:#f3f3f3;
+
+    h3.box-title{font-weight: 600;font-size: 20px}
   }
-  table.dataTable thead th, table.dataTable thead td{
-    border: none;
+
+  .dataTables_wrapper{
+    padding: 15px 0;
+    height: auto;
+
+    .dataTables_info{padding-left:10px}
   }
   .box-search{
     .box-search-title{
@@ -26,7 +34,16 @@
       padding-right:3px;
     }
   }
-  #table_filter{display:none}
-
+  #table_filter, .nosort{display:none}
+  .table-striped>tbody>tr:first-child>td{border-top:2px solid #ddd!important}
+  table.dataTable.no-footer{border-bottom:2px solid #ddd !important}
+  .table>caption+thead>tr:first-child>th,
+  .table>colgroup+thead>tr:first-child>th,
+  .table>thead:first-child>tr:first-child>th,
+  .table>caption+thead>tr:first-child>td,
+  .table>colgroup+thead>tr:first-child>td,
+  .table>thead:first-child>tr:first-child>td{border-top:0;border-bottom: 0}
 }
+
+
 

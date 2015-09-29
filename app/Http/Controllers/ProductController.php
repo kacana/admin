@@ -43,7 +43,7 @@ class ProductController extends BaseController {
                 return showDate($row->updated);
             })
             ->add_column('action', function ($row) {
-                return showActionButton("/product/editProduct/".$row->id, 'Kacana.product.removeProduct('.$row->id.')');
+                return showActionButton("/product/editProduct/".$row->id, 'Kacana.product.removeProduct('.$row->id.')', false, false);
             })
             ->make(true);
     }
