@@ -60,3 +60,11 @@ function showSelectStatus($id, $status, $active, $inactive){
     return $str;
 }
 
+/*
+ * get controller name base on Route::currentRouteAction()
+ */
+function getControllerName($route_action)
+{
+    return substr($route_action, 0, (strpos($route_action, '@') -0) );
+}
+
