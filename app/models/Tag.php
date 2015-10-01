@@ -35,8 +35,8 @@ class Tag extends Model  {
     public function createItem($item)
     {
         $tag = new Tag;
-
         $tag->name = $item['name'];
+        $tag->parent_id = $item['parent_id'];
         $tag->created = date('Y-m-d H:i:s');
         $tag->updated = date('Y-m-d H:i:s');
         $tag->save();
@@ -56,5 +56,10 @@ class Tag extends Model  {
             unset($options['_token']);
         }
         $this->where('id', $id)->update($options);
+    }
+
+    public function countChild()
+    {
+        return $this->where('parent_id', $this->id)->count();
     }
 }

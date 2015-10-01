@@ -12,7 +12,7 @@ var productPackage = {
               { data: 'id', name: 'id' },
               { data: 'name', name: 'name' },
               { data: 'image', name: 'image' },
-              { data: 'price', name: 'price' },
+              { data: 'price', name: 'priceproduct' },
               { data: 'sell_price', name: 'sell_price' },
               { data: 'status', name: 'status' },
               { data: 'created', name: 'created' },
@@ -218,20 +218,14 @@ var productPackage = {
           init: function(){
 
           },
-          listTag: function(){
-              var columns = [
-                  { data: 'id', name: 'id' },
-                  { data: 'name', name: 'name' },
-                  { data: 'status', name: 'status' },
-                  { data: 'updated', name: 'updated' },
-                  { data: 'created', name: 'created' },
-                  { data: 'action', name: 'action' },
-              ];
-              var btable = Kacana.datatable.init(columns, '/tag/getTag');
-
-              $("#search-form").on('submit', function(e){
-                  btable.search($("#search-name").val()).draw() ;
-                  e.preventDefault();
+          showCreateForm: function(id) {
+              $.ajax({
+                  type: 'get',
+                  url:'/tag/showFormCreate/'+id,
+                  success: function(result){
+                      $("#myModal").html(result);
+                      $("#myModal").modal('show');
+                  }
               })
           },
           createTag: function(){
@@ -254,13 +248,13 @@ var productPackage = {
                   }
               })
           },
-          showEditTagForm: function(idTag){
+          showEditForm: function(id){
               $.ajax({
                   type:'get',
-                  url:'/tag/showEditFormTag/'+idTag,
+                  url:'/tag/showEditFormTag/'+id,
                   success:function(result){
-                      $("#editModal").html(result);
-                      $("#editModal").modal('show');
+                      $("#myModal").html(result);
+                      $("#myModal").modal('show');
                   }
               })
           },

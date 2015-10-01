@@ -58,6 +58,7 @@
         {{--<script src="https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>--}}
         <script src="/lib/ckeditor/ckeditor.js"></script>
 
+
         <script type="text/javascript">
             $(function() {
                 @yield('javascript')

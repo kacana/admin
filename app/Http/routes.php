@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
     //tag
     Route::any('/product/tag',                              array('as'=>'listTags',                 'uses'=>'TagController@index'));
     Route::any('/tag/getTag',                               array('as'=>'getTags',                  'uses'=>'TagController@getTag'));
+    Route::any('/tag/showFormCreate/{id}',                  array('as'=>'showCreateFormTag',        'uses'=>'TagController@showFormCreate'));
     Route::post('/tag/createTag',                           array('as'=>'createTag',                'uses'=>'TagController@createTag'));
     Route::get('/tag/showEditFormTag/{id}',                 array('as'=>'showEditFormTag',          'uses'=>'TagController@showEditFormTag'));
     Route::post('/tag/editTag',                             array('as'=>'editTag',                  'uses'=>'TagController@editTag'));

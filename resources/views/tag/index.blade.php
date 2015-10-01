@@ -12,54 +12,51 @@
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
-                <div class="box box-primary">
-                    <div class="box-header box-search">
-                        <div class="box-search-title">
-                            <h4>Tìm kiếm tag</h4>
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
-                                <i class="fa fa-plus"></i>Thêm mới
-                            </button>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="form-search">
-                            {!! Form::open(array('id' => 'search-form')) !!}
-                            <div class="col-xs-3">
-                                {!! Form::text('name', null, array('class' => 'form-control input-sm', 'placeholder' => 'Tìm kiếm', 'id'=>'search-name')) !!}
-                            </div>
-                            {!! Form::button('Tìm kiếm', array('type' => 'submit', 'class'=>'btn btn-primary btn-sm')) !!}
-                            {!! Form::button('Reset', array('type' => 'reset', 'class' => 'btn btn-default btn-sm')) !!}
-                            {!! Form::close() !!}
-                        </div>
-                    </div>
-                </div>
 
                 <div class="box"> <!-- Search results -->
                     <div class="box-header">
-                        <h3 class="box-title">Kết quả tìm kiếm</h3>
+                        <h3 class="box-title">Danh sách Tags</h3>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="Kacana.product.tag.showCreateForm(0)">
+                            <i class="fa fa-plus"></i> Thêm mới
+                        </button>
                     </div><!-- /.box-header -->
 
+
                     <div class="box-body table-responsive no-padding">
-                        <table id="table" class="table row-border table-striped dataTable">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Status</th>
-                                    <th>Created</th>
-                                    <th>Updated</th>
-                                    <th class="nosort"></th>
-                                </tr>
-                            </thead>
-                        </table>
+                        <div class="treeview-tags" data-role="treeview">
+                            @if($tags)
+                            <ul>
+                                @foreach($tags as $tag)
+                                    <li class="contain">
+                                        <p>
+                                            {{$tag->name}}
+                                            <span class="badge bg-gray"><a href="#">{{ $tag->countChild() }} childs</a></span>
+                                            <span><a class="btn bg-light-blue-active btn-sm" title="add tag" href="javascript:void(0)" onclick="Kacana.product.tag.showCreateForm({!! $tag->id !!})"><i class="fa fa-plus"></i></a></span>
+                                            <span><a class="btn bg-light-blue-active btn-sm" title="main tag"><i class="fa fa-arrow-circle-up"></i></a></span>
+
+                                            <span><a class="btn bg-light-blue-active btn-sm" title="sub tag"><i class="fa fa-map-marker"></i></a></span>
+
+                                            <span><a class="btn bg-light-blue-active btn-sm" title="edit tag" onclick="Kacana.product.tag.showEditForm({!! $tag->id !!})"><i class="fa fa-pencil"></i></a></span>
+
+                                            @if($tag->countChild() == 0)
+                                                <span><a class="btn bg-red btn-sm" title="remove tag" onclick="Kacana.product.tag.removeTag({!! $tag->id !!})"><i class="fa fa-remove"></i></a></span>
+                                            @endif
+                                        </p>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            @else
+                                Không có dữ liệu
+                            @endif
+                        </div>
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
             </div>
         </div>
     </section>
 @stop
-@section('javascript')
-    Kacana.product.tag.listTag();
-@stop
-@extends('tag.form-create')
-@extends('tag.edit-modal')
+@extends('tag.modal')
 

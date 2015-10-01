@@ -14,7 +14,8 @@ class TagController extends BaseController {
      */
     public function index()
     {
-        return view('tag.index');
+        $data['tags'] = Tag::all();
+        return view('tag.index', $data);
     }
 
     /*
@@ -40,6 +41,13 @@ class TagController extends BaseController {
             ->make(true);
     }
 
+    /*
+     * show form create item
+     */
+    public function showFormCreate($parent_id=0)
+    {
+        return view('tag.form-create', array('parent_id' => $parent_id));
+    }
     /**
      * create product
      *
