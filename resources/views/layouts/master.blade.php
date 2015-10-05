@@ -55,11 +55,13 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
         <!-- CK Editor -->
-        {{--<script src="https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>--}}
         <script src="/lib/ckeditor/ckeditor.js"></script>
 
+        {!! Html::style('/lib/jqTree/jqtree.css') !!}
+        {!! Html::script('/lib/jqTree/tree.jquery.js') !!}
 
         <script type="text/javascript">
+
             $(function() {
                 @yield('javascript')
             });

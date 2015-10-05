@@ -57,7 +57,8 @@ class ProductController extends BaseController {
     public function createProduct(ProductRequest $request)
     {
         $product = new Product;
-        return $product->createItem($request->all());
+        return view('product.add-product');
+//        return $product->createItem($request->all());
     }
 
     /**

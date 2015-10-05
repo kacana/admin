@@ -42,6 +42,32 @@ class TagController extends BaseController {
     }
 
     /*
+     * get tags by parent id
+     */
+
+    public function getTags()
+    {
+        $tag = new Tag;
+        $node = isset($_GET['node'])? $_GET['node']:0;
+        $data = array();
+        $parentTags = $tag->getTagByParentId($node);
+        foreach($parentTags as $item){
+            $i['label'] = $item->name;
+            $i['id'] = $item->id;
+
+            if($item->countChild()>0){
+                $i['childs'] = $item->countChild();
+                $i['load_on_demand'] = true;
+            }else{
+                $i['childs'] = 0;
+                $i['load_on_demand'] = false;
+            }
+            $data[] = $i;
+        }
+        echo json_encode($data);
+    }
+
+    /*
      * show form create item
      */
     public function showFormCreate($parent_id=0)
@@ -79,6 +105,10 @@ class TagController extends BaseController {
      */
     public function removeTag($id)
     {
+        $tag = Tag::find($id);
+        if($tag->countChild()>0){
+            $tag->deleteChild($id);
+        }
         Tag::find($id)->delete();
     }
 
@@ -115,5 +145,12 @@ class TagController extends BaseController {
             }
         }
         return $str;
+    }
+
+    public function getTagById($parent_id = 0)
+    {
+        $tag = new Tag;
+        $tags = $tag->getTagById($parent_id);
+        echo json_encode($tags);
     }
 }

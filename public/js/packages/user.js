@@ -6,20 +6,8 @@ var userPackage = {
           Kacana.user.createUser();
       },
       listUsers: function(){
-          var columns = [
-              {data:'id', name:'name'},
-              {data:'name', name: 'name'},
-              {data: 'email', name: 'email'},
-              {data: 'image', name: 'image'},
-              {data: 'role', name: 'role'},
-              {data:'user_type', name:'user_type'},
-              {data:'status', name:'status'},
-              {data:'created', name:'created'},
-              {data:'updated', name:'updated'},
-              {data:'action', name:'active'}
-          ];
-
-          var btable = Kacana.datatable.init(columns, '/user/getUser');
+          var columns = ['id', 'name', 'email', 'image', 'role', 'user_type', 'status', 'created', 'updated', 'active']
+          var btable = Kacana.datatable.init('table', columns, '/user/getUser');
 
           $("#search-form").on('submit', function(e){
               btable.search($("#search-name").val()).draw() ;

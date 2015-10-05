@@ -22,36 +22,8 @@
                     </div><!-- /.box-header -->
 
 
-                    <div class="box-body table-responsive no-padding">
-                        <div class="treeview-tags" data-role="treeview">
-                            @if($tags)
-                            <ul>
-                                @foreach($tags as $tag)
-                                    <li class="contain">
-                                        <p>
-                                            {{$tag->name}}
-                                            <span class="badge bg-gray"><a href="#">{{ $tag->countChild() }} childs</a></span>
-                                            <span><a class="btn bg-light-blue-active btn-sm" title="add tag" href="javascript:void(0)" onclick="Kacana.product.tag.showCreateForm({!! $tag->id !!})"><i class="fa fa-plus"></i></a></span>
-                                            <span><a class="btn bg-light-blue-active btn-sm" title="main tag"><i class="fa fa-arrow-circle-up"></i></a></span>
-
-                                            <span><a class="btn bg-light-blue-active btn-sm" title="sub tag"><i class="fa fa-map-marker"></i></a></span>
-
-                                            <span><a class="btn bg-light-blue-active btn-sm" title="edit tag" onclick="Kacana.product.tag.showEditForm({!! $tag->id !!})"><i class="fa fa-pencil"></i></a></span>
-
-                                            @if($tag->countChild() == 0)
-                                                <span><a class="btn bg-red btn-sm" title="remove tag" onclick="Kacana.product.tag.removeTag({!! $tag->id !!})"><i class="fa fa-remove"></i></a></span>
-                                            @endif
-                                        </p>
-                                        <ul>
-                                            <li></li>
-                                        </ul>
-                                    </li>
-                                @endforeach
-                            </ul>
-                            @else
-                                Không có dữ liệu
-                            @endif
-                        </div>
+                    <div class="box-body">
+                        <div class="treeview-tags" data-role="treeview" id="tree-tags" data-url="/tag/getTags/" ></div>
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
             </div>
@@ -59,4 +31,21 @@
     </section>
 @stop
 @extends('tag.modal')
+@section('javascript')
+    $("#tree-tags").tree({
+    closedIcon: $('<i class="fa fa-plus-square-o"></i>'),
+    openedIcon: $('<i class="fa fa-minus-square-o"></i>'),
+        onCreateLi: function(node, $li){
+            countChild = node.childs;
+            nodeid = node.id;
+            str = '<span class="badge bg-gray childleft"><a href="javascript:void(0)"> '+countChild+' childs </a></span>';
+            str += ' <span><a class="btn bg-light-blue-active btn-sm" title="add tag" href="javascript:void(0)" onclick="Kacana.product.tag.showCreateForm('+nodeid+')"><i class="fa fa-plus"></i></a></span>';
+            str += ' <span><a class="btn bg-light-blue-active btn-sm" title="main tag"><i class="fa fa-arrow-circle-up"></i></a></span>';
+            str += ' <span><a class="btn bg-light-blue-active btn-sm" title="sub tag"><i class="fa fa-map-marker"></i></a></span>';
+            str += ' <span><a class="btn bg-light-blue-active btn-sm" title="edit tag" onclick="Kacana.product.tag.showEditForm('+nodeid+')"><i class="fa fa-pencil"></i></a></span>';
+            str += ' <span><a class="btn bg-red btn-sm" title="remove tag" onclick="Kacana.product.tag.removeTag('+nodeid+')"><i class="fa fa-remove"></i></a></span>';
+            $li.find('.jqtree-title').after(str);
+        }
+    });
+@stop
 

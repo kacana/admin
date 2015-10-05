@@ -8,19 +8,9 @@ var productPackage = {
           Kacana.product.removeProduct();
       },
       listProducts: function(){
-          var columns = [
-              { data: 'id', name: 'id' },
-              { data: 'name', name: 'name' },
-              { data: 'image', name: 'image' },
-              { data: 'price', name: 'priceproduct' },
-              { data: 'sell_price', name: 'sell_price' },
-              { data: 'status', name: 'status' },
-              { data: 'created', name: 'created' },
-              { data: 'updated', name: 'updated' },
-              { data: 'action', name: 'action' },
-          ];
+          var columns = ['id', 'name', 'image', 'price', 'sell_price', 'status', 'created', 'updated', 'action'];
+          var btable = Kacana.datatable.init('table', columns, '/product/getProduct');
 
-          var btable = Kacana.datatable.init(columns, '/product/getProduct');
           $("#search-form").on('submit', function(e){
               btable.search($("#search-name").val()).draw() ;
               e.preventDefault();
@@ -111,16 +101,9 @@ var productPackage = {
               Kacana.product.branch.setStatusBranch();
           },
           listBranch: function(){
-              var columns = [
-                  { data: 'id', name: 'id' },
-                  { data: 'name', name: 'name' },
-                  { data: 'image', name: 'image' },
-                  { data: 'status', name: 'status' },
-                  { data: 'created', name: 'created' },
-                  { data: 'updated', name: 'updated' },
-                  { data: 'action', name: 'action' },
-              ];
-              var btable = Kacana.datatable.init(columns, '/branch/getBranch');
+              var columns = ['id', 'name', 'image', 'status', 'created', 'updated', 'action']
+              var btable = Kacana.datatable.init('table', columns, '/branch/getBranch');
+
                 $("#search-form").on('submit', function(e){
                     btable.search($("#search-name").val()).draw() ;
                     e.preventDefault();

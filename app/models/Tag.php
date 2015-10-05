@@ -29,6 +29,11 @@ class Tag extends Model  {
     {
         return $query->where('name', 'LIKE', '%'.$keyword.'%')->get();
     }
+
+    public function getTagByParentId($parent_id)
+    {
+        return $this->where('parent_id', $parent_id)->get();
+    }
     /*
      * create item
      */
@@ -61,5 +66,24 @@ class Tag extends Model  {
     public function countChild()
     {
         return $this->where('parent_id', $this->id)->count();
+    }
+
+    public function deleteChild($id){
+        $tags = $this->where('parent_id', $id)->get();
+        if(count($tags)>0){
+            foreach($tags as $tag){
+                $this->deleteChildRe($tag->id);
+            }
+            Tag::find($tag->id)->delete();
+        }
+    }
+
+    public function deleteChildRe($id){
+        $tags = $this->where('parent_id', $id)->get();
+        if(count($tags)>0){
+            foreach($tags as $tag){
+                Tag::find($tag->id)->delete();
+            }
+        }
     }
 }
