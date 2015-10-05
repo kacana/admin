@@ -60,15 +60,14 @@
 
                         <!-- description -->
                         <div class="form-group">
-
-                            <div class="chosentree"></div>
-
+                            {!! Form::label('tags', 'Tags') !!}
+                            <div class="treeview-tags" data-role="treeview" id="tree-tags" data-url="/tag/getTags/"></div>
                         </div>
 
                     </div>
                     <div class="modal-footer">
                         <a class="btn btn-default" href="/product">Huỷ</a>
-                        <button type="submit" id="btn-update"class="btn btn-primary">Cập nhật</button>
+                        <button type="submit" id="btn-update"class="btn btn-primary">Tạo mới</button>
                     </div>
                     {!! Form::close() !!}
                 </div><!-- /.box -->
@@ -81,35 +80,14 @@
     CKEDITOR.replace('description',{
         filebrowserImageUploadUrl: "/lib/ckeditor/plugins/imgupload/imgupload.php"
     });
-
-
-    var loadChildren = function(node, level) {
-        $.ajax({
-            type:'get',
-            url: '/tag/getTagById',
-            dataType:'json',
-            success: function(result){
-                return result;
-            }
-        });
-    };
-
-    JSONObject = JSON.parse('{
-    "id":"01",
-    "title":"Node 01",
-    "has_children":true,
-    "level":1,
-    "children":[
-    {"id":"011","title":"Node 011","has_children":true,"level":2,"children":[{"id":"0111","title":"Node 0111","has_children":false,"level":3,"children":[]}]}]}');
-
-    $('div.chosentree').chosentree({
-        width: 500,
-        deepLoad: true,
-        showtree: true,
-        load: function(node, callback) {
-            callback();
+    $("#tree-tags").tree({
+        closedIcon: $('<i class="fa fa-plus-square-o"></i>'),
+        openedIcon: $('<i class="fa fa-minus-square-o"></i>'),
+        onCreateLi: function(node, $li){
+            countChild = node.childs;
+            nodeid = node.id;
+            $li.find('.jqtree-title').before(' <input type="checkbox" name="tags[]" value="'+nodeid+'"/> ');
         }
     });
-
 @stop
 

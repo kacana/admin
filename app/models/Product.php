@@ -33,7 +33,7 @@ class Product extends Model  {
         $product = new Product;
 
         $product->name = $item['name'];
-        $product->description = $item['descriptions'];
+        $product->description = $item['description'];
         $product->price = $item['price'];
         $product->sell_price = $item['sell_price'];
         $product->created = date('Y-m-d H:i:s');
@@ -46,11 +46,15 @@ class Product extends Model  {
         }
 
         //update description with image
-        if(!empty($item['descriptions'])){
-            $this->updateDescWithImg($item['descriptions'], $product->id);
+        if(!empty($item['description'])){
+            $this->updateDescWithImg($item['description'], $product->id);
         }
         //add tags
-        $product->tag()->attach($item['tags']);
+        if(!empty($item['tags'])){
+            foreach($item['tags'] as $k=>$v){
+                $product->tag()->attach($v);
+            }
+        }
     }
 
     function updateImage($image, $id)

@@ -57,8 +57,11 @@ class ProductController extends BaseController {
     public function createProduct(ProductRequest $request)
     {
         $product = new Product;
+        if($request->all()){
+            $product->createItem($request->all());
+            //return Redirect('index');
+        }
         return view('product.add-product');
-//        return $product->createItem($request->all());
     }
 
     /**

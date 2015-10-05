@@ -23,7 +23,7 @@
 
 
                     <div class="box-body">
-                        <div class="treeview-tags" data-role="treeview" id="tree-tags" data-url="/tag/getTags/" ></div>
+                        <div class="treeview-tags" data-role="treeview" id="tree-tags" data-url="/tag/getTags/"></div>
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
             </div>

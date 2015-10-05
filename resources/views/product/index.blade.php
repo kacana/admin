@@ -16,9 +16,9 @@
                     <div class="box-header box-search">
                         <div class="box-search-title">
                             <h4>Tìm kiếm sản phẩm</h4>
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+                            <a class="btn btn-primary btn-sm" href="{{URL::route('createProduct')}}">
                                 <i class="fa fa-plus"></i> Thêm mới
-                            </button>
+                            </a>
                         </div>
                         <div class="clearfix"></div>
                         <div class="form-search">
