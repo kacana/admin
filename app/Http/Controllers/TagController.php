@@ -45,15 +45,28 @@ class TagController extends BaseController {
      * get tags by parent id
      */
 
-    public function getTags()
+    public function getTags($pid)
     {
         $tag = new Tag;
         $node = isset($_GET['node'])? $_GET['node']:0;
+
         $data = array();
+        $tag_products = array();
         $parentTags = $tag->getTagByParentId($node);
+
+        if($pid!=0){
+            $tag_products = $tag->getIdTagByPid($pid);
+        }
+
         foreach($parentTags as $item){
             $i['label'] = $item->name;
             $i['id'] = $item->id;
+
+            if(in_array($i['id'], $tag_products)){
+                $i['checked'] = true;
+            }else{
+                $i['checked'] = false;
+            }
 
             if($item->countChild()>0){
                 $i['childs'] = $item->countChild();

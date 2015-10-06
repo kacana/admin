@@ -12,6 +12,7 @@
 */
 
 Route::pattern('id', '[0-9]+');
+Route::pattern('pid', '[0-9]+');
 Route::pattern('status', '[0-1]+');
 Route::pattern('keyword', '[a-z0-9-]+');
 
@@ -32,7 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     //product
     Route::any('/product',                                  array('as'=>'listProducts',             'uses'=>'ProductController@index'));
     Route::any('/product/getProduct',                       array('as'=>'getProducts',              'uses'=>'ProductController@getProduct'));
-    Route::any('/product/createProduct',                   array('as'=>'createProduct',            'uses'=>'ProductController@createProduct'));
+    Route::any('/product/createProduct',                    array('as'=>'createProduct',            'uses'=>'ProductController@createProduct'));
     Route::any('/product/editProduct/{id}',                 array('as'=>'editProduct',              'uses'=>'ProductController@editProduct'));
     Route::get('/product/removeProduct/{id}',               array('as'=>'removeProduct',            'uses'=>'ProductController@removeProduct'));
     Route::any('/product/uploadImageDescription',           array('as'=>'uploadImageDescription',   'uses'=>'ProductController@uploadImageDescription'));
@@ -51,7 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
     //tag
     Route::any('/product/tag',                              array('as'=>'listTags',                 'uses'=>'TagController@index'));
 //    Route::any('/tag/getTag',                               array('as'=>'getTags',                  'uses'=>'TagController@getTag'));
-    Route::any('/tag/getTags/',                         array('as'=>'getTags',                  'uses'=>'TagController@getTags'));
+    Route::any('/tag/getTags/{pid}',                             array('as'=>'getTags',                  'uses'=>'TagController@getTags'));
     Route::any('/tag/getTagById',                           array('as'=>'getTagsById',              'uses'=>'TagController@getTagById'));
     Route::any('/tag/showFormCreate/{id}',                  array('as'=>'showCreateFormTag',        'uses'=>'TagController@showFormCreate'));
     Route::post('/tag/createTag',                           array('as'=>'createTag',                'uses'=>'TagController@createTag'));

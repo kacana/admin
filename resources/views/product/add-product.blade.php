@@ -14,8 +14,8 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Thêm sản phẩm</h3>
                     </div><!-- /.box-header -->
-                    @if($_POST)
-                        @if (count($errors) > 0)
+
+                        @if ($errors->count()> 0)
                             <div class="alert alert-danger alert-dismissible">
                                 <ul>
                                     @foreach ($errors->all() as $error)
@@ -24,13 +24,13 @@
                                 </ul>
                             </div>
                         @endif
-                    @endif
-                    {!! Form::open(array('id' =>'form-edit-product', 'onsubmit'=>true, 'enctype'=>"multipart/form-data")) !!}
+
+                    {!! Form::open(array('method'=>'post', 'id' =>'form-edit-product', 'onsubmit'=>true, 'enctype'=>"multipart/form-data")) !!}
                     <div class="modal-body">
                         <!-- name -->
                         <div class="form-group">
                             {!! Form::label('name', 'Tên sản phẩm') !!}
-                            {!! Form::text('name', null, array('required', 'class' => 'form-control', 'placeholder' => 'Tên sản phẩm')) !!}
+                            {!! Form::text('name', null, array('class' => 'form-control', 'placeholder' => 'Tên sản phẩm')) !!}
                         </div>
 
                         <!-- image -->
@@ -42,14 +42,14 @@
                         <!-- price -->
                         <div class="form-group">
                             {!! Form::label('price', 'Giá sản phẩm') !!}
-                            {!! Form::text('price', null, array('required', 'class' => 'form-control', 'placeholder' => 'Gía sản phẩm')) !!}
+                            {!! Form::text('price', null, array('class' => 'form-control', 'placeholder' => 'Gía sản phẩm')) !!}
                             <span id="error-price" class="has-error text-red"></span>
                         </div>
 
                         <!-- sell price -->
                         <div class="form-group">
                             {!! Form::label('sell_price', 'Giá bán sản phẩm') !!}
-                            {!! Form::text('sell_price', null, array('required', 'class' => 'form-control', 'placeholder' => 'Giá bán sản phẩm')) !!}
+                            {!! Form::text('sell_price', null, array('class' => 'form-control', 'placeholder' => 'Giá bán sản phẩm')) !!}
                         </div>
 
                         <!-- description -->
@@ -58,10 +58,10 @@
                             {!! Form::textarea('description') !!}
                         </div>
 
-                        <!-- description -->
+                        <!-- tags -->
                         <div class="form-group">
                             {!! Form::label('tags', 'Tags') !!}
-                            <div class="treeview-tags" data-role="treeview" id="tree-tags" data-url="/tag/getTags/"></div>
+                            <div class="treeview-tags" data-role="treeview" id="tree-tags" data-url="/tag/getTags/0"></div>
                         </div>
 
                     </div>

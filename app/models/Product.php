@@ -143,6 +143,15 @@ class Product extends Model  {
             $this->updateDescWithImg($options['description'], $id, true);
             unset($options['description']);
         }
+        //add tags
+        $product->tag()->detach();
+        if(!empty($options['tags'])) {
+            foreach ($options['tags'] as $k => $v) {
+                $product->tag()->attach($v);
+            }
+            unset($options['tags']);
+        }
+
         $this->where('id', $id)->update($options);
     }
 }

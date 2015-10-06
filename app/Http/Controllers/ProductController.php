@@ -57,11 +57,15 @@ class ProductController extends BaseController {
     public function createProduct(ProductRequest $request)
     {
         $product = new Product;
-        if($request->all()){
-            $product->createItem($request->all());
-            //return Redirect('index');
+        if(isset($_POST)) {
+            if ($request->all()) {
+                $product->createItem($request->all());
+                return redirect('product')->with('success', 'Tạo sản phẩm thành công!');
+            }
         }
         return view('product.add-product');
+
+
     }
 
     /**
@@ -80,7 +84,7 @@ class ProductController extends BaseController {
             }
             return view('product.edit-product',$product);
         }else{
-            return Redirect('index');
+            return redirect('product');
         }
     }
 

@@ -2,9 +2,6 @@ var productPackage = {
   product:{
       init: function(){
           Kacana.product.listProducts();
-          Kacana.product.showEditProductForm();
-          Kacana.product.createProduct();
-          Kacana.product.editProduct();
           Kacana.product.removeProduct();
       },
       listProducts: function(){
@@ -17,59 +14,6 @@ var productPackage = {
           })
       },
 
-      createProduct: function(){
-          $("#btn-create").attr('disabled', true);
-          var form_data = new FormData();
-          var file_image = $('#image').prop("files")[0];
-          var other_data = $("#form-create-product").serialize();
-          form_data.append('image', file_image);
-          form_data.append('descriptions', CKEDITOR.instances['description'].getData());
-          var request = $.ajax({
-              type: 'post',
-              url: '/product/createProduct?' + other_data,
-              data: form_data,
-              contentType: false,
-              processData: false
-          });
-          request.done(function (response, textStatus, jqXHR) {
-              window.location.reload();
-          });
-          request.fail(function(jqXHR, textStatus, errorThrown){
-              json_result = JSON.parse(jqXHR.responseText);
-              if(typeof(json_result['image'])!=''){
-                  $("#error-image").html(json_result['image']);
-              }
-
-              if(typeof(json_result['name'])!=''){
-                  $("#error-name").html(json_result['name']);
-              }
-
-              if(typeof(json_result['price'])!=''){
-                  $("#error-price").html(json_result['price']);
-              }
-
-              if(typeof(json_result['sell_price'])!=''){
-                  $("#error-sell-price").html(json_result['sell_price']);
-              }
-              $("#btn-create").attr('disabled', false);
-          })
-
-      },
-      listTags: function(){
-          var key = $("#tags").val();
-          var token = $("#form-create-product input[name=_token]").val();
-          $.ajax({
-              type:'get',
-              url:'product/listTags?_token='+token+'&key='+key,
-              success: function(result){
-                  $("#select-tags").html(result);
-              }
-          });
-
-      },
-      removeTags: function(){
-          $("#select-tags").html('');
-      },
       removeProduct: function(idProduct){
           $('#confirm').modal('show');
           $('#delete').click(function (e) {

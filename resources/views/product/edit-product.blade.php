@@ -15,7 +15,7 @@
                         <h3 class="box-title">Cập nhật sản phẩm</h3>
                     </div><!-- /.box-header -->
                     @if($_POST)
-                        @if (count($errors) > 0)
+                        @if ($errors->count() > 0)
                             <div class="alert alert-danger alert-dismissible">
                                 <ul>
                                     @foreach ($errors->all() as $error)
@@ -23,12 +23,13 @@
                                     @endforeach
                                 </ul>
                             </div>
-                        @else
-                            <div class="alert alert-success alert-dismissible">
-                                Cập nhật sản phẩm thành công
-                            </div>
                         @endif
+                    @else
+                        <div class="alert alert-success alert-dismissible">
+                            Cập nhật sản phẩm thành công
+                        </div>
                     @endif
+
                     {!! Form::open(array('id' =>'form-edit-product', 'onsubmit'=>true, 'enctype'=>"multipart/form-data")) !!}
                     <div class="modal-body">
                         <!-- name -->
@@ -65,6 +66,12 @@
                             {!! Form::textarea('description', $description) !!}
                         </div>
 
+                        <!-- tags -->
+                        <div class="form-group">
+                            {!! Form::label('tags', 'Tags') !!}
+                            <div class="treeview-tags" data-role="treeview" id="tree-tags" data-url="/tag/getTags/{{$id}}/"></div>
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <a class="btn btn-default" href="/product">Huỷ</a>
@@ -79,6 +86,19 @@
 @section('javascript')
     CKEDITOR.replace('description',{
         filebrowserImageUploadUrl: "/lib/ckeditor/plugins/imgupload/imgupload.php"
+    });
+    $("#tree-tags").tree({
+        closedIcon: $('<i class="fa fa-plus-square-o"></i>'),
+        openedIcon: $('<i class="fa fa-minus-square-o"></i>'),
+        onCreateLi: function(node, $li){
+            countChild = node.childs;
+            nodeid = node.id;
+            if(node.checked == true){
+                $li.find('.jqtree-title').before(' <input type="checkbox" name="tags[]" value="'+nodeid+'" checked/> ');
+            }else{
+                $li.find('.jqtree-title').before(' <input type="checkbox" name="tags[]" value="'+nodeid+'" /> ');
+            }
+        }
     });
 @stop
 

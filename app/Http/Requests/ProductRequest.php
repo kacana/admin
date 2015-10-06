@@ -38,7 +38,9 @@ class ProductRequest extends Request{
     public function messages()
     {
         return [
-            'name.required' => 'Vui lòng nhập tên sản phẩm',
+            'name.required'         => 'Vui lòng nhập tên sản phẩm',
+            'price.required'        => 'Vui lòng nhập giá sản phẩm',
+            'sell_price.required'   => 'Vui lòng nhập giá bán của sản phẩm',
         ];
     }
 }

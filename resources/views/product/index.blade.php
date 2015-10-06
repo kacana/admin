@@ -20,7 +20,11 @@
                                 <i class="fa fa-plus"></i> Thêm mới
                             </a>
                         </div>
-                        <div class="clearfix"></div>
+                        @if(Session::has('success'))
+                        <div class="alert alert-success alert-dismissible">
+                            {{Session::get('success')}}
+                        </div>
+                        @endif
                         <div class="form-search">
                             {!! Form::open(array('id' => 'search-form')) !!}
                             <div class="col-xs-3">
@@ -62,12 +66,8 @@
 
 @stop
 @section('javascript')
-    CKEDITOR.replace('description',{
-        filebrowserImageUploadUrl: "/lib/ckeditor/plugins/imgupload/imgupload.php"
-    });
     Kacana.product.listProducts();
 @stop
-@extends('product.form-create')
 @extends('product.edit-modal')
 @section('javascript')
     Kacana.product.init();

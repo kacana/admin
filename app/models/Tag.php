@@ -6,6 +6,7 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Image;
+use DB;
 
 class Tag extends Model  {
     /**
@@ -85,5 +86,12 @@ class Tag extends Model  {
                 Tag::find($tag->id)->delete();
             }
         }
+    }
+
+    /*
+     * - get tag id by id product
+     */
+    public function getIdTagByPid($pid){
+        return DB::table('product_tag')->where('product_id', $pid)->lists('tag_id');
     }
 }
