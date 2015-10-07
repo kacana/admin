@@ -15,14 +15,14 @@
                 <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-                <li class="{{($controller == 'BranchController') ? 'active':''}}"><a href="{{URL::route('listBranches')}}"><i class="fa fa-circle-o"></i>Thương Hiệu</a></li>
-                <li class="{{($controller == 'ProductController') ? 'active':''}}"><a href="{{URL::route('listProducts')}}"><i class="fa fa-circle-o"></i> Sản Phẩm</a></li>
-                <li class="{{($controller == 'TagController') ? 'active':''}}"><a href="{{URL::route('listTags')}}"><i class="fa fa-circle-o"></i> Tag Sản Phẩm</a></li>
+                <li class="{{($controller == 'BranchController') ? 'active':''}}"><a href="{{URL::to('/product/branch')}}"><i class="fa fa-circle-o"></i>Thương Hiệu</a></li>
+                <li class="{{($controller == 'ProductController') ? 'active':''}}"><a href="{{URL::to('/product')}}"><i class="fa fa-circle-o"></i> Sản Phẩm</a></li>
+                <li class="{{($controller == 'TagController') ? 'active':''}}"><a href="{{URL::to('/product/tag')}}"><i class="fa fa-circle-o"></i> Tag Sản Phẩm</a></li>
             </ul>
         </li>
 
         <li class="header">Admin</li>
-        <li class="treeview {{($controller == 'UserController')?'active':''}}"><a href="{{URL::route('listUsers')}}"><i class="fa fa-pie-chart"></i><span>Người dùng</span></a>
+        <li class="treeview {{($controller == 'UserController')?'active':''}}"><a href="{{URL::to('/user')}}"><i class="fa fa-pie-chart"></i><span>Người dùng</span></a>
         </li>
 
         <li class="header">Quản Lý Đơn Hàng</li>

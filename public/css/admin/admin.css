@@ -1,0 +1,60 @@
+.login-page {
+  height: 100%;
+}
+.login-page .login-box {
+  margin: auto auto;
+  padding: 7% 0;
+}
+.content-wrapper .custom-box {
+  padding: 5px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #ddd;
+  background: #f3f3f3;
+}
+.content-wrapper .custom-box h3.box-title {
+  font-weight: 600;
+  font-size: 20px;
+}
+.content-wrapper .dataTables_wrapper {
+  padding: 15px 0;
+  height: auto;
+}
+.content-wrapper .dataTables_wrapper .dataTables_info {
+  padding-left: 10px;
+}
+.content-wrapper .box-search .box-search-title {
+  margin-bottom: 20px;
+}
+.content-wrapper .box-search .box-search-title h4 {
+  float: left;
+  padding-right: 10px;
+}
+.content-wrapper .box-search .form-search .col-xs-3 {
+  padding-left: 0;
+  padding-right: 3px;
+}
+.content-wrapper #table_filter,
+.content-wrapper .nosort {
+  display: none;
+}
+.content-wrapper .table-striped > tbody > tr:first-child > td {
+  border-top: 2px solid #dddddd !important;
+}
+.content-wrapper table.dataTable.no-footer {
+  border-bottom: 2px solid #dddddd !important;
+}
+.content-wrapper .table > caption + thead > tr:first-child > th,
+.content-wrapper .table > colgroup + thead > tr:first-child > th,
+.content-wrapper .table > thead:first-child > tr:first-child > th,
+.content-wrapper .table > caption + thead > tr:first-child > td,
+.content-wrapper .table > colgroup + thead > tr:first-child > td,
+.content-wrapper .table > thead:first-child > tr:first-child > td {
+  border-top: 0;
+  border-bottom: 0;
+}
+.treeview-tags {
+  margin: 10px;
+}
+.childleft {
+  margin-left: 5px;
+}
