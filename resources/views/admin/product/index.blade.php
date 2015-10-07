@@ -68,7 +68,7 @@
 @section('javascript')
     Kacana.product.listProducts();
 @stop
-@extends('product.edit-modal')
+@extends('admin.product.edit-modal')
 @section('javascript')
     Kacana.product.init();
 @stop
