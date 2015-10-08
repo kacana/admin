@@ -16,7 +16,7 @@
                     <div class="box-header box-search">
                         <div class="box-search-title">
                             <h4>Tìm kiếm sản phẩm</h4>
-                            <a class="btn btn-primary btn-sm" href="{{URL::route('createProduct')}}">
+                            <a class="btn btn-primary btn-sm" href="{{URL::to('/product/createProduct')}}">
                                 <i class="fa fa-plus"></i> Thêm mới
                             </a>
                         </div>
