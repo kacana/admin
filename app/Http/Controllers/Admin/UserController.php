@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\UserRequest;
 use Image;
@@ -14,7 +14,7 @@ class UserController extends BaseController {
 	 */
 	public function index()
 	{
-		return view('user.index');
+		return view('admin.user.index');
 	}
 
     public function getUser()

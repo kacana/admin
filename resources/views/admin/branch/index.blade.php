@@ -1,5 +1,5 @@
 
-@extends('layouts.master')
+@extends('layouts.admin.master')
 
 @section('content')
     <section>
@@ -63,6 +63,6 @@
     Kacana.product.branch.listBranch();
 
 @stop
-@extends('branch.form-create')
-@extends('branch.edit-modal')
+@extends('admin.branch.form-create')
+@extends('admin.branch.edit-modal')
 

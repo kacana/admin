@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.admin.master')
 
 @section('content')
     <section class="content">
@@ -62,5 +62,5 @@
 @section('javascript')
     Kacana.user.listUsers();
 @stop
-@extends('user.popup-modal')
+@extends('admin.user.popup-modal')
 

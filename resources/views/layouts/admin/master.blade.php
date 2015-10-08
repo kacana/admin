@@ -20,7 +20,7 @@
              folder instead of downloading all of them to reduce the load. -->
         <link href="/lib/adminLTE/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
-        <link href="/css/admin.css" rel="stylesheet" type="text/css" />
+        <link href="/css/admin/admin.css" rel="stylesheet" type="text/css" />
         <link href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
         <link href="https://cdn.datatables.net/select/1.0.1/css/select.dataTables.min.css" rel="stylesheet" type="text/css"/>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -49,7 +49,7 @@
         <script src="/lib/adminLTE/js/demo.js" type="text/javascript"></script>
 
         <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.js" type="text/javascript"></script>
-        <script src="/js/admin.js" type="text/javascript"></script>
+        <script src="/js/admin/admin.js" type="text/javascript"></script>
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -72,13 +72,13 @@
         <div class="wrapper">
             <header class="main-header">
 
-                @include('layouts.header')
+                @include('layouts.admin.header')
 
             </header>
             <!-- Left side column. contains the logo and sidebar -->
             <aside class="main-sidebar">
                 <!-- sidebar: style can be found in sidebar.less -->
-                @include('layouts.slidebar')
+                @include('layouts.admin.slidebar')
                 <!-- /.sidebar -->
             </aside>
 
@@ -90,12 +90,12 @@
             </div><!-- /.content-wrapper -->mámáter
 
             <footer class="main-footer">
-                @include('layouts.footer')
+                @include('layouts.admin.footer')
             </footer>
 
             <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">
-                @include('layouts.control-slidebar')
+                @include('layouts.admin.control-slidebar')
             </aside><!-- /.control-sidebar -->
             <!-- Add the sidebar's background. This div must be placed
                  immediately after the control sidebar -->

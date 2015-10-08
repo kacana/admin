@@ -45,7 +45,7 @@
 	{{--</body>--}}
 {{--</html>--}}
 
-@extends('layouts.master')
+@extends('layouts.admin.master')
 
 @section('content')
 		<!-- Content Header (Page header) -->

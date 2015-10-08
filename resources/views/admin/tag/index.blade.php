@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.admin.master')
 
 @section('content')
     <section>
@@ -30,7 +30,7 @@
         </div>
     </section>
 @stop
-@extends('tag.modal')
+@extends('admin.tag.modal')
 @section('javascript')
     $("#tree-tags").tree({
     closedIcon: $('<i class="fa fa-plus-square-o"></i>'),

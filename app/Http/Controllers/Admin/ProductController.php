@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ProductRequest;
 use Image;
@@ -16,7 +16,7 @@ class ProductController extends BaseController {
 	 */
 	public function index()
 	{
-        return view('product.index');
+        return view('admin.product.index');
 	}
 
     /**
@@ -63,7 +63,7 @@ class ProductController extends BaseController {
                 return redirect('product')->with('success', 'Tạo sản phẩm thành công!');
             }
         }
-        return view('product.add-product');
+        return view('admin.product.add-product');
 
 
     }
@@ -74,7 +74,7 @@ class ProductController extends BaseController {
      * @param CreateProductRequest $request
      * @return Response
      */
-    public function editProduct($id, ProductRequest $request)
+    public function editProduct($env, $domain, $id, ProductRequest $request)
     {
         $product = Product::find($id);
         if($product){
@@ -82,7 +82,7 @@ class ProductController extends BaseController {
                 $product->updateItem($id, $request->all());
                 $product = Product::find($id);
             }
-            return view('product.edit-product',$product);
+            return view('admin.product.edit-product',$product);
         }else{
             return redirect('product');
         }
@@ -92,7 +92,7 @@ class ProductController extends BaseController {
      * remove Product
      * @param $id
      */
-    public function removeProduct($id)
+    public function removeProduct($env, $domain, $id)
     {
         Product::find($id)->delete();
     }
@@ -104,14 +104,14 @@ class ProductController extends BaseController {
     {
         $key = $request->get('key');
         $tags = Tag::search($key);
-        return view('product.list-tags', array('tags'=>$tags));
+        return view('admin.product.list-tags', array('tags'=>$tags));
     }
 
     /**
      * set status
      * @params $id, $status
      */
-    public function setStatus($id, $status)
+    public function setStatus($env, $domain, $id, $status)
     {
         $str = '';
         $product = new Product();

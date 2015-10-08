@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
 class IndexController extends BaseController {
 
@@ -9,7 +9,7 @@ class IndexController extends BaseController {
 	 */
 	public function index()
 	{
-		return view('index.index');
+		return view('admin.index.index');
 	}
 
 }

@@ -9,7 +9,7 @@ class IndexController extends BaseController {
 	 */
 	public function index()
 	{
-		return view('index.index');
+		return view('client.index.index');
 	}
 
 }

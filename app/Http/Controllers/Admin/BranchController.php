@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\BranchRequest;
 use Image;
@@ -15,7 +15,7 @@ class BranchController extends BaseController {
      */
     public function index()
     {
-        return view('branch.index');
+        return view('admin.branch.index');
     }
 
     public function getBranch()
@@ -60,12 +60,12 @@ class BranchController extends BaseController {
      * @param BranchRequest $request
      * @return Response
      */
-    public function showEditFormBranch($id)
+    public function showEditFormBranch($env, $domain, $id)
     {
         if(!empty($id)){
             $branch = Branch::find($id);
             $data['item'] = $branch;
-            return view('branch.form-edit',$data);
+            return view('admin.branch.form-edit',$data);
         }
     }
 
@@ -88,7 +88,7 @@ class BranchController extends BaseController {
      * @param idBranch, status
      * @return str
      */
-    public function setStatusBranch($idBranch, $status)
+    public function setStatusBranch($env, $domain, $idBranch, $status)
     {
         $str = '';
         $branch = new Branch();
@@ -108,7 +108,7 @@ class BranchController extends BaseController {
      * @param id
      * @return bool
      */
-    public function removeBranch($id)
+    public function removeBranch($env, $domain, $id)
     {
         Branch::find($id)->delete();
     }

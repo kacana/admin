@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\TagRequest;
 use Datatables;
@@ -15,7 +15,7 @@ class TagController extends BaseController {
     public function index()
     {
         $data['tags'] = Tag::all();
-        return view('tag.index', $data);
+        return view('admin.tag.index', $data);
     }
 
     /*
@@ -45,7 +45,7 @@ class TagController extends BaseController {
      * get tags by parent id
      */
 
-    public function getTags($pid)
+    public function getTags($env, $domain, $pid)
     {
         $tag = new Tag;
         $node = isset($_GET['node'])? $_GET['node']:0;
@@ -83,9 +83,9 @@ class TagController extends BaseController {
     /*
      * show form create item
      */
-    public function showFormCreate($parent_id=0)
+    public function showFormCreate($env, $domain, $parent_id=0)
     {
-        return view('tag.form-create', array('parent_id' => $parent_id));
+        return view('admin.tag.form-create', array('parent_id' => $parent_id));
     }
     /**
      * create product
@@ -116,7 +116,7 @@ class TagController extends BaseController {
      * remove Tag
      * @param $id
      */
-    public function removeTag($id)
+    public function removeTag($env, $domain, $id)
     {
         $tag = Tag::find($id);
         if($tag->countChild()>0){
@@ -131,12 +131,12 @@ class TagController extends BaseController {
      * @param TagRequest $request
      * @return Response
      */
-    public function showEditFormTag($id)
+    public function showEditFormTag($env, $domain, $id)
     {
         if(!empty($id)){
             $tag = Tag::find($id);
             $data['item'] = $tag;
-            return view('tag.form-edit',$data);
+            return view('admin.tag.form-edit',$data);
         }
     }
 
@@ -146,7 +146,7 @@ class TagController extends BaseController {
     * @param id, status
     * @return str
     */
-    public function setStatusTag($id, $status)
+    public function setStatusTag($env, $domain, $id, $status)
     {
         $str = '';
         $tag = new Tag();
@@ -160,7 +160,7 @@ class TagController extends BaseController {
         return $str;
     }
 
-    public function getTagById($parent_id = 0)
+    public function getTagById($env, $domain, $parent_id = 0)
     {
         $tag = new Tag;
         $tags = $tag->getTagById($parent_id);

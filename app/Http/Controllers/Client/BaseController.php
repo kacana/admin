@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php namespace App\Http\Controllers\Client;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;

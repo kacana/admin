@@ -8,9 +8,9 @@ module.exports = function(grunt) {
             },
             admin: {
                 src: [
-                    '../../public/js/packages/*.js'
+                    '../../public/js/packages/admin/*.js'
                 ],
-                dest: '../../public/js/admin.js'
+                dest: '../../public/js/admin/admin.js'
             }
         },
         uglify: {
@@ -26,10 +26,10 @@ module.exports = function(grunt) {
         less: {
             admin: {
                 options: {
-                    paths: ["../../public/css/"]
+                    paths: ["../../public/css/admin/"]
                 },
                 files: {
-                    "../../public/css/admin.css": "../../public/css/admin.less"
+                    "../../public/css/admin.css": "../../public/css/admin/admin.less"
                 }
             }
         },
@@ -39,14 +39,14 @@ module.exports = function(grunt) {
                     keepSpecialComments:0
                 },
                 files: {
-                    "../../public/css/admin.min.css": ["../../public/css/admin.css"]
+                    "../../public/css/admin.min.css": ["../../public/css/admin/admin.css"]
                 }
             }
         },
         jshint: {
             files: [
                 'gruntfile.js',
-                '../../public/js/packages/*.js'
+                '../../public/js/admin/packages/*.js'
             ],
             options: {
                 // options here to override JSHint defaults
@@ -68,7 +68,7 @@ module.exports = function(grunt) {
                 tasks: ['js']
             },
             css: {
-                files: ['../../public/css/packages/*'],
+                files: ['../../public/css/admin/packages/*'],
                 tasks: ['css']
             }
         },
@@ -91,8 +91,8 @@ module.exports = function(grunt) {
                 }
             },
             adminKacana: {
-                src: '../../public/js/admin.js',
-                dest: '../../public/js/admin.compile.js'
+                src: '../../public/js/admin/admin.js',
+                dest: '../../public/js/admin/admin.compile.js'
             }
         }
     });
