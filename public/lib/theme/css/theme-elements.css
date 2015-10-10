@@ -2399,7 +2399,7 @@ ul.social-icons li {
 	-webkit-transition: all 0.3s ease;
 	-moz-transition: all 0.3s ease;
 	transition: all 0.3s ease;
-	background-image: url(../img/social-sprites.png);
+	background-image: url(/img/social-sprites.png);
 	background-repeat: no-repeat;
 	background-position: 0 100px;
 	display: inline-block;

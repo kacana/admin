@@ -1,6 +1,14 @@
 /vendor
+
 /public/css/admin/admin.css
 /public/css/admin/admin.min.css
 /public/js/admin/admin.js
 /public/js/admin/admin.min.js
+
+/public/css/client/client.css
+/public/css/client/client.min.css
+/public/js/client/client.js
+/public/js/client/client.min.js
+
 composer.lock
+/public/img

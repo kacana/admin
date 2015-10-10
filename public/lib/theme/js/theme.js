@@ -1,8 +1,8 @@
 /*
-Name: 			Theme Base
-Written by: 	Okler Themes - (http://www.okler.net)
-Theme Version:	3.7.0
-*/
+ Name: 			Theme Base
+ Written by: 	Okler Themes - (http://www.okler.net)
+ Theme Version:	3.7.0
+ */
 
 // Theme
 window.theme = {};
@@ -1085,7 +1085,7 @@ window.theme = {};
 						'href': '#',
 					})
 					.append(
-						$('<i />')
+					$('<i />')
 						.addClass(self.options.iconClass)
 				);
 
@@ -1689,7 +1689,7 @@ window.theme = {};
 					e.preventDefault();
 					$.get(self.options.refreshCaptchaURL, function(url) {
 						$('#captcha-image').attr('src', url);
-					});					
+					});
 				});
 
 			},
@@ -1802,9 +1802,9 @@ window.theme = {};
 
 // Word Rotate
 (function(theme, $) {
-	
+
 	theme = theme || {};
-	
+
 	var instanceName = '__wordRotate';
 
 	var PluginWordRotate = function($el, opts) {
@@ -1861,7 +1861,7 @@ window.theme = {};
 				.width(firstItem.width() + "px")
 				.append(firstItemClone);
 
-			$el				
+			$el
 				.addClass("active");
 
 			setInterval(function() {
@@ -1910,7 +1910,7 @@ window.theme = {};
 			} else {
 				return new PluginWordRotate($this, opts);
 			}
-			
+
 		});
 	}
 
@@ -2069,7 +2069,7 @@ window.theme = {};
 
 					$('body').addClass('scrolling');
 					var target = $(this).attr('href')
-						delay = 0;
+					delay = 0;
 
 					if($(document).scrollTop() == 0) {
 						$(document).scrollTop($('#header').height());
@@ -2118,14 +2118,14 @@ window.theme = {};
 						.addClass('disabled')
 						.parent()
 						.prepend(
-							$('<a />')
-								.addClass('dropdown-toggle extra')
-								.attr('href', '#')
-								.append(
-									$('<i />')
-										.addClass('fa fa-angle-down')
-								)
-						);
+						$('<a />')
+							.addClass('dropdown-toggle extra')
+							.attr('href', '#')
+							.append(
+							$('<i />')
+								.addClass('fa fa-angle-down')
+						)
+					);
 				});
 
 				self.$wrapper.find('li.dropdown > a:not(.disabled), li.dropdown-submenu > a:not(.disabled)').on('click', function(e) {
@@ -2393,6 +2393,161 @@ window.theme = {};
 
 				return this;
 			},
+
+			build: function() {
+				if (!this.options.stickyEnableOnBoxed && $('body').hasClass('boxed') || !this.options.stickyEnabled) {
+					return this;
+				}
+
+				var self = this,
+					$body = $('body'),
+					$header = self.$wrapper,
+					$headerContainer = $header.parent(),
+					$headerNavItems = $header.find('ul.nav-main > li > a'),
+					$logoWrapper = $header.find('.logo'),
+					$logo = $logoWrapper.find('img'),
+					logoWidth = $logo.attr('width'),
+					logoHeight = $logo.attr('height'),
+					logoPaddingTop = parseInt($logo.attr('data-sticky-padding') ? $logo.attr('data-sticky-padding') : self.options.logoPaddingTop),
+					logoSmallWidth = parseInt($logo.attr('data-sticky-width') ? $logo.attr('data-sticky-width') : self.options.logoSmallWidth),
+					logoSmallHeight = parseInt($logo.attr('data-sticky-height') ? $logo.attr('data-sticky-height') : self.options.logoSmallHeight),
+					headerHeight = $header.height(),
+					stickyGap = 0;
+
+				if (this.options.menuAfterHeader) {
+					$headerContainer.css('min-height', $header.height());
+				}
+
+				$(window).afterResize(function() {
+					$headerContainer.css('min-height', $header.height());
+				});
+
+				self.checkStickyMenu = function() {
+
+					if ((!self.options.stickyEnableOnBoxed && $body.hasClass('boxed')) || ($(window).width() < 991 && !self.options.stickyEnableOnMobile)) {
+						self.stickyMenuDeactivate();
+						$header.removeClass('fixed')
+						return false;
+					}
+
+					if (self.options.stickyWithGap) {
+						stickyGap = ((headerHeight - 15) - logoSmallHeight);
+					} else {
+						stickyGap = 0;
+					}
+
+					// Menu After Header
+					if (!this.options.menuAfterHeader) {
+
+						if ($(window).scrollTop() > stickyGap) {
+							self.stickyMenuActivate();
+						} else {
+							self.stickyMenuDeactivate();
+						}
+
+					} else {
+
+						if ($(window).scrollTop() > $headerContainer.offset().top) {
+							$header.addClass('fixed');
+						} else {
+							$header.removeClass('fixed');
+						}
+
+					}
+
+				}
+
+				self.stickyMenuActivate = function() {
+
+					if ($body.hasClass('sticky-menu-active')) {
+						return false;
+					}
+
+					$logo.stop(true, true);
+
+					$body.addClass('sticky-menu-active').removeClass('sticky-menu-deactive');
+
+					if (self.options.stickyBodyPadding) {
+						$body.css('padding-top', headerHeight);
+					}
+
+					// Flat Menu Items
+					if ($header.hasClass('flat-menu')) {
+						$headerNavItems.addClass('sticky-menu-active');
+					}
+
+					if (self.options.stickyChangeLogoSize) {
+
+						$logoWrapper.addClass('logo-sticky-active');
+
+						$logo.animate({
+							width: logoSmallWidth,
+							height: logoSmallHeight,
+							top: logoPaddingTop + 'px'
+						}, 200, function() {
+							$.event.trigger({
+								type: "stickyMenu.active"
+							});
+						});
+
+					}
+
+				}
+
+				self.stickyMenuDeactivate = function() {
+
+					if ($body.hasClass('sticky-menu-active')) {
+
+						$body.removeClass('sticky-menu-active').addClass('sticky-menu-deactive');
+
+						if (self.options.stickyBodyPadding) {
+							$body.css('padding-top', 0);
+						}
+
+						// Flat Menu Items
+						if ($header.hasClass('flat-menu')) {
+							$headerNavItems.removeClass('sticky-menu-active');
+						}
+
+						if (self.options.stickyChangeLogoSize) {
+
+							$logoWrapper.removeClass('logo-sticky-active');
+
+							$logo.animate({
+								width: logoWidth,
+								height: logoHeight,
+								top: '0px'
+							}, 200, function() {
+								$.event.trigger({
+									type: "stickyMenu.deactive"
+								});
+							});
+
+						}
+
+					}
+
+				}
+
+				if (!self.options.alwaysStickyEnabled) {
+
+					$body.addClass('sticky-menu-deactive');
+
+					self.checkStickyMenu();
+
+				} else {
+
+					$body.addClass('sticky-menu-active always-sticky').removeClass('sticky-menu-deactive');
+
+					if (self.options.stickyBodyPadding) {
+						$body.css('padding-top', headerHeight);
+					}
+
+				}
+
+				return this;
+			},
+
 			events: function() {
 				var self = this;
 

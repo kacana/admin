@@ -11,7 +11,13 @@ module.exports = function(grunt) {
                     '../../public/js/admin/packages/*.js'
                 ],
                 dest: '../../public/js/admin/admin.js'
-            }
+            },
+            client: {
+                src: [
+                    '../../public/js/client/packages/*.js'
+                ],
+                dest: '../../public/js/client/client.js'
+            },
         },
         uglify: {
             options: {
@@ -20,6 +26,11 @@ module.exports = function(grunt) {
             admin: {
                 files: {
                     '../../public/js/admin/admin.min.js': ['<%= concat.admin.dest %>']
+                }
+            },
+            client: {
+                files: {
+                    '../../public/js/client/client.min.js': ['<%= concat.client.dest %>']
                 }
             }
         },
@@ -31,6 +42,14 @@ module.exports = function(grunt) {
                 files: {
                     "../../public/css/admin/admin.css": "../../public/css/admin/admin.less"
                 }
+            },
+            client: {
+                options: {
+                    paths: ["../../public/css/client/"]
+                },
+                files: {
+                    "../../public/css/client/client.css": "../../public/css/client/client.less"
+                }
             }
         },
         cssmin: {
@@ -41,12 +60,21 @@ module.exports = function(grunt) {
                 files: {
                     "../../public/css/admin/admin.min.css": ["../../public/css/admin/admin.css"]
                 }
+            },
+            client: {
+                options:{
+                    keepSpecialComments:0
+                },
+                files: {
+                    "../../public/css/client/client.min.css": ["../../public/css/client/client.css"]
+                }
             }
         },
         jshint: {
             files: [
                 'gruntfile.js',
-                '../../public/js/admin/packages/*.js'
+                '../../public/js/admin/packages/*.js',
+                '../../public/js/client/packages/*.js'
             ],
             options: {
                 // options here to override JSHint defaults
@@ -63,12 +91,20 @@ module.exports = function(grunt) {
              files: ['<%= jshint.files %>'],
              tasks: ['jshint', 'qunit']
              },*/
-            js: {
+            jsAdmin: {
                 files: ['<%= concat.admin.src %>'],
                 tasks: ['js']
             },
-            css: {
+            cssAdmin: {
                 files: ['../../public/css/admin/packages/*'],
+                tasks: ['css']
+            },
+            jsClient: {
+                files: ['<%= concat.client.src %>'],
+                tasks: ['js']
+            },
+            cssClient: {
+                files: ['../../public/css/client/packages/*'],
                 tasks: ['css']
             }
         },
@@ -93,6 +129,10 @@ module.exports = function(grunt) {
             adminKacana: {
                 src: '../../public/js/admin/admin.js',
                 dest: '../../public/js/admin/admin.compile.js'
+            },
+            clientKacana: {
+                src: '../../public/js/client/client.js',
+                dest: '../../public/js/client/client.compile.js'
             }
         }
     });
@@ -109,8 +149,12 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['concat', 'uglify', 'less', 'cssmin']);
 
-    grunt.registerTask('js', ['concat:admin', 'uglify:admin']);
+    grunt.registerTask('jsAdmin', ['concat:admin', 'uglify:admin']);
     grunt.registerTask('closure', ['closureCompiler:admin']);
-    grunt.registerTask('css', ['less:admin','cssmin:admin']);
+    grunt.registerTask('cssAdmin', ['less:admin','cssmin:admin']);
+
+    grunt.registerTask('jsClient', ['concat:client', 'uglify:client']);
+    grunt.registerTask('closure', ['closureCompiler:client']);
+    grunt.registerTask('cssClient', ['less:client','cssmin:client']);
 
 };
