@@ -6,7 +6,7 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Sản phẩm</h3>
+                        <h3 class="box-title">Người dùng</h3>
                     </div><!-- /.box-header -->
                 </div>
 
@@ -15,7 +15,7 @@
                         <h3 class="box-title">Cập nhật thông tin người dùng</h3>
                     </div><!-- /.box-header -->
                     @if($_POST)
-                        @if (count($errors) > 0)
+                        @if ($errors->count() > 0)
                             <div class="alert alert-danger alert-dismissible">
                                 <ul>
                                     @foreach ($errors->all() as $error)

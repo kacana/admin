@@ -30,7 +30,7 @@
             <!-- image -->
             <div class="form-group">
                 {!! Form::label('image', 'Hình ảnh') !!}
-                {!! Form::file('image', null) !!}
+                {!! Form::file('image') !!}
                 <span id="error-image" class="has-error text-red"></span>
             </div>
 
