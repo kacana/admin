@@ -71,7 +71,7 @@ class ProductController extends BaseController {
     /**
      * edit product
      *
-     * @param CreateProductRequest $request
+     * @param CreateProductRequest $requestprodu
      * @return Response
      */
     public function editProduct($env, $domain, $id, ProductRequest $request)

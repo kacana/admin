@@ -1,9 +1,10 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\UserRequest;
+use App\models\UserType;
 use Image;
 use Datatables;
-use App\User;
+use App\models\User;
 
 class UserController extends BaseController {
 
@@ -23,7 +24,7 @@ class UserController extends BaseController {
         return Datatables::of($users)
             ->edit_column('image', function($row) {
                 if(!empty($row->image)){
-                    return showImage($row->image, PRODUCT_IMAGE . $row->id);
+                    return showImage($row->image, USER_IMAGE . $row->id);
                 }
             })
             ->edit_column('status', function($row){
@@ -36,7 +37,7 @@ class UserController extends BaseController {
                 return showDate($row->updated);
             })
             ->add_column('action', function ($row) {
-                return showActionButton('Kacana.user.show('.$row->id.')', 'Kacana.product.branch.removeBranch('.$row->id.')', true);
+                return showActionButton("/user/edit/".$row->id, 'Kacana.product.branch.removeBranch('.$row->id.')');
             })
             ->make(true);
     }
@@ -46,21 +47,11 @@ class UserController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create(UserRequest $request)
 	{
-
+        $user = new User;
+        return $user->createItem($request->all());
 	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -68,25 +59,21 @@ class UserController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($env, $domain, $id, UserRequest $request)
 	{
-
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
+        $user = User::find($id);
+        $types = UserType::lists('name', 'id');
+        if($request->all()){
+            $user->updateItem($id, $request->all());
+            $user = User::find($id);
+        }
+        return view('admin.user.edit',array('item' =>$user, 'types' =>$types));
 	}
 
     public function showCreateForm()
     {
-
+        $types = UserType::lists('name', 'id');
+        return view("admin.user.form-create", array('types' => $types));
     }
 
     public function remove($id)
@@ -94,9 +81,21 @@ class UserController extends BaseController {
 
     }
 
-    public function setStatus($id, $status)
+    /*
+     * - function mame: setStatus
+     */
+    public function setStatus($env, $domain, $id, $status)
     {
-
+        $str = '';
+        $user = new User;
+        if($user->updateItem($id, (array('status'=>$status)))){
+            if($status == 0){
+                $str = "Đã chuyển sang trạng thái inactive thành công!";
+            }else{
+                $str = "Đã chuyển sang trạng thái active thành công!";
+            }
+        }
+        return $str;
     }
 
 }

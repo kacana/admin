@@ -4,9 +4,10 @@ var userPackage = {
       init: function(){
           Kacana.user.listUsers();
           Kacana.user.createUser();
+          Kacana.user.setStatus();
       },
       listUsers: function(){
-          var columns = ['id', 'name', 'email', 'image', 'role', 'user_type', 'status', 'created', 'updated', 'active']
+          var columns = ['id', 'name', 'email', 'image', 'role', 'user_type', 'status', 'created', 'updated', 'action']
           var btable = Kacana.datatable.init('table', columns, '/user/getUser');
 
           $("#search-form").on('submit', function(e){
@@ -34,6 +35,7 @@ var userPackage = {
           var request = $.ajax({
               type: 'post',
               url: '/user/create?' + other_data,
+              data:form_data,
               contentType: false,
               processData: false
           });
@@ -70,7 +72,7 @@ var userPackage = {
               return false;
           });
       },
-      setStatusUser: function(id, status){
+      setStatus: function(id, status){
           $.ajax({
               type:'get',
               url:'/user/setStatus/'+id+'/'+status,

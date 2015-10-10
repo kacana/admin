@@ -84,6 +84,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             unset($item['_token']);
         }
 
+        if(isset($item['user_id'])){
+            unset($item['user_id']);
+        }
+
         if(empty($item['password'])){
             unset($item['password']);
         }else{
