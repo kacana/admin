@@ -1,4 +1,4 @@
-var Kacana ={};;var datatablePackage = {
+;var Kacana ={};;var datatablePackage = {
     datatable:{
         init: function (eid, columns, url) {
             column_arr = [];
@@ -248,6 +248,15 @@ $.extend(true, Kacana, datatablePackage);;var productPackage = {
                   })
                   return false;
               });
+          },
+          setType: function(idTag, type){
+              $.ajax({
+                  type:'get',
+                  url: '/tag/setType/'+idTag+'/'+type,
+                  success: function(){
+                      window.location.reload();
+                  }
+              });
           }
       }
 
@@ -260,9 +269,10 @@ $.extend(true, Kacana, productPackage);;var userPackage = {
       init: function(){
           Kacana.user.listUsers();
           Kacana.user.createUser();
+          Kacana.user.setStatus();
       },
       listUsers: function(){
-          var columns = ['id', 'name', 'email', 'image', 'role', 'user_type', 'status', 'created', 'updated', 'active']
+          var columns = ['id', 'name', 'email', 'image', 'role', 'user_type', 'status', 'created', 'updated', 'action']
           var btable = Kacana.datatable.init('table', columns, '/user/getUser');
 
           $("#search-form").on('submit', function(e){
@@ -290,6 +300,7 @@ $.extend(true, Kacana, productPackage);;var userPackage = {
           var request = $.ajax({
               type: 'post',
               url: '/user/create?' + other_data,
+              data:form_data,
               contentType: false,
               processData: false
           });
@@ -326,7 +337,7 @@ $.extend(true, Kacana, productPackage);;var userPackage = {
               return false;
           });
       },
-      setStatusUser: function(id, status){
+      setStatus: function(id, status){
           $.ajax({
               type:'get',
               url:'/user/setStatus/'+id+'/'+status,
