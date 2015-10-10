@@ -8,7 +8,7 @@ module.exports = function(grunt) {
             },
             admin: {
                 src: [
-                    '../../public/js/packages/admin/*.js'
+                    '../../public/js/admin/packages/*.js'
                 ],
                 dest: '../../public/js/admin/admin.js'
             }
@@ -19,7 +19,7 @@ module.exports = function(grunt) {
             },
             admin: {
                 files: {
-                    '../../public/js/admin.min.js': ['<%= concat.admin.dest %>']
+                    '../../public/js/admin/admin.min.js': ['<%= concat.admin.dest %>']
                 }
             }
         },
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
                     paths: ["../../public/css/admin/"]
                 },
                 files: {
-                    "../../public/css/admin.css": "../../public/css/admin/admin.less"
+                    "../../public/css/admin/admin.css": "../../public/css/admin/admin.less"
                 }
             }
         },
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
                     keepSpecialComments:0
                 },
                 files: {
-                    "../../public/css/admin.min.css": ["../../public/css/admin/admin.css"]
+                    "../../public/css/admin/admin.min.css": ["../../public/css/admin/admin.css"]
                 }
             }
         },
