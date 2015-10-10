@@ -61,6 +61,8 @@ class TagController extends BaseController {
         foreach($parentTags as $item){
             $i['label'] = $item->name;
             $i['id'] = $item->id;
+            $i['parent_id'] = $item->parent_id;
+            $i['type'] = $item->type;
 
             if(in_array($i['id'], $tag_products)){
                 $i['checked'] = true;
@@ -165,5 +167,16 @@ class TagController extends BaseController {
         $tag = new Tag;
         $tags = $tag->getTagById($parent_id);
         echo json_encode($tags);
+    }
+
+    /**
+     * Set type (parent or child)
+     * 1: parent; 2: child
+     *
+     * @param id tag
+     */
+    public function setType($env, $domain, $id, $type){
+        $tag = Tag::find($id);
+        $tag->updateItem($id, array('type' => $type));
     }
 }

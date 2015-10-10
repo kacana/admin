@@ -40,8 +40,19 @@
             nodeid = node.id;
             str = '<span class="badge bg-gray childleft"><a href="javascript:void(0)"> '+countChild+' childs </a></span>';
             str += ' <span><a class="btn bg-light-blue-active btn-sm" title="add tag" href="javascript:void(0)" onclick="Kacana.product.tag.showCreateForm('+nodeid+')"><i class="fa fa-plus"></i></a></span>';
-            str += ' <span><a class="btn bg-light-blue-active btn-sm" title="main tag"><i class="fa fa-arrow-circle-up"></i></a></span>';
-            str += ' <span><a class="btn bg-light-blue-active btn-sm" title="sub tag"><i class="fa fa-map-marker"></i></a></span>';
+            if(node.parent_id===0){
+                if(node.type === 1){
+                    str += ' <span><a class="btn bg-red btn-sm" title="main tag" onclick="Kacana.product.tag.setType('+nodeid+', 0)"><i class="fa fa-arrow-circle-up"></i></a></span>';
+                }else{
+                    str += ' <span><a class="btn bg-light-blue-active btn-sm" title="main tag" onclick="Kacana.product.tag.setType('+nodeid+',1)"><i class="fa fa-arrow-circle-up"></i></a></span>';
+                }
+            }else{
+                if(node.type === 2){
+                    str += ' <span><a class="btn bg-red btn-sm" title="sub tag" onclick="Kacana.product.tag.setType('+nodeid+', 0)"><i class="fa fa-map-marker"></i></a></span>';
+                }else{
+                    str += ' <span><a class="btn bg-light-blue-active btn-sm" title="sub tag" onclick="Kacana.product.tag.setType('+nodeid+', 2)"><i class="fa fa-map-marker"></i></a></span>';
+                }
+            }
             str += ' <span><a class="btn bg-light-blue-active btn-sm" title="edit tag" onclick="Kacana.product.tag.showEditForm('+nodeid+')"><i class="fa fa-pencil"></i></a></span>';
             str += ' <span><a class="btn bg-red btn-sm" title="remove tag" onclick="Kacana.product.tag.removeTag('+nodeid+')"><i class="fa fa-remove"></i></a></span>';
             $li.find('.jqtree-title').after(str);

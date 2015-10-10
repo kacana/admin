@@ -64,20 +64,21 @@ Route::group(['domain'=>'admin.{envDomain}{nameDomain}','middleware' => 'auth'],
 
     //tag
     Route::any('/product/tag',                              array('as'=>'listTags',                 'uses'=>'Admin\TagController@index'));
-    Route::any('/tag/getTags/{pid}',                             array('as'=>'getTags',                  'uses'=>'Admin\TagController@getTags'));
+    Route::any('/tag/getTags/{pid}',                        array('as'=>'getTags',                  'uses'=>'Admin\TagController@getTags'));
     Route::any('/tag/getTagById',                           array('as'=>'getTagsById',              'uses'=>'Admin\TagController@getTagById'));
     Route::any('/tag/showFormCreate/{id}',                  array('as'=>'showCreateFormTag',        'uses'=>'Admin\TagController@showFormCreate'));
     Route::post('/tag/createTag',                           array('as'=>'createTag',                'uses'=>'Admin\TagController@createTag'));
     Route::get('/tag/showEditFormTag/{id}',                 array('as'=>'showEditFormTag',          'uses'=>'Admin\TagController@showEditFormTag'));
     Route::post('/tag/editTag',                             array('as'=>'editTag',                  'uses'=>'Admin\TagController@editTag'));
     Route::get('/tag/setStatusTag/{id}/{status}',           array('as'=>'setStatusTag',             'uses'=>'Admin\TagController@setStatusTag'));
+    Route::get('/tag/setType/{id}/{type}',                  array('as'=>'setType',                  'uses'=>'Admin\TagController@setType'));
     Route::get('/tag/removeTag/{id}',                       array('as'=>'removeTag',                'uses'=>'Admin\TagController@removeTag'));
 
     //user
     Route::any('/user',                                     array('as'=>'listUsers',                 'uses'=>'Admin\UserController@index'));
     Route::any('/user/getUser',                             array('as'=>'getUsers',                  'uses'=>'Admin\UserController@getUser'));
     Route::post('/user/create',                             array('as'=>'createUser',                'uses'=>'Admin\UserController@create'));
-    Route::any('/user/edit/{pid}',                           array('as'=>'editUser',                  'uses'=>'Admin\UserController@edit'));
+    Route::any('/user/edit/{pid}',                          array('as'=>'editUser',                  'uses'=>'Admin\UserController@edit'));
     Route::get('/user/setStatus/{id}/{status}',             array('as'=>'setStatusUser',             'uses'=>'Admin\UserController@setStatus'));
     Route::get('/user/remove/{id}',                         array('as'=>'removeUser',                'uses'=>'Admin\UserController@destroy'));
     Route::get('/user/showCreateForm',                      array('as'=>'showCreateForm',            'uses'=>'Admin\UserController@rou'));

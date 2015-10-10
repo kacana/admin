@@ -225,6 +225,15 @@ var productPackage = {
                   })
                   return false;
               });
+          },
+          setType: function(idTag, type){
+              $.ajax({
+                  type:'get',
+                  url: '/tag/setType/'+idTag+'/'+type,
+                  success: function(){
+                      window.location.reload();
+                  }
+              });
           }
       }
 
