@@ -33,6 +33,7 @@
 @extends('admin.tag.modal')
 @section('javascript')
     $("#tree-tags").tree({
+    dragAndDrop: true,
     closedIcon: $('<i class="fa fa-plus-square-o"></i>'),
     openedIcon: $('<i class="fa fa-minus-square-o"></i>'),
         onCreateLi: function(node, $li){
@@ -42,15 +43,15 @@
             str += ' <span><a class="btn bg-light-blue-active btn-sm" title="add tag" href="javascript:void(0)" onclick="Kacana.product.tag.showCreateForm('+nodeid+')"><i class="fa fa-plus"></i></a></span>';
             if(node.parent_id===0){
                 if(node.type === 1){
-                    str += ' <span><a class="btn bg-red btn-sm" title="main tag" onclick="Kacana.product.tag.setType('+nodeid+', 0)"><i class="fa fa-arrow-circle-up"></i></a></span>';
+                    str += ' <span><a class="btn bg-red btn-sm" id="_tag_'+nodeid+'" title="main tag" onclick="Kacana.product.tag.setType('+nodeid+', 0)"><i class="fa fa-arrow-circle-up"></i></a></span>';
                 }else{
-                    str += ' <span><a class="btn bg-light-blue-active btn-sm" title="main tag" onclick="Kacana.product.tag.setType('+nodeid+',1)"><i class="fa fa-arrow-circle-up"></i></a></span>';
+                    str += ' <span><a class="btn bg-light-blue-active btn-sm" id="_tag_'+nodeid+'" title="main tag" onclick="Kacana.product.tag.setType('+nodeid+',1)"><i class="fa fa-arrow-circle-up"></i></a></span>';
                 }
             }else{
                 if(node.type === 2){
-                    str += ' <span><a class="btn bg-red btn-sm" title="sub tag" onclick="Kacana.product.tag.setType('+nodeid+', 0)"><i class="fa fa-map-marker"></i></a></span>';
+                    str += ' <span><a class="btn bg-red btn-sm" title="sub tag" id="_tag_'+nodeid+'" onclick="Kacana.product.tag.setType('+nodeid+', 0)"><i class="fa fa-map-marker"></i></a></span>';
                 }else{
-                    str += ' <span><a class="btn bg-light-blue-active btn-sm" title="sub tag" onclick="Kacana.product.tag.setType('+nodeid+', 2)"><i class="fa fa-map-marker"></i></a></span>';
+                    str += ' <span><a class="btn bg-light-blue-active btn-sm" id="_tag_'+nodeid+'" title="sub tag" onclick="Kacana.product.tag.setType('+nodeid+', 2)"><i class="fa fa-map-marker"></i></a></span>';
                 }
             }
             str += ' <span><a class="btn bg-light-blue-active btn-sm" title="edit tag" onclick="Kacana.product.tag.showEditForm('+nodeid+')"><i class="fa fa-pencil"></i></a></span>';
