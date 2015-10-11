@@ -189,7 +189,31 @@ $.extend(true, Kacana, datatablePackage);;var productPackage = {
                   processData: false
               });
               request.done(function (response, textStatus, jqXHR) {
-                  window.location.reload();
+                  $("#myModal").modal('hide');
+                  json_result = JSON.parse(jqXHR.responseText);
+                  var $tree = $("#tree-tags");
+                  var parent_node = $tree.tree('getNodeById', json_result['parent_id']);
+
+                  if(parent_node){
+                      $tree.tree('appendNode', {
+                          label:json_result['name'],
+                          id:json_result['id'],
+                          childs:json_result['childs']
+                      }, parent_node);
+
+                      $tree.tree('updateNode', parent_node, {
+                          label:json_result['name'],
+                          childs:json_result['childs_of_parent']
+                      });
+
+                      $tree.tree('openNode', parent_node, true);
+                  }else{
+                      $tree.tree('appendNode', {
+                          label:json_result['name'],
+                          id:json_result['id'],
+                          childs:json_result['childs']
+                      });
+                  }
               });
               request.fail(function(jqXHR, textStatus, errorThrown){
                   json_result = JSON.parse(jqXHR.responseText);
@@ -217,11 +241,20 @@ $.extend(true, Kacana, datatablePackage);;var productPackage = {
                   processData: false
               });
               request.done(function (response, textStatus, jqXHR) {
-                  window.location.reload();
+                  json_result = JSON.parse(jqXHR.responseText);
+                  $("#myModal").modal('hide');
+
+                  var $tree = $("#tree-tags");
+                  var node = $tree.tree('getNodeById', json_result['id']);
+
+                  $tree.tree('updateNode', node, json_result['name']);
+
+                  if(json_result['parent_id']!=0){
+                      $tree.tree('openNode', $tree.tree('getNodeById', json_result['parent_id']), true);
+                  }
               });
               request.fail(function(jqXHR, textStatus, errorThrown){
                   json_result = JSON.parse(jqXHR.responseText);
-
                   if(typeof(json_result['name'])!=''){
                       $("#error-name").html(json_result['name']);
                   }
@@ -243,18 +276,32 @@ $.extend(true, Kacana, datatablePackage);;var productPackage = {
                       type:'get',
                       url:'/tag/removeTag/'+idTag,
                       success:function(){
-                          window.location.reload();
+                          $("#confirm").modal('hide');
+                          var $tree = $("#tree-tags");
+                          var node = $tree.tree('getNodeById', idTag);
+                          $tree.tree('removeNode', node);
                       }
                   })
                   return false;
               });
           },
           setType: function(idTag, type){
+              $idselected = $("#_tag_"+idTag);
               $.ajax({
                   type:'get',
                   url: '/tag/setType/'+idTag+'/'+type,
-                  success: function(){
-                      window.location.reload();
+                  dataType:'json',
+                  success: function(result){
+                      console.log(result);
+
+                      var $tree = $("#tree-tags");
+                      var node = $tree.tree('getNodeById', result.id);
+
+                      $tree.tree('updateNode', node, {label: result.name, type: result.type});
+
+                      if(result.parent_id!=0){
+                          $tree.tree('openNode', $tree.tree('getNodeById', result.parent_id), true);
+                      }
                   }
               });
           }

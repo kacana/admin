@@ -98,7 +98,15 @@ class TagController extends BaseController {
     public function createTag(TagRequest $request)
     {
         $tag = new Tag;
-        return $tag->createItem($request->all());
+        $re = $tag->createItem($request->all());
+        $re['childs'] = $re->countChild();
+        if($re->parent_id!=0){
+            $parent = Tag::find($re->parent_id);
+            $re['childs_of_parent'] = $parent->countChild();
+        }else{
+            $re['childs_of_parent'] = 0;
+        }
+        echo json_encode($re);
     }
 
     /**
@@ -109,9 +117,10 @@ class TagController extends BaseController {
      */
     public function editTag(TagRequest $request)
     {
-        $tag = new Tag;
         $id = $request->get('id');
-        return $tag->updateItem($id, $request->all());
+        $tag = Tag::find($id);
+        $result = $tag->updateItem($id, $request->all());
+        echo json_encode($result);
     }
 
     /**
@@ -177,6 +186,7 @@ class TagController extends BaseController {
      */
     public function setType($env, $domain, $id, $type){
         $tag = Tag::find($id);
-        $tag->updateItem($id, array('type' => $type));
+        $result = $tag->updateItem($id, array('type' => $type));
+        echo json_encode($result);
     }
 }

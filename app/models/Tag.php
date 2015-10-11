@@ -46,6 +46,7 @@ class Tag extends Model  {
         $tag->created = date('Y-m-d H:i:s');
         $tag->updated = date('Y-m-d H:i:s');
         $tag->save();
+        return $tag;
     }
 
     /**
@@ -56,12 +57,14 @@ class Tag extends Model  {
      * @return true or false
      */
     public function updateItem($id, $options){
-        $tag = Tag::find($id);
+
         $options['updated'] = date('Y-m-d H:i:s');
         if(isset($options['_token'])){
             unset($options['_token']);
         }
         $this->where('id', $id)->update($options);
+        $tag = Tag::find($id);
+        return $tag;
     }
 
     public function countChild()
