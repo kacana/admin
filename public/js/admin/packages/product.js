@@ -16,25 +16,20 @@ var productPackage = {
 
       removeProduct: function(idProduct){
           $('#confirm').modal('show');
+          var callBack = function(data){
+              window.location.reload();
+          };
+          var errorCallBack = function(){};
           $('#delete').click(function (e) {
-              $.ajax({
-                  type:'get',
-                  url:'/product/removeProduct/'+idProduct,
-                  success:function(){
-                      window.location.reload();
-                  }
-              })
-              return false;
+            Kacana.ajax.product.removeProduct(idProduct, callBack, errorCallBack);
           });
       },
       setStatus: function(id, status){
-          $.ajax({
-              type:'get',
-              url:'/product/setStatus/'+id+'/'+status,
-              success:function(result){
-                  window.location.reload();
-              }
-          })
+          var callBack = function(data){
+              window.location.reload();
+          };
+          var errorCallBack = function(){};
+          Kacana.ajax.product.setStatus(id, status, callBack, errorCallBack);
       },
       branch:{
           init: function(){
@@ -59,19 +54,11 @@ var productPackage = {
               var file_image = $('#image').prop("files")[0];
               var other_data = $("#form-create-branch").serialize();
               form_data.append('image', file_image);
-
-              var request = $.ajax({
-                  type: 'post',
-                  url: '/branch/createBranch?' + other_data,
-                  data: form_data,
-                  contentType: false,
-                  processData: false
-              });
-              request.done(function (response, textStatus, jqXHR) {
+              var callBack = function(data){
                   window.location.reload();
-              });
-              request.fail(function(jqXHR, textStatus, errorThrown){
-                  json_result = JSON.parse(jqXHR.responseText);
+              }
+              var errorCallBack = function(data){
+                  json_result = JSON.parse(data.responseText);
                   if(typeof(json_result['image'])!=''){
                       $("#error-image").html(json_result['image']);
                   }
@@ -79,36 +66,28 @@ var productPackage = {
                   if(typeof(json_result['name'])!=''){
                       $("#error-name").html(json_result['name']);
                   }
-              })
+                  $("#btn-create").attr('disabled', false);
+              };
+               Kacana.ajax.branch.createBranch(other_data, form_data, callBack, errorCallBack);
           },
           showEditBranchForm: function(idBranch){
-              $.ajax({
-                  type:'get',
-                  url:'/branch/showEditFormBranch/'+idBranch,
-                  success:function(result){
-                      $("#editModal").html(result);
-                      $("#editModal").modal('show');
-                  }
-              })
+              var callBack = function(data){
+                  $("#editModal").html(data);
+                  $("#editModal").modal('show');
+              };
+              var errorCallBack = function(){};
+              Kacana.ajax.branch.showEditBranchForm(idBranch, callBack, errorCallBack);
           },
           editBranch: function(){
               var form_data = new FormData();
               var file_image = $('#image').prop("files")[0];
               var other_data = $("#form-create-branch").serialize();
               form_data.append('image', file_image);
-
-              var request = $.ajax({
-                  type: 'post',
-                  url: '/branch/editBranch?'+ other_data,
-                  data: form_data,
-                  contentType: false,
-                  processData: false
-              });
-              request.done(function (response, textStatus, jqXHR) {
-                window.location.reload();
-              });
-              request.fail(function(jqXHR, textStatus, errorThrown){
-                  json_result = JSON.parse(jqXHR.responseText);
+              var callBack = function(data){
+                  window.location.reload();
+              }
+              var errorCallBack = function(data){
+                  json_result = JSON.parse(data.responseText);
                   if(typeof(json_result['image'])!=''){
                       $("#error-image").html(json_result['image']);
                   }
@@ -116,28 +95,25 @@ var productPackage = {
                   if(typeof(json_result['name'])!=''){
                       $("#error-name").html(json_result['name']);
                   }
-              })
+                  $("#btn-create").attr('disabled', false);
+              };
+              Kacana.ajax.branch.editBranch(other_data, form_data, callBack, errorCallBack);
           },
           setStatusBranch: function(id, status){
-              $.ajax({
-                  type:'get',
-                  url:'/branch/setStatusBranch/'+id+'/'+status,
-                  success:function(result){
-                      window.location.reload();
-                  }
-              })
+              var callBack = function(data){
+                  window.location.reload();
+              };
+              var errorCallBack = function(){};
+              Kacana.ajax.branch.setStatusBranch(id, status, callBack, errorCallBack);
           },
           removeBranch: function(idBranch){
               $('#confirm').modal('show');
+              var callBack = function(data){
+                  window.location.reload();
+              };
+              var errorCallBack = function(){};
               $('#delete').click(function (e) {
-                  $.ajax({
-                      type:'get',
-                      url:'/branch/removeBranch/'+idBranch,
-                      success:function(){
-                          window.location.reload();
-                      }
-                  })
-                  return false;
+                  Kacana.ajax.branch.removeBranch(idBranch, callBack, errorCallBack);
               });
           }
       },
@@ -146,137 +122,115 @@ var productPackage = {
 
           },
           showCreateForm: function(id) {
-              $.ajax({
-                  type: 'get',
-                  url:'/tag/showFormCreate/'+id,
-                  success: function(result){
-                      $("#myModal").html(result);
-                      $("#myModal").modal('show');
-                  }
-              })
+              var callBack = function(data){
+                  $("#myModal").html(data);
+                  $("#myModal").modal('show');
+              };
+              var errorCallBack = function(){};
+              Kacana.ajax.tag.showCreateForm(id, callBack, errorCallBack);
           },
           createTag: function(){
               $("#btn-create").attr('disabled', true);
               var form_data = $("#form-create-tag").serialize();
-
-              var request = $.ajax({
-                  type: 'post',
-                  url: '/tag/createTag?'+form_data,
-                  contentType: false,
-                  processData: false
-              });
-              request.done(function (response, textStatus, jqXHR) {
+              var callBack = function(data) {
                   $("#myModal").modal('hide');
-                  json_result = JSON.parse(jqXHR.responseText);
+                  data = JSON.parse(data);
                   var $tree = $("#tree-tags");
-                  var parent_node = $tree.tree('getNodeById', json_result['parent_id']);
+                  var parent_node = $tree.tree('getNodeById', data.parent_id);
 
                   if(parent_node){
                       $tree.tree('appendNode', {
-                          label:json_result['name'],
-                          id:json_result['id'],
-                          childs:json_result['childs']
+                          label: data.name,
+                          id: data.id,
+                          childs: data.childs
                       }, parent_node);
 
                       $tree.tree('updateNode', parent_node, {
-                          label:json_result['name'],
-                          childs:json_result['childs_of_parent']
+                          childs: data.childs_of_parent
                       });
 
                       $tree.tree('openNode', parent_node, true);
                   }else{
                       $tree.tree('appendNode', {
-                          label:json_result['name'],
-                          id:json_result['id'],
-                          childs:json_result['childs']
+                          label: data.name,
+                          id: data.id,
+                          childs: data.childs
                       });
                   }
-              });
-              request.fail(function(jqXHR, textStatus, errorThrown){
-                  json_result = JSON.parse(jqXHR.responseText);
+              };
+              var errorCallBack = function(data){
+                  json_result = JSON.parse(data.responseText);
                   if(typeof(json_result['name'])!=''){
                       $("#error-name").html(json_result['name']);
                   }
-              })
+              };
+              Kacana.ajax.tag.createTag(form_data, callBack, errorCallBack);
           },
           showEditForm: function(id){
-              $.ajax({
-                  type:'get',
-                  url:'/tag/showEditFormTag/'+id,
-                  success:function(result){
-                      $("#myModal").html(result);
-                      $("#myModal").modal('show');
-                  }
-              })
+              var callBack = function(data){
+                  $("#myModal").html(data);
+                  $("#myModal").modal('show');
+              };
+              var errorCallBack = function(){};
+              Kacana.ajax.tag.showEditForm(id, callBack, errorCallBack);
           },
           editTag: function(){
               var form_data = $("#form-edit-tag").serialize();
-              var request = $.ajax({
-                  type: 'post',
-                  url: '/tag/editTag?'+form_data,
-                  contentType: false,
-                  processData: false
-              });
-              request.done(function (response, textStatus, jqXHR) {
-                  json_result = JSON.parse(jqXHR.responseText);
+              var callBack = function (data) {
+                  data = JSON.parse(data);
                   $("#myModal").modal('hide');
 
                   var $tree = $("#tree-tags");
-                  var node = $tree.tree('getNodeById', json_result['id']);
+                  var node = $tree.tree('getNodeById', data.id);
 
-                  $tree.tree('updateNode', node, json_result['name']);
+                  $tree.tree('updateNode', node, data.name);
 
                   if(json_result['parent_id']!=0){
-                      $tree.tree('openNode', $tree.tree('getNodeById', json_result['parent_id']), true);
+                      $tree.tree('openNode', $tree.tree('getNodeById', data.parent_id), true);
                   }
-              });
-              request.fail(function(jqXHR, textStatus, errorThrown){
-                  json_result = JSON.parse(jqXHR.responseText);
+              };
+              var errorCallBack = function(data){
+                  json_result = JSON.parse(data);
                   if(typeof(json_result['name'])!=''){
                       $("#error-name").html(json_result['name']);
                   }
-              })
+              };
+              Kacana.ajax.tag.editTag(form_data, callBack, errorCallBack);
           },
-          setStatusTag: function(id, status){
-              $.ajax({
-                  type:'get',
-                  url:'/tag/setStatusTag/'+id+'/'+ status,
-                  success:function(result){
-                      window.location.reload();
-                  }
-              })
-          },
+          //setStatusTag: function(id, status){
+          //    $.ajax({
+          //        type:'get',
+          //        url:'/tag/setStatusTag/'+id+'/'+ status,
+          //        success:function(result){
+          //            window.location.reload();
+          //        }
+          //    })
+          //},
           removeTag: function(idTag){
               $('#confirm').modal('show');
               $('#delete').click(function (e) {
-                  $.ajax({
-                      type:'get',
-                      url:'/tag/removeTag/'+idTag,
-                      success:function(){
-                          $("#confirm").modal('hide');
-                          var $tree = $("#tree-tags");
-                          var node = $tree.tree('getNodeById', idTag);
-                          $tree.tree('removeNode', node);
-                      }
-                  })
-                  return false;
+                  var callBack = function(data){
+                      $("#confirm").modal('hide');
+                      var $tree = $("#tree-tags");
+                      var node = $tree.tree('getNodeById', idTag);
+                      $tree.tree('removeNode', node);
+                  };
+                  var errorCallBack = function(){};
+                  Kacana.ajax.tag.removeTag(idTag, callBack, errorCallBack);
               });
           },
           setType: function(idTag, type){
               $idselected = $("#_tag_"+idTag);
-              $.ajax({
-                  type:'get',
-                  url: '/tag/setType/'+idTag+'/'+type,
-                  dataType:'json',
-                  success: function(result){
-                      var $tree = $("#tree-tags");
-                      var node = $tree.tree('getNodeById', result.id);
-                      $tree.tree('updateNode', node, {label: result.name, type: result.type});
-                      if(result.parent_id!=0){
-                          $tree.tree('openNode', $tree.tree('getNodeById', result.parent_id), true);
-                      }
+              var callBack = function(data){
+                  var $tree = $("#tree-tags");
+                  var node = $tree.tree('getNodeById', data.id);
+                  $tree.tree('updateNode', node, {label: data.name, type: data.type});
+                  if(data.parent_id!=0){
+                      $tree.tree('openNode', $tree.tree('getNodeById', data.parent_id), true);
                   }
-              });
+              };
+              var errorCallBack = function(){};
+              Kacana.ajax.tag.setType(idTag, type, callBack, errorCallBack);
           }
       }
 
