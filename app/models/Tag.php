@@ -31,6 +31,7 @@ class Tag extends Model  {
         return $query->where('name', 'LIKE', '%'.$keyword.'%')->get();
     }
 
+
     public function getTagByParentId($parent_id)
     {
         return $this->where('parent_id', $parent_id)->get();
@@ -96,5 +97,33 @@ class Tag extends Model  {
      */
     public function getIdTagByPid($pid){
         return DB::table('product_tag')->where('product_id', $pid)->lists('tag_id');
+    }
+    /*
+     * Get all tags that set main or sub show on menu
+     * @return: list tags
+     */
+    public function getMainTags(){
+        return $this->where('type', 1)->get();
+    }
+
+    public function getChilds()
+    {
+        return $this->where('parent_id', $this->id )->get();
+    }
+
+    public static function getTags(){
+        $main_tags = DB::table('tag')->where('type', 1)->get();
+        $data = array();
+        if(count($main_tags)>0){
+            foreach($main_tags as $tag){
+                $childs = DB::table('tag')->where(array('type'=> 2, 'parent_id'=>$tag->id))->get();
+                $item['id'] = $tag->id;
+                $item['type'] = $tag->type;
+                $item['name'] = $tag->name;
+                $item['childs'] = $childs;
+                $data[] = $item;
+            }
+        }
+        return $data;
     }
 }

@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use App\models\Tag;
 
 Route::pattern('id', '[0-9]+');
 Route::pattern('pid', '[0-9]+');
@@ -96,4 +97,9 @@ Route::group(['domain'=>'admin.{envDomain}{nameDomain}','middleware' => 'auth'],
 
 Route::group(['domain'=>'{envDomain}{nameDomain}'], function () {
     Route::any('/', 'Client\IndexController@index');
+
+});
+
+View::composer('layouts.client.header', function($view){
+    $view->with('menu_items', Tag::getTags());
 });
