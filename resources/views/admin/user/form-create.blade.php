@@ -20,6 +20,13 @@
                 <span id="error-email" class="has-error text-red"></span>
             </div>
 
+            <!-- phone number -->
+            <div class="form-group">
+                {!! Form::label('phone', 'Số điện thoại') !!}
+                {!! Form::text('phone', null, array('required', 'class' => 'form-control', 'placeholder' => 'Số điện thoại')) !!}
+                <span id="error-phone" class="has-error text-red"></span>
+            </div>
+
             <!-- password -->
             <div class="form-group">
                 {!! Form::label('password', 'Mật khẩu người dùng') !!}

@@ -44,6 +44,13 @@
                             <span id="error-email" class="has-error text-red"></span>
                         </div>
 
+                        <!-- phone number -->
+                        <div class="form-group">
+                            {!! Form::label('phone', 'Điện thoại') !!}
+                            {!! Form::text('phone', $item->phone, array('required', 'class' => 'form-control', 'placeholder' => 'Email người dùng')) !!}
+                            <span id="error-phone" class="has-error text-red"></span>
+                        </div>
+
                         <!-- password -->
                         <div class="form-group">
                             {!! Form::label('password', 'Mật khẩu người dùng') !!}

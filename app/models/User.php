@@ -46,6 +46,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         $user->password = md5($item['password']);
         $user->name = $item['name'];
         $user->email = $item['email'];
+        $user->phone = $item['phone'];
         $user->role = $item['role'];
         $user->user_type = $item['user_type'];
         $user->created = date('Y-m-d H:i:s');

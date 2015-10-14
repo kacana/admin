@@ -29,6 +29,7 @@ class UserRequest extends Request{
                     'name'  => 'required',
                     'email' => 'required|email|unique:users,email, '.Input::get('user_id'),
                     'password' => Input::has('user_id') ? '':'required|min:6|max:30',
+                    'phone' => 'required',
                 ];
             }
             default:break;
@@ -41,6 +42,7 @@ class UserRequest extends Request{
             'name.required'     => 'Vui lòng nhập tên',
             'email.required'    => 'Vui lòng nhập email',
             'email.unique'      => 'Email này đã được sử dụng',
+            'phone.required'    => 'Vui lòng nhập điện thoại',
             'password.required' => 'Vui lòng nhập mật khẩu',
             'password.min'      => 'Mật khẩu ít nhất 6 ký tự',
             'password.max'      => 'Mật khẩu lớn nhất 30 ký tự',

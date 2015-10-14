@@ -442,6 +442,10 @@ $.extend(true, Kacana, productPackage);;var userPackage = {
                   $("#error-name").html(json_result['name']);
               }
 
+              if(typeof(json_result['phone'])!=''){
+                  $("#error-phone").html(json_result['phone']);
+              }
+
               if(typeof(json_result['password'])!=''){
                   $("#error-password").html(json_result['password']);
               }
