@@ -131,8 +131,20 @@
             setType: function(id, type, callBack, errorCallBack){
                 Kacana.ajax.init('/tag/setType/'+id+'/'+type,'json', 'get','',callBack, errorCallBack, []);
             }
+        },
+        /*****************************************************************************
+         *
+         *          FUNCTION AJAX FOR USER ADDRESS MANAGEMENT
+         *
+         * ***************************************************************************/
+        userAddress:{
+            showFormEdit: function(id, callBack, errorCallBack){
+                Kacana.ajax.init('/user/showFormEditUserAddress/'+id, '', 'get', '', callBack, errorCallBack, []);
+            },
+            edit: function(data, callBack, errorCallBack){
+                Kacana.ajax.initFileUpload('/user/editUserAddress?'+data, 'post', '', callBack, errorCallBack);
+            }
         }
-
     }
 };
 
@@ -469,8 +481,49 @@ $.extend(true, Kacana, productPackage);;var userPackage = {
           };
           var errorCallBack = function(){};
           Kacana.ajax.user.setStatus(id, status, callBack, errorCallBack);
+      },
+      /*****************************************************************************
+       *
+       *          FUNCTION AJAX FOR USER ADDRESS MANAGEMENT
+       *
+       * ***************************************************************************/
+      userAddress: {
+          listUserAddress: function(id){
+            var columns = ['id', 'name', 'email', 'phone', 'street', 'city', 'ward', 'action'];
+            var btable = Kacana.datatable.init('table', columns, '/user/getUserAddress/'+id);
+          },
+          showFormEdit: function(id){
+              var callBack = function(data){
+                  $("#createModal").html(data);
+                  $("#createModal").modal('show');
+              };
+              var errorCallBack = function(){};
+              Kacana.ajax.userAddress.showFormEdit(id, callBack, errorCallBack);
+          },
+          edit: function(){
+              var form_data = $("#form-edit-address").serialize();
+              var callBack = function (data) {
+                  window.location.reload();
+              };
+              var errorCallBack = function(data){
+                  json_result = JSON.parse(data);
+                  if(typeof(json_result['name'])!=''){
+                      $("#error-name").html(json_result['name']);
+                  };
+                  if(typeof(json_result['email'])!=''){
+                      $("#error-email").html(json_result['email']);
+                  };
+                  if(typeof(json_result['phone'])!=''){
+                      $("#error-phone").html(json_result['phone']);
+                  };
+                  if(typeof(json_result['street'])!=''){
+                      $("#error-street").html(json_result['street']);
+                  };
+              };
+              Kacana.ajax.userAddress.edit(form_data, callBack, errorCallBack);
+          }
       }
-  }
+   }
 };
 
 $.extend(true, Kacana, userPackage);
