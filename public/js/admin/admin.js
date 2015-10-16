@@ -143,6 +143,9 @@
             },
             edit: function(data, callBack, errorCallBack){
                 Kacana.ajax.initFileUpload('/user/editUserAddress?'+data, 'post', '', callBack, errorCallBack);
+            },
+            changeCity: function(id, callBack, errorCallBack){
+                Kacana.ajax.init('/user/showListWards/'+id, '', 'get', '', callBack, errorCallBack, []);
             }
         }
     }
@@ -521,6 +524,14 @@ $.extend(true, Kacana, productPackage);;var userPackage = {
                   };
               };
               Kacana.ajax.userAddress.edit(form_data, callBack, errorCallBack);
+          },
+          changeCity: function(){
+              city_id = $("#city_id").find('option:selected').val();
+              var callBack = function(data){
+                $("#ward").html(data);
+              };
+              var errorCallBack = function(){};
+              Kacana.ajax.userAddress.changeCity(city_id, callBack, errorCallBack);
           }
       }
    }

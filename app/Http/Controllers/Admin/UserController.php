@@ -5,9 +5,11 @@ use App\Http\Requests\AddressReceiveRequest;
 use App\models\UserAddress;
 use App\models\UserType;
 use App\models\AddressReceive;
+use GuzzleHttp\Psr7\Response;
 use Image;
 use Datatables;
 use App\models\User;
+use Form;
 use App\models\AddressCity;
 use App\models\AddressWard;
 
@@ -140,7 +142,15 @@ class UserController extends BaseController {
     {
         $address = AddressReceive::find($id);
         $cities = AddressCity::lists('name','id');
-        $wards = AddressWard::lists('name', 'id');
+        $ward = new AddressWard();
+
+        if(empty($address->city_id)){
+            $city_id = CITY_ID_DEFAULT;
+        }else{
+            $city_id = $address->city_id;
+        }
+        $wards = $ward->getItemsByCityId($city_id)->lists('name', 'id');
+
         return view("admin.user.form-edit-address", array('item'=>$address, 'cities' =>$cities, 'wards'=>$wards));
     }
 
@@ -154,4 +164,17 @@ class UserController extends BaseController {
         $result = $address->updateItem($id, $request->all());
         echo json_encode($result);
     }
+
+    /*
+    * - function mame: showWardSelect
+    */
+    public function showListWards($env, $domain, $id)
+    {
+        $ward = new AddressWard;
+        $lists = $ward->getItemsByCityId($id)->lists('name', 'id');
+        echo Form::select('ward_id', $lists,null, array('class'=>'form-control'));
+    }
+
+
+
 }

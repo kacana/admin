@@ -16,7 +16,7 @@ class AddressWard extends Model {
     }
 
     /**
-     * Get the address receive associated with address city
+     * Get the address receive associated with address ward
      */
     public function addressReceive()
     {
@@ -25,12 +25,19 @@ class AddressWard extends Model {
 
     public function scopeShowName($query, $id)
     {
-        if($id!=0){
+        if(is_numeric($id)){
             return $query->where('id',$id)->pluck('name');
         }else{
             return '';
         }
-
     }
 
+    /*
+     * function name: getItemsByCityId
+     * @params: city_id
+     * @return list wards
+     */
+    public function getItemsByCityId($id){
+        return $this->where('city_id', $id)->get();
+    }
 }

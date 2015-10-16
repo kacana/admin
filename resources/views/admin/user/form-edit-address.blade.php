@@ -37,14 +37,13 @@
             <!-- city_id -->
             <div class="form-group">
                 {!! Form::label('city_id', 'Thành phố') !!}
-                {!! Form::select('city_id', $cities, array('class'=>'form-control')) !!}
+                <div>{!! Form::select('city_id', $cities, $item->city_id, array('class'=>'form-control', 'onchange'=>'Kacana.user.userAddress.changeCity()')) !!}</div>
             </div>
 
             <!-- Ward -->
             <div class="form-group">
                 {!! Form::label('ward_id', 'Quận') !!}
-                {!! Form::select('ward_id', $wards, array('class'=>'form-control')) !!}
-                <span id="error-ward" class="has-error text-red"></span>
+                <div id="ward">{!! Form::select('ward_id', $wards, $item->ward_id, array('class'=>'form-control')) !!}</div>
             </div>
 
             <!-- id -->
@@ -52,15 +51,10 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-            <button type="button" id="btn-create" onclick="Kacana.user.userAddress.edit()"class="btn btn-primary">Cập nhật</button>
+            <button type="button" id="btn-create" onclick="Kacana.user.userAddress.edit()" class="btn btn-primary">Cập nhật</button>
         </div>
         {!! Form::close() !!}
     </div>
 </div>
-@section('javascript')
-{{--$('#city_id').on('change',function(){--}}
-{{--var option = $(this).find('option:selected').val();--}}
-{{--console.log(option);--}}
-{{--})--}}
-@stop
+
 

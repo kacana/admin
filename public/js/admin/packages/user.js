@@ -109,6 +109,14 @@ var userPackage = {
                   };
               };
               Kacana.ajax.userAddress.edit(form_data, callBack, errorCallBack);
+          },
+          changeCity: function(){
+              city_id = $("#city_id").find('option:selected').val();
+              var callBack = function(data){
+                $("#ward").html(data);
+              };
+              var errorCallBack = function(){};
+              Kacana.ajax.userAddress.changeCity(city_id, callBack, errorCallBack);
           }
       }
    }

@@ -143,6 +143,9 @@ var ajaxPackage = {
             },
             edit: function(data, callBack, errorCallBack){
                 Kacana.ajax.initFileUpload('/user/editUserAddress?'+data, 'post', '', callBack, errorCallBack);
+            },
+            changeCity: function(id, callBack, errorCallBack){
+                Kacana.ajax.init('/user/showListWards/'+id, '', 'get', '', callBack, errorCallBack, []);
             }
         }
     }

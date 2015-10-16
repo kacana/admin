@@ -117,8 +117,13 @@
 @stop
 @section('javascript')
     Kacana.user.userAddress.listUserAddress({{$item->id}});
-
+    $("#city_id").change(function(){
+    alert('chnage');
+    })
 @stop
 @extends('admin.user.popup-modal')
+
+@stop
+@section('javascript')
 
 @stop
