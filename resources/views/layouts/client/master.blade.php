@@ -68,7 +68,7 @@
     <div role="main" class="main">
         @include('layouts.client.slide')
 
-        @include('layouts.client.home-intro')
+        {{--@include('layouts.client.home-intro')--}}
 
         @yield('content')
 
@@ -130,6 +130,12 @@
 
 </script>
  -->
+<script type="text/javascript">
+
+    $(function() {
+        @yield('javascript')
+    });
+</script>
 
 </body>
 </html>
