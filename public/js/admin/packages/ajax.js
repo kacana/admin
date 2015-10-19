@@ -131,8 +131,23 @@ var ajaxPackage = {
             setType: function(id, type, callBack, errorCallBack){
                 Kacana.ajax.init('/tag/setType/'+id+'/'+type,'json', 'get','',callBack, errorCallBack, []);
             }
+        },
+        /*****************************************************************************
+         *
+         *          FUNCTION AJAX FOR USER ADDRESS MANAGEMENT
+         *
+         * ***************************************************************************/
+        userAddress:{
+            showFormEdit: function(id, callBack, errorCallBack){
+                Kacana.ajax.init('/user/showFormEditUserAddress/'+id, '', 'get', '', callBack, errorCallBack, []);
+            },
+            edit: function(data, callBack, errorCallBack){
+                Kacana.ajax.initFileUpload('/user/editUserAddress?'+data, 'post', '', callBack, errorCallBack);
+            },
+            changeCity: function(id, callBack, errorCallBack){
+                Kacana.ajax.init('/user/showListWards/'+id, '', 'get', '', callBack, errorCallBack, []);
+            }
         }
-
     }
 };
 

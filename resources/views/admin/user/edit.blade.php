@@ -9,8 +9,8 @@
                         <h3 class="box-title">Người dùng</h3>
                     </div><!-- /.box-header -->
                 </div>
-
-                <div class="box box-primary box-body"> <!-- Search results -->
+                <div class="col-xs-4">
+                    <div class="box box-primary box-body"> <!-- Search results -->
                     <div class="box-header with-border">
                         <h3 class="box-title">Cập nhật thông tin người dùng</h3>
                     </div><!-- /.box-header -->
@@ -86,9 +86,44 @@
                     </div>
                     {!! Form::close() !!}
                 </div><!-- /.box -->
+                </div>
+                <div class="col-xs-8">
+                    <div class="box box-primary box-body"> <!-- Search results -->
+                        <div class="box-header with-border">
+                            <h3 class="box-title">User Address</h3>
+                        </div><!-- /.box-header -->
+
+                        <div class="box-body table-responsive no-padding">
+                            <table id="table" class="table table-bordered table-striped dataTable">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Street</th>
+                                    <th>City</th>
+                                    <th>Ward</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div>
             </div>
         </div>
     </section>
 @stop
+@section('javascript')
+    Kacana.user.userAddress.listUserAddress({{$item->id}});
+    $("#city_id").change(function(){
+    alert('chnage');
+    })
+@stop
+@extends('admin.user.popup-modal')
 
+@stop
+@section('javascript')
 
+@stop
