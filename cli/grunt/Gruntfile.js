@@ -93,19 +93,19 @@ module.exports = function(grunt) {
              },*/
             jsAdmin: {
                 files: ['<%= concat.admin.src %>'],
-                tasks: ['js']
+                tasks: ['jsAdmin']
             },
             cssAdmin: {
                 files: ['../../public/css/admin/packages/*'],
-                tasks: ['css']
+                tasks: ['cssAdmin']
             },
             jsClient: {
                 files: ['<%= concat.client.src %>'],
-                tasks: ['js']
+                tasks: ['jsClient']
             },
             cssClient: {
                 files: ['../../public/css/client/packages/*'],
-                tasks: ['css']
+                tasks: ['cssClient']
             }
         },
         closureCompiler:  {
