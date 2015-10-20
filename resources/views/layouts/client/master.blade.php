@@ -59,6 +59,14 @@
     <script src="/lib/excanvas/excanvas.js"></script>
     <![endif]-->
 
+    <!-- circle button-->
+    <link rel="stylesheet" href="/lib/circle-button/css/component.css">
+
+    <script src="/lib/circle-button/js/modernizr.custom.js"></script>
+    <script src="/lib/circle-button/js/classie.js"></script>
+    <script src="/lib/circle-button/js/uiProgressButton.js"></script>
+
+
 </head>
 <body>
 <div class="body">

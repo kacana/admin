@@ -21,7 +21,8 @@ var homepagePackage = {
                     else
                         imageProduct.css('width', '100%');
                 });
-        }
+        },
+
     }
 };
 
