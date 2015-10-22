@@ -102,6 +102,11 @@ Route::group(['domain'=>'admin.{envDomain}{nameDomain}','middleware' => 'auth'],
 Route::group(['domain'=>'{envDomain}{nameDomain}'], function () {
     Route::any('/', 'Client\IndexController@index');
 
+    Route::group(['prefix' => 'requestInfo'], function() {
+        Route::get('showPopupRequest/{id}',                 array('as'=>'showPopupRequest',  'uses'=>'Client\InfoRequestController@showPopupRequest'));
+        Route::post('create',                               array('as'=>'createRequestInfo', 'uses'=>'Client\InfoRequestController@createItem'));
+    });
+
 });
 
 View::composer('layouts.client.header', function($view){

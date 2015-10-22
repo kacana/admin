@@ -22,12 +22,12 @@
                         </div>
                     </div>
                     <div class="product-info">
-                        <div class="product-title" > Dior dạ hội</div>
-                        <div class="product-price" >520 k</div>
+                        <div class="product-title"> Dior dạ hội</div>
+                        <div class="product-price">520 k</div>
                     </div>
                     <div class="product-action">
                         <div class="progress-button">
-                            <button><span>Mua nhanh</span></button>
+                            <button><span>Mua</span></button>
                             <svg class="progress-circle" width="70" height="70">
                                 <path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/>
                             </svg>
@@ -39,16 +39,16 @@
                         </div><!-- /progress-button -->
                         <!-- progress button -->
                         <div class="progress-button">
-                            <button><span>Tư vấn</span></button>
-                            <svg class="progress-circle" width="70" height="70"><path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/></svg>
-                            <svg class="checkmark" width="40" height="40">
-                                <path d="m21.5,35.5l15.3,-23.2"/>
-                                <path d="m21.5,35.5l-8.5,-7.1"/></svg>
-                            <svg class="cross" width="70" height="70">
-                                <path d="m35,21l-9.3,-9.3"/>
-                                <path d="m35,21l9.3,9.3"/>
-                                <path d="m35,21l-9.3,9.3"/>
-                                <path d="m35,21l9.3,-9.3"/></svg>
+                            <button onclick="Kacana.homepage.showPopupRequest(10)"><span>Tư vấn</span></button>
+                            {{--<svg class="progress-circle" width="70" height="70"><path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/></svg>--}}
+                            {{--<svg class="checkmark" width="40" height="40">--}}
+                                {{--<path d="m21.5,35.5l15.3,-23.2"/>--}}
+                                {{--<path d="m21.5,35.5l-8.5,-7.1"/></svg>--}}
+                            {{--<svg class="cross" width="70" height="70">--}}
+                                {{--<path d="m35,21l-9.3,-9.3"/>--}}
+                                {{--<path d="m35,21l9.3,9.3"/>--}}
+                                {{--<path d="m35,21l-9.3,9.3"/>--}}
+                                {{--<path d="m35,21l9.3,-9.3"/></svg>--}}
                         </div><!-- /progress-button -->
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                     </div>
                     <div class="product-action">
                         <div class="progress-button">
-                            <button><span>Mua nhanh</span></button>
+                            <button><span>Mua</span></button>
                             <svg class="progress-circle" width="70" height="70">
                                 <path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/>
                             </svg>
@@ -74,7 +74,7 @@
                         </div><!-- /progress-button -->
                         <!-- progress button -->
                         <div class="progress-button">
-                            <button><span>Tư vấn</span></button>
+                            <button onclick="Kacana.homepage.showPopupRequest(1)"><span>Tư vấn</span></button>
                             <svg class="progress-circle" width="70" height="70"><path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/></svg>
                             <svg class="checkmark" width="40" height="40">
                                 <path d="m21.5,35.5l15.3,-23.2"/>
@@ -97,7 +97,7 @@
                     </div>
                     <div class="product-action">
                         <div class="progress-button">
-                            <button><span>Mua nhanh</span></button>
+                            <button><span>Mua</span></button>
                             <svg class="progress-circle" width="70" height="70">
                                 <path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/>
                             </svg>
@@ -109,7 +109,7 @@
                         </div><!-- /progress-button -->
                         <!-- progress button -->
                         <div class="progress-button">
-                            <button><span>Tư vấn</span></button>
+                            <button onclick="Kacana.homepage.showPopupRequest(2)"><span>Tư vấn</span></button>
                             <svg class="progress-circle" width="70" height="70"><path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/></svg>
                             <svg class="checkmark" width="40" height="40">
                                 <path d="m21.5,35.5l15.3,-23.2"/>
@@ -134,7 +134,7 @@
                     </div>
                     <div class="product-action">
                         <div class="progress-button">
-                            <button><span>Mua nhanh</span></button>
+                            <button><span>Mua</span></button>
                             <svg class="progress-circle" width="70" height="70">
                                 <path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/>
                             </svg>
@@ -169,7 +169,7 @@
                     </div>
                     <div class="product-action">
                         <div class="progress-button">
-                            <button><span>Mua nhanh</span></button>
+                            <button><span>Mua</span></button>
                             <svg class="progress-circle" width="70" height="70">
                                 <path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/>
                             </svg>
@@ -181,7 +181,7 @@
                         </div><!-- /progress-button -->
                         <!-- progress button -->
                         <div class="progress-button">
-                            <button><span>Tư vấn</span></button>
+                            <button onclick="Kacana.homepage.showPopupRequest(3)"><span>Tư vấn</span></button>
                             <svg class="progress-circle" width="70" height="70"><path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/></svg>
                             <svg class="checkmark" width="40" height="40">
                                 <path d="m21.5,35.5l15.3,-23.2"/>
@@ -204,7 +204,7 @@
                     </div>
                     <div class="product-action">
                         <div class="progress-button">
-                            <button><span>Mua nhanh</span></button>
+                            <button><span>Mua</span></button>
                             <svg class="progress-circle" width="70" height="70">
                                 <path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/>
                             </svg>
@@ -293,7 +293,7 @@
                     </div>
                     <div class="product-action">
                         <div class="progress-button">
-                            <button><span>Mua nhanh</span></button>
+                            <button><span>Mua</span></button>
                             <svg class="progress-circle" width="70" height="70">
                                 <path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/>
                             </svg>
@@ -328,7 +328,7 @@
                     </div>
                     <div class="product-action">
                         <div class="progress-button">
-                            <button><span>Mua nhanh</span></button>
+                            <button><span>Mua</span></button>
                             <svg class="progress-circle" width="70" height="70">
                                 <path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/>
                             </svg>
@@ -365,7 +365,7 @@
                     </div>
                     <div class="product-action">
                         <div class="progress-button">
-                            <button><span>Mua nhanh</span></button>
+                            <button><span>Mua</span></button>
                             <svg class="progress-circle" width="70" height="70">
                                 <path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/>
                             </svg>
@@ -400,7 +400,7 @@
                     </div>
                     <div class="product-action">
                         <div class="progress-button">
-                            <button><span>Mua nhanh</span></button>
+                            <button><span>Mua</span></button>
                             <svg class="progress-circle" width="70" height="70">
                                 <path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/>
                             </svg>
@@ -435,7 +435,7 @@
                     </div>
                     <div class="product-action">
                         <div class="progress-button">
-                            <button><span>Mua nhanh</span></button>
+                            <button><span>Mua</span></button>
                             <svg class="progress-circle" width="70" height="70">
                                 <path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/>
                             </svg>
@@ -470,24 +470,21 @@
 
 @section('javascript')
     Kacana.homepage.init();
-    [].slice.call( document.querySelectorAll( '.progress-button' ) ).forEach( function( bttn, pos ) {
-        new UIProgressButton( bttn, {
-            callback : function( instance ) {
-                var progress = 0,
-                interval = setInterval( function() {
-                    progress = Math.min( progress + Math.random() * 0.1, 1 );
-                    instance.setProgress( progress );
+    {{--[].slice.call( document.querySelectorAll( '.progress-button' ) ).forEach( function( bttn, pos ) {--}}
+        {{--new UIProgressButton( bttn, {--}}
+            {{--callback : function( instance ) {--}}
+                {{--var progress = 0,--}}
+                {{--interval = setInterval( function() {--}}
+                    {{--progress = Math.min( progress + Math.random() * 0.1, 1 );--}}
+                    {{--instance.setProgress( progress );--}}
 
-                    if( progress === 1 ) {
-                        instance.stop( pos === 1 || pos === 3 ? -1 : 1 );
-                        clearInterval( interval );
-                    }
-                }, 150 );
-            }
-        } );
-    } );
+                    {{--if( progress === 1 ) {--}}
+                        {{--instance.stop( pos === 1 || pos === 3 ? -1 : 1 );--}}
+                        {{--clearInterval( interval );--}}
+                    {{--}--}}
+                {{--}, 150 );--}}
+            {{--}--}}
+        {{--} );--}}
+    {{--} );--}}
 @stop
-
-<script>
-
-</script>
+@extends('client.partials.popup-modal')
