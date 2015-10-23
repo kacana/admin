@@ -27,7 +27,7 @@
                         </div>
                         <div class="product-info">
                             <div class="product-title">{{$item->name}}</div>
-                            <div class="product-price">{{$item->price}}</div>
+                            <div class="product-price">{{formatMoney($item->price)}}</div>
                         </div>
                         <div class="product-action">
                             <div class="progress-button pull-left">

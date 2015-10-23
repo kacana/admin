@@ -1,4 +1,4 @@
-<?php
+hel<?php
 /**
  * Created by PhpStorm.
  * User: chile
@@ -69,4 +69,16 @@ function getControllerName($route_action)
 {
     return substr($route_action, 0, (strpos($route_action, '@') -0) );
 }
+
+/*
+ * format money
+ */
+function formatMoney($money)
+{
+    $money = $money/1000;
+    $money = number_format($money,0, '', '.');
+    return $money.'k';
+
+}
+
 
