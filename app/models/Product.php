@@ -6,6 +6,7 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Image;
+use DB;
 
 class Product extends Model  {
     /**
@@ -153,5 +154,15 @@ class Product extends Model  {
         }
 
         $this->where('id', $id)->update($options);
+    }
+
+    public function getItemsByTag($tag, $limit){
+        $query = DB::table('product')
+            ->select('product.id', 'product.name', 'product.price', 'product.image')
+            ->join('product_tag', 'product.id', '=', 'product_tag.product_id')
+            ->where('product_tag.tag_id', 1)
+            ->take(6)
+            ->get();
+        return $query;
     }
 }
