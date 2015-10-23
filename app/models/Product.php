@@ -160,8 +160,8 @@ class Product extends Model  {
         $query = DB::table('product')
             ->select('product.id', 'product.name', 'product.price', 'product.image')
             ->join('product_tag', 'product.id', '=', 'product_tag.product_id')
-            ->where('product_tag.tag_id', 1)
-            ->take(6)
+            ->where('product_tag.tag_id', $tag->id)
+            ->take($limit)
             ->get();
         return $query;
     }
