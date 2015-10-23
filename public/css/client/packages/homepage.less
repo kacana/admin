@@ -19,7 +19,7 @@
         overflow: hidden;
         border-bottom: 1px solid #ddd;
         border-right: 1px solid #ddd;
-        height: 500px;
+        height: 520px;
         cursor: pointer;
         &:nth-child(3n)
         {
@@ -35,6 +35,9 @@
           flex-direction: column;
           .product-image-inside{
             text-align: center;
+            height: 100%;
+            width: 100%;
+            padding: 10px;
           }
         }
         .product-info
@@ -56,8 +59,12 @@
           .product-title{
             color: #0088cc !important;
           }
+          .product-action{
+            display: block;
+          }
         }
         .product-action{
+          display: none;
           text-align:center;
         }
       }

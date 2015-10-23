@@ -8,12 +8,14 @@ module.exports = function(grunt) {
             },
             admin: {
                 src: [
+                    '../../public/js/admin/packages/core.js',
                     '../../public/js/admin/packages/*.js'
                 ],
                 dest: '../../public/js/admin/admin.js'
             },
             client: {
                 src: [
+                    '../../public/js/client/packages/core.js',
                     '../../public/js/client/packages/*.js'
                 ],
                 dest: '../../public/js/client/client.js'
