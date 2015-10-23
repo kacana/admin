@@ -43,7 +43,7 @@
                             </div><!-- /progress-button -->
                             <!-- progress button -->
                             <div class="progress-button pull-right">
-                                <button onclick="Kacana.homepage.showPopupRequest(10)"><span>Tư vấn</span></button>
+                                <button id="_btn_{{$item->id}}" rel="popover" class="btn-advise" data-original-title="Tư vấn"><span>Tư vấn</span></button>
                             </div><!-- /progress-button -->
                         </div>
                     </div>
@@ -57,10 +57,22 @@
 
 </div>
 
-
 @stop
 
 @section('javascript')
     Kacana.homepage.init();
+    $('.btn-advise').on('click', function(e){
+        $('.btn-advise').not(this).popover('hide');
+    });
+
+    $('.btn-advise').popover({
+        html: 'true',
+        placement: Kacana.homepage.getPopoverPlacement,
+        content : function() {
+            id = $(this).attr('id').slice(5);
+            $("#product_id").val(id);
+            return $('#popover-content').html();
+        }
+    });
 @stop
 @extends('client.partials.popup-modal')

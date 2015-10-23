@@ -9,19 +9,6 @@ use Mail;
 class InfoRequestController extends BaseController {
 
     /**
-     * function name: showPoupRequest
-     * description: will be call when user click 'tu van' button
-     * return: view
-     */
-    public function showPopupRequest($env, $domain,$id){
-        if($id!=''){
-            return view('client.partials.request-form',array('id'=>$id));
-        }else{
-            return '';
-        }
-    }
-
-    /**
      * function name: sendRequest
      * @param Request request,
      * @return Response

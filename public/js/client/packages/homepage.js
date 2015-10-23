@@ -22,20 +22,18 @@ var homepagePackage = {
                         imageProduct.css('width', '100%');
                 });
         },
-        showPopupRequest: function(id){
-            var callBack = function(data){
-                $("#popupRequest").html(data);
-                $("#popupRequest").modal('show');
-            };
-            var errorCallBack = function(){};
-            Kacana.ajax.homepage.showPopupRequest(id, callBack, errorCallBack);
+        getPopoverPlacement: function(pop, dom_el){
+            var width = window.innerWidth;
+            if (width<500) return 'bottom';
+            var left_pos = $(dom_el).offset().left;
+            if (width - left_pos > 400) return 'right';
+            return 'left';
         },
+
         sendRequest: function(){
             $("#btn-create").attr('disabled', true);
             var form_data = $("#form-create-request-info").serialize();
             var callBack = function(data) {
-                $("#popupRequest").modal('hide');
-                $("#showNotice").modal('show');
                 data = JSON.parse(data);
             };
             var errorCallBack = function(data){

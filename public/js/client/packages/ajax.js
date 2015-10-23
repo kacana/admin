@@ -59,9 +59,6 @@ var ajaxPackage = {
          *
          * ***************************************************************************/
         homepage:{
-            showPopupRequest: function(id, callBack,errorCallBack){
-                Kacana.ajax.init('/requestInfo/showPopupRequest/'+id, '', 'get', '', callBack, errorCallBack, []);
-            },
             sendRequest: function(otherData, callBack, errorCallBack){
                 Kacana.ajax.initFileUpload('/requestInfo/create?'+otherData, 'post','', callBack, errorCallBack);
             }
