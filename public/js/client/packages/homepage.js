@@ -23,13 +23,30 @@ var homepagePackage = {
                 });
         },
         getPopoverPlacement: function(pop, dom_el){
-            var width = window.innerWidth;
-            if (width<500) return 'bottom';
-            var left_pos = $(dom_el).offset().left;
-            if (width - left_pos > 400) return 'right';
-            return 'left';
+                var width = window.innerWidth;
+                if (width<500) return 'bottom';
+                var left_pos = $(dom_el).offset().left;
+                if (width - left_pos > 400) return 'right';
+                return 'left';
         },
-
+        initPopover: function(id, data){
+            $('#_btn_'+id).popover({
+                html: 'true',
+                placement: Kacana.homepage.getPopoverPlacement,
+                content : data
+            }).popover('show');
+        },
+        showPopupRequest: function(id){
+            var callBack = function(data){
+                $(window).on('resize', function(){
+                    $('.btn-advise').popover('destroy');
+                    Kacana.homepage.initPopover(id, data);
+                })
+                Kacana.homepage.initPopover(id, data);
+            };
+            var errorCallBack = function(){};
+            Kacana.ajax.homepage.showPopupRequest(id, callBack, errorCallBack);
+        },
         sendRequest: function(){
             $("#btn-create").attr('disabled', true);
             var form_data = $("#form-create-request-info").serialize();
@@ -38,6 +55,7 @@ var homepagePackage = {
             };
             var errorCallBack = function(data){
                 json_result = JSON.parse(data.responseText);
+                console.log(json_result);
                 if(typeof(json_result['name'])!=''){
                     $("#error-name").html(json_result['name']);
                 }

@@ -43,7 +43,7 @@
                             </div><!-- /progress-button -->
                             <!-- progress button -->
                             <div class="progress-button pull-right">
-                                <button id="_btn_{{$item->id}}" rel="popover" class="btn-advise" data-original-title="Tư vấn"><span>Tư vấn</span></button>
+                                <button id="_btn_{{$item->id}}" onclick="Kacana.homepage.showPopupRequest({{$item->id}})" rel="popover" class="btn-advise" data-original-title="Tư vấn" data-delay="100" ><span>Tư vấn</span></button>
                             </div><!-- /progress-button -->
                         </div>
                     </div>
@@ -61,18 +61,13 @@
 
 @section('javascript')
     Kacana.homepage.init();
-    $('.btn-advise').on('click', function(e){
-        $('.btn-advise').not(this).popover('hide');
-    });
-
-    $('.btn-advise').popover({
-        html: 'true',
-        placement: 'bottom',
-        content : function() {
-            id = $(this).attr('id').slice(5);
-            $("#product_id").val(id);
-            return $('#popover-content').html();
-        }
-    });
+    {{--$('.btn-advise').on('click', function(e){--}}
+        {{--$('.btn-advise').not(this).popover('destroy');--}}
+    {{--});--}}
+    {{--Kacana.homepage.initPopover();--}}
+    $(window).on('resize', function(){
+        $('.btn-advise').popover('destroy');
+        Kacana.homepage.initPopover();
+    })
 @stop
-@extends('client.partials.popup-modal')
+@include('client.partials.popup-modal')

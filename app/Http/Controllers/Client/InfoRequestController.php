@@ -8,10 +8,16 @@ use Mail;
 
 class InfoRequestController extends BaseController {
 
+    public function showPopupRequest($env, $domain,$id){
+        if($id!=''){
+            return view('client.partials.request-form',array('id'=>$id));
+        }else{
+            return '';
+        }
+    }
     /**
      * function name: sendRequest
      * @param Request request,
-     * @return Response
      */
     public function createItem(RequestInfoRequest $request){
         $reqInfo = new InfoRequest;
