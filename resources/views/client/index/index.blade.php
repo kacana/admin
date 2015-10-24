@@ -67,7 +67,7 @@
 
     $('.btn-advise').popover({
         html: 'true',
-        placement: Kacana.homepage.getPopoverPlacement,
+        placement: 'bottom',
         content : function() {
             id = $(this).attr('id').slice(5);
             $("#product_id").val(id);
