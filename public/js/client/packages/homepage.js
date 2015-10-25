@@ -37,6 +37,7 @@ var homepagePackage = {
             }).popover('show');
         },
         showPopupRequest: function(id){
+            $('.btn-advise').popover('destroy');
             var callBack = function(data){
                 $(window).on('resize', function(){
                     $('.btn-advise').popover('destroy');
