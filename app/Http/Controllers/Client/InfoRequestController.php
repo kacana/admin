@@ -33,7 +33,10 @@ class InfoRequestController extends BaseController {
 //            {
 //                $message->to('lechiit@gmail.com', 'Admin')->subject('Yêu cầu tư vấn');
 //            });
-            echo json_encode($re);
+            $result['status'] = 'ok';
+        }else{
+            $result['status'] = 'error';
         }
+        echo json_encode($result);
     }
 }

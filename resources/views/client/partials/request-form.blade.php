@@ -25,6 +25,6 @@
     {!! Form::hidden('product_id',$id, ['id'=>'product_id'])!!}
 </div>
 <div class="row">
-    <div align="center"><button type="button" id="btn-create" onclick="Kacana.homepage.sendRequest()" class="btn btn-primary btn-icon">Gửi</button></div>
+    <div align="center"><button type="button" id="btn-create" onclick="Kacana.homepage.sendRequest({{$id}})" class="btn btn-primary btn-icon">Gửi</button></div>
 </div>
 {!! Form::close() !!}
