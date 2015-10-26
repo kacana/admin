@@ -15,7 +15,7 @@
     padding: 0;
     width: 130px;
     height: 40px;
-    border: 2px solid #1ECD97;
+    border: 2px solid #1ECD97!important;
     border-radius: 40px;
     background: transparent;
     color: #1ECD97;

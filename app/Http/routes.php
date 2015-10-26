@@ -99,7 +99,7 @@ Route::group(['domain'=>'admin.{envDomain}{nameDomain}','middleware' => 'auth'],
  *
  *********************************************************/
 
-Route::group(['domain'=>'{envDomain}{nameDomain}'], function () {
+Route::group(['domain'=>'{envDomain}{nameDomain}', ], function () {
     Route::any('/', 'Client\IndexController@index');
 
     Route::group(['prefix' => 'requestInfo'], function() {
