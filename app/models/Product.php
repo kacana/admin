@@ -26,6 +26,14 @@ class Product extends Model  {
     }
 
     /**
+     * Get the galleries associated with product
+     */
+    public function galleries()
+    {
+        return $this->hasMany('App\models\ProductGallery');
+    }
+
+    /**
      *
      * @param $item
      */

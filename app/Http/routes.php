@@ -12,10 +12,11 @@
 */
 use App\models\Tag;
 
-Route::pattern('id', '[0-9]+');
-Route::pattern('pid', '[0-9]+');
+Route::pattern('id', '\d+');
+Route::pattern('pid', '\d+');
 Route::pattern('status', '[0-1]+');
 Route::pattern('keyword', '[a-z0-9-]+');
+Route::pattern('slug', '[a-zA-Z0-9-]+');
 
 Route::pattern('envDomain', '(dev.|staging.|product.|)');
 Route::pattern('nameDomain', '(kacana.com)');
@@ -105,6 +106,11 @@ Route::group(['domain'=>'{envDomain}{nameDomain}', ], function () {
     Route::group(['prefix' => 'requestInfo'], function() {
         Route::get('showPopupRequest/{id}',                 array('as'=>'showPopupRequest',  'uses'=>'Client\InfoRequestController@showPopupRequest'));
         Route::post('create',                               array('as'=>'createRequestInfo', 'uses'=>'Client\InfoRequestController@createItem'));
+    });
+
+    //product
+    Route::group(['prefix'=>'san-pham'], function(){
+        Route::get('{id}-{slug}.html',                      array('as'=>'productDetail',    'uses'=>'Client\ProductController@productDetail'));
     });
 
 });

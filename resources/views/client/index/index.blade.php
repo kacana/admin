@@ -22,11 +22,11 @@
                             <div class="col-md-4 product-item" >
                         <div class="product-image" >
                             <div class="product-image-inside" >
-                                <img src="{{$item->image}}"/>
+                                <a href="{{urlProductDetail($item)}}" title="{{$item->name}}"><img src="{{$item->image}}" alt="{{$item->name}}"/></a>
                             </div>
                         </div>
                         <div class="product-info">
-                            <div class="product-title">{{$item->name}}</div>
+                            <div class="product-title"> <a href="{{urlProductDetail($item)}}" title="{{$item->name}}">{{$item->name}}</a></div>
                             <div class="product-price">{{formatMoney($item->price)}}</div>
                         </div>
                         <div class="product-action">

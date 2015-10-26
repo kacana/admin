@@ -1,5 +1,6 @@
 <?php
-define('LINK_IMAGE', 'http://local.kacana.com/');
+define('LINK_IMAGE', 'http://dev.kacana.com/');
+define('SITE_LINK', 'http://'.$_SERVER['HTTP_HOST'].'/');
 define('PRODUCT_IMAGE', 'images/product/');
 define('BRANCH_IMAGE', 'images/branch/');
 define('USER_IMAGE', 'images/user/');

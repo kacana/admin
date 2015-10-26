@@ -14,6 +14,11 @@ function showImage($image, $folder)
     return "<img width='50' height='50' src='".$folder."/". $image ."'/>";
 }
 
+function showProductImg($image, $id)
+{
+    return SITE_LINK . PRODUCT_IMAGE . $id . '/'.$image;
+}
+
 /*
  * format date
  */
@@ -78,7 +83,21 @@ function formatMoney($money)
     $money = $money/1000;
     $money = number_format($money,0, '', '.');
     return $money.'k';
+}
 
+/*
+ * urlProductDetail
+ * @params: product item
+ */
+function urlProductDetail($item)
+{
+    if(!empty($item)){
+        if(!empty($item->name)){
+            return URL::to('san-pham/' . $item->id . '-' . str_slug($item->name) . '.html');
+        }
+    }else{
+        return '';
+    }
 }
 
 

@@ -48,15 +48,17 @@ var homepagePackage = {
             var errorCallBack = function(){};
             Kacana.ajax.homepage.showPopupRequest(id, callBack, errorCallBack);
         },
-        sendRequest: function(){
+        sendRequest: function(id){
             $("#btn-create").attr('disabled', true);
             var form_data = $("#form-create-request-info").serialize();
             var callBack = function(data) {
                 data = JSON.parse(data);
+                if(data.status =='ok'){
+                    $('#_btn_'+id).popover('destroy').popover({content:"Yêu cầu của bạn đã được gửi thành công!"});
+                }
             };
             var errorCallBack = function(data){
                 json_result = JSON.parse(data.responseText);
-                console.log(json_result);
                 if(typeof(json_result['name'])!=''){
                     $("#error-name").html(json_result['name']);
                 }
