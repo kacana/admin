@@ -113,6 +113,13 @@ Route::group(['domain'=>'{envDomain}{nameDomain}', ], function () {
         Route::get('{id}-{slug}.html',                      array('as'=>'productDetail',    'uses'=>'Client\ProductController@productDetail'));
     });
 
+    //cart
+    Route::post('cart/addProductToCart',                    array('as'=>'addProductToCart',  'uses'=>'Client\CartController@addProductToCart'));
+    Route::get('cart/showCart',                             array('as'=>'showCart',          'uses'=>'Client\CartController@showCart'));
+    Route::get('cart/increaseQty/{pid}',                    array('as'=>'increaseQty',       'uses'=>'Client\CartController@increaseQty'));
+    Route::get('cart/decreaseQty/{pid}',                    array('as'=>'decreaseQty',       'uses'=>'Client\CartController@decreaseQty'));
+    Route::get('cart/removeCart/{pid}',                     array('as'=>'removeCart',        'uses'=>'Client\CartController@removeCart'));
+    Route::post('cart/updateCart',                          array('as'=>'updateCart',        'uses'=>'Client\CartController@updateCart'));
 });
 
 View::composer('layouts.client.header', function($view){

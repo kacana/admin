@@ -1,7 +1,7 @@
 <header id="header">
     <div class="container">
         <div class="logo">
-            <a href="index.html">
+            <a href="/">
                 <img alt="Porto" width="219" height="49" data-sticky-width="120" data-sticky-height="25" src="/images/client/homepage/logo.png">
             </a>
         </div>
@@ -51,7 +51,7 @@
                 <ul class="nav nav-pills nav-main" id="mainMenu">
 
                     <li class="active">
-                        <a class="dropdown-toggle" href="index.html">Home</a>
+                        <a class="dropdown-toggle" href="/">Trang chủ</a>
                     </li>
                     @foreach($menu_items as $item)
                         @if(isset($item['childs']) && sizeof($item['childs']) > 0)

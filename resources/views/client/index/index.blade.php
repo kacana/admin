@@ -61,10 +61,6 @@
 
 @section('javascript')
     Kacana.homepage.init();
-    {{--$('.btn-advise').on('click', function(e){--}}
-        {{--$('.btn-advise').not(this).popover('destroy');--}}
-    {{--});--}}
-    {{--Kacana.homepage.initPopover();--}}
     $(window).on('resize', function(){
         $('.btn-advise').popover('destroy');
         Kacana.homepage.initPopover();

@@ -145,10 +145,9 @@ return [
 		'App\Providers\ConfigServiceProvider',
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
-
         'Collective\Html\HtmlServiceProvider',
-
-        'Intervention\Image\ImageServiceProvider'
+        'Intervention\Image\ImageServiceProvider',
+        'Gloudemans\Shoppingcart\ShoppingcartServiceProvider'
 
 	],
 
@@ -200,7 +199,8 @@ return [
 		'Datatables'=> 'yajra\Datatables\Datatables',
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
-        'Image' => 'Intervention\Image\Facades\Image'
-	],
+        'Image' => 'Intervention\Image\Facades\Image',
+        'Cart'  => 'Gloudemans\Shoppingcart\Facades\Cart',
+    ],
 
 ];

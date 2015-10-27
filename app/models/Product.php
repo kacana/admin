@@ -33,6 +33,11 @@ class Product extends Model  {
         return $this->hasMany('App\models\ProductGallery');
     }
 
+    public function color()
+    {
+        return $this -> belongsToMany('App\models\Color', 'product_color')->withPivot('gallery_id');
+    }
+
     /**
      *
      * @param $item

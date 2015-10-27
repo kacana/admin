@@ -9,29 +9,64 @@
                 <div class="summary entry-summary">
                     <h1 class="shorter"><strong>{{$item->name}}</strong></h1>
 
-                    {{--<div class="review_num">--}}
-                        {{--<span class="count" itemprop="ratingCount">2</span> reviews--}}
-                    {{--</div>--}}
-
-                    {{--<div title="Rated 5.00 out of 5" class="star-rating">--}}
-                        {{--<span style="width:100%"><strong class="rating">5.00</strong> out of 5</span>--}}
-                    {{--</div>--}}
-
                     <p class="price">
                         <span class="old-price">{{formatMoney($item->price)}}</span><br/>
                         <span class="amount">{{formatMoney($item->sell_price)}}</span>
                     </p>
 
                     <p class="taller">{{$item->short_description}}</p>
-
-                    <form enctype="multipart/form-data" method="post" class="cart">
-                        <div class="quantity">
-                            <input type="button" class="minus" value="-">
-                            <input type="text" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
-                            <input type="button" class="plus" value="+">
+                    @if($item->color)
+                    <div id="oi_product_color" class="product-color">
+                        <div class="product-color-title cf">
+                            <div class="lf f50">Chọn màu sắc</div>
+                            <div class="lf f25 show-if-psize-exist" style="visibility:hidden;">Chọn kích cỡ</div>
+                            <div class="lf f25">Chọn Số lượng</div>
                         </div>
-                        <button href="#" class="btn btn-primary btn-icon">Đặt Mua</button>
-                    </form>
+                        <ul class="cf">
+                            @foreach($item->color as $color)
+                            <li class="cf">
+                                <div class="lf f20"><img src="{{showProductImg(\App\models\ProductGallery::showImageColor($color->pivot->gallery_id), $item->id)}}"></div>
+                                <div class="lf f80 cf">
+                                    <div class="lf f38">{{$color->name}}</div>
+                                    <div class="lf f62 cf">
+                                        <div class="lf f50">&nbsp;</div>
+                                        <div align="center" class="lf f50 change-soluong-by-size60509">
+                                            <select data-id="60509" data-class="change-color-by-quantity60509" class="change-select-size-id">
+                                                <option value="0">0</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                    <br/>
+                    <div class="cf">
+                        <div class="lr">
+                            <form method="POST" action="{{url('cart/addProductToCart')}}">
+                                <input type="hidden" name="product_id" value="{{$item->id}}">
+                                <input type="hidden" name="product_name" value="{{$item->name}}">
+                                <input type="hidden" name="product_price" value="{{$item->sell_price}}">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="btn btn-primary add-to-cart">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    Thêm vào giỏ hàng
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -39,7 +74,7 @@
                     @if($item->galleries && count($item->galleries)>0)
                         <?php $count = 1;?>
                         @foreach($item->galleries as $gallery)
-                            <?php if($count==6)break;?>
+                            <?php if($count==5)break;?>
                             <div>
                                 <div class="thumbnail">
                                     <img alt="{{$item->name}}" class="img-responsive img-rounded" src="{{showProductImg($gallery->image, $item->id)}}">
@@ -61,6 +96,7 @@
 
     </div>
 </div>
+
 
 @stop
 
