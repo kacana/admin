@@ -27,20 +27,10 @@
                         </div>
                         <div class="product-info">
                             <div class="product-title"> <a href="{{urlProductDetail($item)}}" title="{{$item->name}}">{{$item->name}}</a></div>
-                            <div class="product-price">{{formatMoney($item->price)}}</div>
+
                         </div>
                         <div class="product-action">
-                            <div class="progress-button pull-left">
-                                <button><span>Mua</span></button>
-                                <svg class="progress-circle" width="70" height="70">
-                                    <path d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/>
-                                </svg>
-                                <svg class="checkmark" width="40" height="40">
-                                    <path d="m21.5,35.5l15.3,-23.2"/>
-                                    <path d="m21.5,35.5l-8.5,-7.1"/></svg>
-                                <svg class="cross" width="70" height="70">
-                                    <path d="m35,35l-9.3,-9.3"/><path d="m35,35l9.3,9.3"/><path d="m35,35l-9.3,9.3"/><path d="m35,35l9.3,-9.3"/></svg>
-                            </div><!-- /progress-button -->
+                            <div class="product-price pull-left">{{formatMoney($item->price)}}</div>
                             <!-- progress button -->
                             <div class="progress-button pull-right">
                                 <button id="_btn_{{$item->id}}" onclick="Kacana.homepage.showPopupRequest({{$item->id}})" rel="popover" class="btn-advise" data-original-title="Tư vấn" data-delay="100" ><span>Tư vấn</span></button>
