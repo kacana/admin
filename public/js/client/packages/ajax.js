@@ -65,6 +65,11 @@ var ajaxPackage = {
             sendRequest: function(otherData, callBack, errorCallBack){
                 Kacana.ajax.initFileUpload('/requestInfo/create?'+otherData, 'post','', callBack, errorCallBack);
             }
+        },
+        cart:{
+            processCart: function(otherData, callBack, errorCallBack){
+                Kacana.ajax.initFileUpload('/cart/processCart?'+otherData, 'post', '', callBack, errorCallBack)
+            }
         }
     }
 };

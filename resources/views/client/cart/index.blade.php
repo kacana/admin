@@ -8,115 +8,129 @@
                 <div class="col-md-12">
                     <div class="row featured-boxes">
                         <div class="col-md-12">
-                            <div class="featured-box featured-box-secundary featured-box-cart">
-                                <div class="box-content">
-                                    @if(count($cart))
-                                        <table cellspacing="0" class="shop_table cart">
-                                            <thead>
-                                            <tr>
-                                                <th class="product-remove">
-                                                    &nbsp;
-                                                </th>
-                                                <th class="product-thumbnail">
-                                                    &nbsp;
-                                                </th>
-                                                <th class="product-name">
-                                                    Sản phẩm
-                                                </th>
-                                                <th class="product-price">
-                                                    Giá
-                                                </th>
-                                                <th class="product-quantity">
-                                                    Số lượng
-                                                </th>
-                                                <th class="product-subtotal">
-                                                    Tiền
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach($cart as $item)
-                                            <tr class="cart_table_item">
-                                                <td class="product-remove">
-                                                    <a title="Remove this item" class="remove" href="{{url('cart/removeCart/'.$item->id)}}">
-                                                        <i class="fa fa-times"></i>
-                                                    </a>
-                                                </td>
-                                                <td class="product-thumbnail">
-                                                    <a href="shop-product-sidebar.html">
-                                                        <img width="100" height="100" alt="{{$item->name}}" class="img-responsive" src="">
-                                                    </a>
-                                                </td>
-                                                <td class="product-name">
-                                                    <a href="shop-product-sidebar.html">{{$item->name}}</a>
-                                                </td>
-                                                <td class="product-price">
-                                                    <span class="amount">{{formatMoney($item->price)}}</span>
-                                                </td>
-                                                <td class="product-quantity">
-                                                    <div class="quantity">
-                                                        <a type="button" class="minus" href="{{url('cart/decreaseQty/'.$item->id)}}"><i class="fa fa-minus"></i></a>
-                                                        <input type="text" id="_{{item->id}}" class="input-text qty text" title="Qty" value="{{$item->qty}}" name="quantity" min="1" step="1">
-                                                        <a type="button" class="plus" href="{{url('cart/increaseQty/'.$item->id)}}"><i class="fa fa-plus"></i></a>
-                                                    </div>
-                                                </td>
-                                                <td class="product-subtotal">
-                                                    <span class="amount">{{formatMoney($item->subtotal)}}</span>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                            <tr>
-                                                <td class="actions" colspan="6">
-                                                    <div class="actions-continue">
-                                                        <a type="button" class="btn btn-primary" href="/">Tiếp tục mua hàng</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                            <div class="">
+                                @if(count($cart)>0)
+                                    <table class="table table-bordered table-responsive">
+                                        <thead>
+                                        <tr>
+                                            <th class="product-name center">
+                                                Sản phẩm
+                                            </th>
+                                            <th class="product-price center">
+                                                Giá
+                                            </th>
+                                            <th class="product-quantity center">
+                                                Số lượng
+                                            </th>
+                                            <th class="product-subtotal center">
+                                                Tổng số tiền
+                                            </th>
+                                            <th class="center">Xoá</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($cart as $item)
+                                        <tr class="cart_table_item">
+                                            <td class="product-name">
+                                                <a href="shop-product-sidebar.html">{{$item->name}}</a>
+                                            </td>
+                                            <td class="product-price">
+                                                <span class="amount"><strong>{{formatMoney($item->price)}}</strong></span>
+                                            </td>
+                                            <td class="product-quantity">
+                                                <div class="quantity">
+                                                    <a type="button" class="minus" href="{{url('cart/decreaseQty/'.$item->id)}}"><i class="fa fa-minus"></i></a>
+                                                    <input type="text" id="_{{$item->id}}" class="input-text qty text" title="Qty" value="{{$item->qty}}" name="quantity" min="1" step="1">
+                                                    <a type="button" class="plus" href="{{url('cart/increaseQty/'.$item->id)}}"><i class="fa fa-plus"></i></a>
+                                                </div>
+                                            </td>
+                                            <td class="product-subtotal">
+                                                <span class="amount"><strong>{{formatMoney($item->subtotal)}}</strong></span>
+                                            </td>
+                                            <td class="product-remove">
+                                                <a title="Remove this item" class="remove" href="{{url('cart/removeCart/'.$item->id)}}">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
 
-                                        @else
-                                        <p>Bạn không có sản phẩm nào trong giỏ hàng. </p>
-                                    @endif
-                                </div>
+                                    @else
+                                    <p>Bạn không có sản phẩm nào trong giỏ hàng. </p>
+                                @endif
                             </div>
                         </div>
                     </div>
-
+                    <div class="featured-boxes">
+                        <div class="col-ms-12">
+                            {{--<a type="button" class="btn btn-primary" href="/">Cập nhật giỏ hàng</a>--}}
+                            <a type="button" class="btn btn-primary" href="/">Tiếp tục mua hàng</a>
+                        </div>
+                    </div>
+                    @if(count($cart)>0)
                     <div class="row featured-boxes cart">
                         <div class="col-md-6">
                             <div class="featured-box featured-box-secundary default">
                                 <div class="box-content">
+                                    <h4>Thông tin người mua hàng</h4>
+                                    {!! Form::open(array('id'=>'form-user-info', 'method'=>'post', 'onsubmit'=>'return false'))!!}
+                                    <div class="form-group">
+                                        {!! Form::label('name', 'Họ và tên', array('class'=>'control-label col-sm-3'))!!}
+                                        <div class="col-sm-9">
+                                            {!! Form::text('name', '', array('class'=>'form-control'))!!}
+                                            <span id="error-name" class="text-red error"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        {!! Form::label('email', 'Email', array('class'=>'control-label col-sm-3'))!!}
+                                        <div class="col-sm-9">
+                                            {!! Form::text('email', '', array('class'=>'form-control'))!!}
+                                            <span id="error-email" class="text-red error"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        {!! Form::label('phone', 'Điện thoại', array('class'=>'control-label col-sm-3'))!!}
+                                        <div class="col-sm-9">
+                                            {!! Form::text('phone', '', array('class'=>'form-control'))!!}
+                                            <span id="error-phone" class="text-red error"></span>
+                                        </div>
+                                    </div>
                                     <h4>Thông tin giao hàng</h4>
-                                    <form action="" id="" method="post">
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <div class="col-md-12">
-                                                    <label>Country</label>
-                                                    <select class="form-control">
-                                                        <option value="">Select a country</option>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                    <div class="form-group">
+                                        {!! Form::label('name_2', 'Họ và tên', array('class'=>'control-label col-sm-3'))!!}
+                                        <div class="col-sm-9">
+                                            {!! Form::text('name_2', '', array('class'=>'form-control')) !!}
+                                            <span id="error-name_2" class="text-red error"></span>
                                         </div>
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <div class="col-md-6">
-                                                    <label>State</label>
-                                                    <input type="text" value="" class="form-control">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label>Zip Code</label>
-                                                    <input type="text" value="" class="form-control">
-                                                </div>
-                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                        {!! Form::label('phone_2', 'Điện thoại', array('class'=>'control-label col-sm-3'))!!}
+                                        <div class="col-sm-9">
+                                            {!! Form::text('phone_2', '', array('class'=>'form-control')) !!}
+                                            <span id="error-phone_2" class="text-red error"></span>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <input type="submit" value="Update Totals" class="btn btn-default pull-right push-bottom" data-loading-text="Loading...">
-                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                        {!! Form::label('street', 'Địa chỉ', array('class'=>'control-label col-sm-3'))!!}
+                                        <div class="col-sm-9">
+                                            {!! Form::text('street', '', array('class'=>'form-control')) !!}
+                                            <span id="error-street" class="text-red error"></span>
                                         </div>
-                                    </form>
+                                    </div>
+                                    <div class="form-group">
+                                        {!! Form::label('city_id', 'Thành phố', array('class'=>'control-label col-sm-3'))!!}
+                                        <div class="col-sm-4">
+                                            {!! Form::select('city_id', $cities, '', array('class'=>'form-control')) !!}
+                                            <span id="error-city" class="text-red error"></span>
+                                        </div>
+                                        {!! Form::label('ward_id', 'Quận', array('class'=>'control-label col-sm-1'))!!}
+                                        <div class="col-sm-4">
+                                            {!! Form::select('ward_id', $wards, '', array('class'=>'form-control')) !!}
+                                            <span id="error-ward" class="text-red error"></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -160,11 +174,12 @@
                     <div class="row featured-boxes">
                         <div class="col-md-12">
                             <div class="actions-continue">
-                                <input type="submit" value="Hoàn tất đơn đặt hàng →" name="proceed" class="btn btn-lg btn-primary">
+                                {!! Form::submit('Hoàn tất đơn đặt hàng →', array('id'=>'process','class'=>'btn btn-lg btn-primary', 'onclick'=>'Kacana.cart.processCart()'))!!}
                             </div>
                         </div>
                     </div>
-
+                    {!! Form::close() !!}
+                        @endif
                 </div>
             </div>
 

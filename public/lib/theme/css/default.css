@@ -1,4 +1,4 @@
-h3,
+dèaulth3,
 h4,
 h5 {
 	color: #0088cc;
@@ -103,8 +103,8 @@ body.dark .pagination > .active > a,
 .pagination > .active > a:hover,
 body.dark .pagination > .active > a:hover,
 .owl-theme .owl-controls .owl-nav [class*="owl-"]:hover {
-	border-color: #0099e6;
-	background-color: #0099e6;
+	border-color: #337ab7;
+	background-color: #337ab7;
 }
 
 .btn-primary:active,

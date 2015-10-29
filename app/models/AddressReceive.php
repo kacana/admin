@@ -47,4 +47,23 @@ class AddressReceive extends Model {
         return AddressReceive::find($id);
     }
 
+    /**
+     * - function name : createItem
+     */
+    public function createItem($item)
+    {
+        $addReceive = new AddressReceive();
+
+        $addReceive->name = $item['name'];
+        $addReceive->email = isset($item['email'])?$item['email']:'';
+        $addReceive->phone = $item['phone'];
+        $addReceive->street = $item['street'];
+        $addReceive->city_id = $item['city_id'];
+        $addReceive->ward_id = $item['ward_id'];
+        $addReceive->save();
+
+        return $addReceive;
+    }
+
+
 }

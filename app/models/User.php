@@ -51,12 +51,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function createItem($item)
     {
         $user = new User;
-        $user->password = md5($item['password']);
+        if(isset($item['password']) && $item['password']!=''){
+            $user->password = md5($item['password']);
+        }
         $user->name = $item['name'];
         $user->email = $item['email'];
         $user->phone = $item['phone'];
         $user->role = $item['role'];
-        $user->user_type = $item['user_type'];
+        $user->user_type = isset($item['user_type'])?$item['user_type']:'';
         $user->created = date('Y-m-d H:i:s');
         $user->updated = date('Y-m-d H:i:s');
         $user->save();
@@ -65,6 +67,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         if (isset($item['image']) && ($item['image']!=='undefined')) {
             $this->updateImage($item['image'], $user->id);
         }
+        return $user;
     }
 
     function updateImage($image, $id)

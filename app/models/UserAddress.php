@@ -33,5 +33,20 @@ class UserAddress extends Model {
         return $this->where('user_id', $uid)->get();
     }
 
+    /**
+     * - function name : createItem
+     */
+    public function createItem($item)
+    {
+        $userAddress = new AddressReceive();
+
+        $userAddress->user_id = $item['user_id'];
+        $userAddress->address_id = $item['address_id'];
+
+        return $userAddress;
+    }
+
+
+
 
 }

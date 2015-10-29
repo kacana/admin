@@ -6,3 +6,8 @@ define('BRANCH_IMAGE', 'images/branch/');
 define('USER_IMAGE', 'images/user/');
 define('PREFIX_IMG_PRODUCT', 'name_');
 define('CITY_ID_DEFAULT', 1);
+
+//role user
+define('BUYER', 'buyer');
+define('GUESS', 'guess');
+define('ADMIN', 'admin');
