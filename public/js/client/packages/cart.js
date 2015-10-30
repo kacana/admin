@@ -3,8 +3,12 @@ var cartPackage = {
         init: function () {
 
         },
-        root: function(){
-            return window.location.origin?window.location.origin+'/':window.location.protocol+'/'+window.location.host+'/';
+        removeCart: function(id){
+            var callBack = function(data){
+                window.location.reload();
+            }
+            var errorCallBack = function(data){}
+            Kacana.ajax.cart.removeCart(id, callBack, errorCallBack);
         },
         processCart: function(){
             $("#process").attr('disabled', true);

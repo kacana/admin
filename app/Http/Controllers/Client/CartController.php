@@ -57,7 +57,14 @@ class CartController extends BaseController {
         return redirect('cart/showCart');
     }
 
+    /*
+     * function mame decreaseQty
+     * decrease quantity of product
+     */
+    public function updateCart()
+    {
 
+    }
 
     /*
      * function name removeCart

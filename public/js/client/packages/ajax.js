@@ -67,9 +67,13 @@ var ajaxPackage = {
             }
         },
         cart:{
+            removeCart: function(id, callBack, errorCallBack){
+                Kacana.ajax.init('/cart/removeCart/'+id, '', 'get', '', callBack, errorCallBack, []);
+            },
             processCart: function(otherData, callBack, errorCallBack){
                 Kacana.ajax.initFileUpload('/cart/processCart?'+otherData, 'post', '', callBack, errorCallBack)
             }
+
         }
     }
 };

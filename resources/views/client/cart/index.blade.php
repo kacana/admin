@@ -31,26 +31,24 @@
                                         <tbody>
                                         @foreach($cart as $item)
                                         <tr class="cart_table_item">
-                                            <td class="product-name">
-                                                <a href="shop-product-sidebar.html">{{$item->name}}</a>
+                                            <td class="product-name" align="center">
+                                                <strong>{{$item->name}}</strong>
                                             </td>
                                             <td class="product-price">
-                                                <span class="amount"><strong>{{formatMoney($item->price)}}</strong></span>
+                                                <span class="amount">{{formatMoney($item->price)}}</span>
                                             </td>
                                             <td class="product-quantity">
-                                                <div class="quantity">
-                                                    <a type="button" class="minus" href="{{url('cart/decreaseQty/'.$item->id)}}"><i class="fa fa-minus"></i></a>
-                                                    <input type="text" id="_{{$item->id}}" class="input-text qty text" title="Qty" value="{{$item->qty}}" name="quantity" min="1" step="1">
-                                                    <a type="button" class="plus" href="{{url('cart/increaseQty/'.$item->id)}}"><i class="fa fa-plus"></i></a>
+                                                <div class="">
+                                                    <input type="number" id="_{{$item->id}}" class="input-text qty qtywidth text" title="Qty" value="{{$item->qty}}" name="quantity" min="1" step="1">
                                                 </div>
                                             </td>
-                                            <td class="product-subtotal">
+                                            <td class="product-subtotal" align="right">
                                                 <span class="amount"><strong>{{formatMoney($item->subtotal)}}</strong></span>
                                             </td>
                                             <td class="product-remove">
-                                                <a title="Remove this item" class="remove" href="{{url('cart/removeCart/'.$item->id)}}">
+                                                <button onclick="Kacana.cart.removeCart({{$item->id}})">
                                                     <i class="fa fa-times"></i>
-                                                </a>
+                                                </button>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -65,6 +63,9 @@
                     </div>
                     <div class="featured-boxes">
                         <div class="col-md-8">
+                            @if(count($cart)>0)
+                            <a type="button" class="btn btn-primary" onclick="Kacana.cart.updateCart()">Cập nhật giỏ hàng</a>
+                            @endif
                             <a type="button" class="btn btn-primary" href="/">Tiếp tục mua hàng</a>
                         </div>
                         @if(count($cart)>0)
