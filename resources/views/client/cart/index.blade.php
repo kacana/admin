@@ -64,13 +64,51 @@
                         </div>
                     </div>
                     <div class="featured-boxes">
-                        <div class="col-ms-12">
-                            {{--<a type="button" class="btn btn-primary" href="/">Cập nhật giỏ hàng</a>--}}
+                        <div class="col-md-8">
                             <a type="button" class="btn btn-primary" href="/">Tiếp tục mua hàng</a>
                         </div>
+                        @if(count($cart)>0)
+                        <div class="col-md-4">
+                            <div class="box-content">
+                                <h2 class="cart-totals-title">Tổng số tiền</h2>
+                                <table cellspacing="0" class="cart-totals no-border">
+                                    <tbody>
+                                    <tr class="cart-subtotal">
+                                        <th>
+                                            <strong>Tổng số tiền trong giỏ hàng</strong>
+                                        </th>
+                                        <td align="right">
+                                            <strong><span class="amount">{{formatMoney($total)}}</span></strong>
+                                        </td>
+                                    </tr>
+                                    <tr class="shipping">
+                                        <th>
+                                            Shipping
+                                        </th>
+                                        <td align="right">
+                                            Miễn phí<input type="hidden" value="free_shipping" id="shipping_method" name="shipping_method">
+                                        </td>
+                                    </tr>
+                                    <tr class="total">
+                                        <th>
+                                            <strong>Tổng tiền đơn đặt hàng</strong>
+                                        </th>
+                                        <td align="right">
+                                            <strong><span class="amount">{{formatMoney($total)}}</span></strong>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br/>
+                            <div class="pull-right">
+                                <button class="btn btn-primary">Tiến hành kiểm tra</button>
+                            </div>
+                        </div>
+                         @endif
                     </div>
                     @if(count($cart)>0)
-                    <div class="row featured-boxes cart">
+                    <div class="row featured-boxes cart" id="userinfo">
                         <div class="col-md-6">
                             <div class="featured-box featured-box-secundary default">
                                 <div class="box-content">
@@ -97,6 +135,12 @@
                                             <span id="error-phone" class="text-red error"></span>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="featured-box featured-box-secundary default">
+                                <div class="box-content">
                                     <h4>Thông tin giao hàng</h4>
                                     <div class="form-group">
                                         {!! Form::label('name_2', 'Họ và tên', array('class'=>'control-label col-sm-3'))!!}
@@ -134,41 +178,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="featured-box featured-box-secundary default">
-                                <div class="box-content">
-                                    <h4>Tổng số tiền</h4>
-                                    <table cellspacing="0" class="cart-totals">
-                                        <tbody>
-                                        <tr class="cart-subtotal">
-                                            <th>
-                                                <strong>Tổng số tiền trong giỏ hàng</strong>
-                                            </th>
-                                            <td>
-                                                <strong><span class="amount">{{formatMoney($total)}}</span></strong>
-                                            </td>
-                                        </tr>
-                                        <tr class="shipping">
-                                            <th>
-                                                Shipping
-                                            </th>
-                                            <td>
-                                                Miễn phí<input type="hidden" value="free_shipping" id="shipping_method" name="shipping_method">
-                                            </td>
-                                        </tr>
-                                        <tr class="total">
-                                            <th>
-                                                <strong>Tổng tiền đơn đặt hàng</strong>
-                                            </th>
-                                            <td>
-                                                <strong><span class="amount">{{formatMoney($total)}}</span></strong>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
 
                     <div class="row featured-boxes">
