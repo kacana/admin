@@ -103,13 +103,14 @@
                             </div>
                             <br/>
                             <div class="pull-right">
-                                <button class="btn btn-primary">Tiến hành kiểm tra</button>
+                                <button class="btn btn-primary" id="proceed" onclick="Kacana.cart.showFormUser()">Tiến hành kiểm tra</button>
                             </div>
                         </div>
                          @endif
                     </div>
                     @if(count($cart)>0)
-                    <div class="row featured-boxes cart" id="userinfo">
+                        <div id="user-info" style="display: none">
+                    <div class="row featured-boxes cart" id="" >
                         <div class="col-md-6">
                             <div class="featured-box featured-box-secundary default">
                                 <div class="box-content">
@@ -190,6 +191,7 @@
                         </div>
                     </div>
                     {!! Form::close() !!}
+                        </div>
                         @endif
                 </div>
             </div>

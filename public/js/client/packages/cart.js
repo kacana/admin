@@ -10,6 +10,10 @@ var cartPackage = {
             var errorCallBack = function(data){}
             Kacana.ajax.cart.removeCart(id, callBack, errorCallBack);
         },
+        showFormUser: function(){
+            $("#proceed").hide();
+            $("#user-info").show();
+        },
         processCart: function(){
             $("#process").attr('disabled', true);
             var other_data = $("#form-user-info").serialize();
