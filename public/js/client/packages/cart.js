@@ -14,19 +14,71 @@ var cartPackage = {
             $("#proceed").hide();
             $("#user-info").show();
         },
-        processCart: function(){
-            $("#process").attr('disabled', true);
-            var other_data = $("#form-user-info").serialize();
+        addToCart: function(){
+            $("#add-cart-btn").attr('disabled', true);
+            var qty_arr = [];
+            $('#oi_product_color ul li').each(function(index){
+                qty = $(this).find(".product_qty").val();
+                if(qty >0){
+                    col_id = $(this).find(".product_qty").attr('data-id');
+                    value = col_id + "q" + qty;
+                    qty_arr.push(value);
+                }
+            });
+            $("#qty").val(qty_arr);
+
+            var other_data = $("#form-cart").serialize();
             var callBack = function(data){
-                json_result = JSON.parse(data);
-                console.log(json_result);
-                if(json_result.status==='ok'){
-                    window.location.href= '/cart/don-dat-hang/'+json_result.id;
+                data = JSON.parse(data);
+                if(data.status ==='ok'){
+                    $(".has-error").html('');
+                    window.location.href='/cart/showCart';
+                }else{
+                    $(".has-error").html(data.message);
+                    $("#add-cart-btn").attr('disabled', false);
                 }
             }
             var errorCallBack = function(data){
-                json_result = JSON.parse(data.responseText);
+                $("#add-cart-btn").attr('disabled', false);
+            }
+            Kacana.ajax.cart.addToCart(other_data, callBack, errorCallBack);
+        },
+        updateCart: function(){
+            $("#updateCart").attr('disabled', true);
+            var object = [];
+            $('tr.cart_table_item').each(function(index){
+                object.push($(this).find('.qty').attr('id').substring(1) + "q" + $(this).find('.qty').val());
+            });
 
+            var formData = "options="+object+"&_token="+$("#token").val();
+
+            var callBack = function(data){
+                window.location.reload();
+            };
+            var errorCallBack = function(data){};
+            Kacana.ajax.cart.updateCart(formData, callBack, errorCallBack);
+        },
+        changeCity: function(){
+            var id = $("#city_id").val();
+            var token = $("input[name='_token']").val();
+            var callBack = function(data){
+                $("#ward-area").html(data);
+            };
+            var errorCallback = function(data){};
+            Kacana.ajax.cart.changeCity('id='+id+"&_token="+token, callBack, errorCallback);
+        },
+        processCart: function(){
+            $("#process").attr('disabled', true);
+            $("#ward_id").val($("#ward").val());
+            var other_data = $("#form-user-info").serialize();
+            var callBack = function(data){
+                json_result = JSON.parse(data);
+                if(json_result.status==='ok'){
+                    window.location.href= '/cart/don-dat-hang/'+json_result.id;
+                }
+            };
+            var errorCallBack = function(data){
+                json_result = JSON.parse(data.responseText);
                 if(typeof(json_result['name'])!=''){
                     $("#error-name").html(json_result['name']);
                 }
@@ -45,11 +97,11 @@ var cartPackage = {
                 if(typeof(json_result['street'])!=''){
                     $("#error-street").html(json_result['street']);
                 }
-                if(typeof(json_result['city'])!=''){
-                    $("#error-city").html(json_result['city']);
+                if(typeof(json_result['city_id'])!=''){
+                    $("#error-city").html(json_result['city_id']);
                 }
-                if(typeof(json_result['ward'])!=''){
-                    $("#error-ward").html(json_result['ward']);
+                if(typeof(json_result['ward_id'])!=''){
+                    $("#error-ward").html(json_result['ward_id']);
                 }
                 $("#process").attr('disabled', false);
             };

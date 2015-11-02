@@ -15,58 +15,65 @@
                     </p>
 
                     <p class="taller">{{$item->short_description}}</p>
-                    @if($item->color)
-                    <div id="oi_product_color" class="product-color">
-                        <div class="product-color-title cf">
-                            <div class="lf f50">Chọn màu sắc</div>
-                            <div class="lf f25 show-if-psize-exist" style="visibility:hidden;">Chọn kích cỡ</div>
-                            <div class="lf f25">Chọn Số lượng</div>
-                        </div>
-                        <ul class="cf">
-                            @foreach($item->color as $color)
-                            <li class="cf">
-                                <div class="lf f20"><img src="{{showProductImg(\App\models\ProductGallery::showImageColor($color->pivot->gallery_id), $item->id)}}"></div>
-                                <div class="lf f80 cf">
-                                    <div class="lf f38">{{$color->name}}</div>
-                                    <div class="lf f62 cf">
-                                        <div class="lf f50">&nbsp;</div>
-                                        <div align="center" class="lf f50 change-soluong-by-size60509">
-                                            <select data-id="60509" data-class="change-color-by-quantity60509" class="change-select-size-id">
-                                                <option value="0">0</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                                <option value="7">7</option>
-                                                <option value="8">8</option>
-                                                <option value="9">9</option>
-                                                <option value="10">10</option>
-                                            </select>
+                    <span class="has-error text-red"></span>
+                    <form method="POST" action="" onsubmit="return false;" id="form-cart">
+                        @if(count($item->color)>0)
+                            <div id="oi_product_color" class="product-color">
+                            <div class="product-color-title cf">
+                                <div class="lf f50">Chọn màu sắc</div>
+                                <div class="lf f25 show-if-psize-exist" style="visibility:hidden;">Chọn kích cỡ</div>
+                                <div class="lf f25">Chọn Số lượng</div>
+                            </div>
+                            <ul class="cf">
+                                @foreach($item->color as $color)
+                                <li class="cf">
+                                    <div class="lf f20">
+                                        <img src="{{showProductImg(\App\models\ProductGallery::showImageColor($color->pivot->gallery_id), $item->id)}}">
+                                    </div>
+                                    <div class="lf f80 cf">
+                                        <div class="lf f38 color_name">{{$color->name}}</div>
+                                        <div class="lf f62 cf">
+                                            <div class="lf f50">&nbsp;</div>
+                                            <div align="center">
+                                                <select data-id="{{$color->id}}" class="product_qty">
+                                                    @for($i=0; $i<=10; $i++)
+                                                    <option value="{{$i}}">{{$i}}</option>
+                                                    @endfor
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @else
+                            <div id="oi_product_color">
+                                <div class="lf f25">Chọn số lượng</div>
+                                <div class="lf f25">
+                                    <select name="product_qty" class="product_qty">
+                                    @for($i=1; $i<=10; $i++)
+                                        <option value="{{$i}}">{{$i}}</option>
+                                    @endfor
+                                </select>
                                 </div>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
-                    <br/>
-                    <div class="cf">
-                        <div class="lr">
-                            <form method="POST" action="{{url('cart/addProductToCart')}}">
+                            </div>
+                        @endif
+                        <br/>
+                        <div class="cf">
+                            <div class="lr">
                                 <input type="hidden" name="product_id" value="{{$item->id}}">
                                 <input type="hidden" name="product_name" value="{{$item->name}}">
                                 <input type="hidden" name="product_price" value="{{$item->sell_price}}">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <button type="submit" class="btn btn-primary add-to-cart">
+                                <input type="hidden" name="qty" id="qty"/>
+                                <button type="submit" class="btn btn-primary add-to-cart" id="add-cart-btn" onclick="Kacana.cart.addToCart()">
                                     <i class="fa fa-shopping-cart"></i>
                                     Thêm vào giỏ hàng
                                 </button>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
             <div class="col-md-6">

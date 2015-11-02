@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Client;
 
 use App\models\AddressReceive;
+use App\models\Color;
 use App\models\Order;
 use App\models\OrderDetail;
 use App\models\Product;
@@ -10,6 +11,7 @@ use App\models\User;
 use App\models\UserAddress;
 use Datatables;
 use Cart;
+use Form;
 use Illuminate\Support\Facades\Request;
 use App\Http\Requests\CartRequest;
 
@@ -23,14 +25,37 @@ class CartController extends BaseController {
      */
     public function addProductToCart()
     {
+        $result = array();
         if (Request::isMethod('post')) {
-            $product_id = Request::get('product_id');
-            $product_name = Request::get('product_name');
-            $product_price = Request::get('product_price');
-            Cart::add(array('id' => $product_id, 'name' => $product_name, 'qty' => 1, 'price' => $product_price));
+            $pId = Request::get('product_id');
+            $pName = Request::get('product_name');
+            $pPrice = Request::get('product_price');
+            $options = Request::get('qty');
+            if($options!=''){
+                $options = explode(',', $options);
+                foreach($options as $option){
+                    $cId = explode('q', $option)[0];
+                    $qty = explode('q', $option)[1];
+                    Cart::add(array(
+                        'id' => $pId . $cId,
+                        'name' => $pName,
+                        'qty' => $qty,
+                        'price' => $pPrice,
+                        'options' => array('color' => Color::showName($cId)),
+                        ));
+                }
+                $result = ['status'=>'ok'];
+            }else{
+                $qty = Request::get('product_qty');
+                if($qty>0){
+                    Cart::add(array('id' => $pId, 'name' => $pName, 'qty' => $qty, 'price' => $pPrice));
+                    $result = ['status'=>'ok'];
+                }else{
+                    $result = ['status'=>'error', 'message'=>'Vui lòng chọn số lượng sản phẩm'];
+                }
+            }
         }
-
-        return redirect('cart/showCart');
+        echo json_encode($result);
     }
 
     /*
@@ -63,7 +88,18 @@ class CartController extends BaseController {
      */
     public function updateCart()
     {
-
+        if(Request::isMethod('post')){
+            $options = Request::get('options');
+            if(count($options)>0){
+                $options = explode(",", $options);
+                foreach($options as $item){
+                    $cId = explode('q', $item)[0];
+                    $qty = explode('q', $item)[1];
+                    $rowId = Cart::search(array('id'=>$cId));
+                    Cart::update($rowId[0], $qty);
+                }
+            }
+        }
     }
 
     /*
@@ -96,13 +132,22 @@ class CartController extends BaseController {
         if(Request::isMethod('post') && $request->all()){
             //save user
             $user = new User();
-            $item = array(
-                'name'  => $request->get('name'),
-                'email' => $request->get('email'),
-                'phone' => $request->get('phone'),
-                'role'  => BUYER
-            );
-            $createdUser = $user->createItem($item);
+            $uid = 0;
+            $existUser = $user->getUserByEmail($request->get('email'));
+
+            if(!empty($existUser)){
+                $uid = $existUser->id;
+            }else{
+                $item = array(
+                    'name'  => $request->get('name'),
+                    'email' => $request->get('email'),
+                    'phone' => $request->get('phone'),
+                    'role'  => BUYER
+                );
+                $createdUser = $user->createItem($item);
+                $uid = $createdUser->id;
+            }
+
 
             //save address receive
             $userReceive = new AddressReceive();
@@ -115,16 +160,16 @@ class CartController extends BaseController {
             );
             $address = $userReceive->createItem($item2);
 
-            if($createdUser && $address){
+            if($uid!=0 && $address){
                 //create user address
                 $userAddress = new UserAddress();
-                $option = array('user_id'=>$createdUser->id, 'address_id'=>$address->id);
+                $option = array('user_id'=>$uid, 'address_id'=>$address->id);
                 $userAddress->createItem($option);
 
                 //create order and order detail
                 $order = new Order();
                 $orderAtt = array(
-                    'user_id'       => $createdUser->id,
+                    'user_id'       => $uid,
                     'address_id'    => $address->id,
                     'total'         => Cart::total(),
                     'ship'          => 0,
@@ -151,5 +196,17 @@ class CartController extends BaseController {
         $data['order'] = Order::find($orderId);
         return view('client.cart.order', $data);
     }
+
+    /*
+    * - function mame: showListWards
+    */
+    public function showListWards()
+    {
+        $id = Request::get('id');
+        $ward = new AddressWard;
+        $lists = $ward->getItemsByCityId($id)->lists('name', 'id');
+        echo Form::select('ward_id', $lists,null, array('class'=>'form-control', 'id'=>'ward')) . '<span id="error-ward" class="text-red error"></span>';
+    }
+
 
 }

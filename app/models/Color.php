@@ -26,4 +26,9 @@ class Color extends Model  {
         return $this -> belongsToMany('App\models\Product', 'product_color')->withPivot('gallery_id');
     }
 
+    public function scopeShowName($query, $id)
+    {
+        return $query->where('id', $id)->lists('name');
+    }
+
 }

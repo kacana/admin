@@ -38,8 +38,9 @@ class OrderDetail extends Model  {
                 $orderObj->product_id = $item->id;
                 $orderObj->created = date('Y-m-d H:i:s');
                 $orderObj->updated = date('Y-m-d H:i:s');
-                $orderObj->color = '';
-                $orderObj->size = '';
+                if(isset($item->options['color'])){
+                    $orderObj->color = $item->options['color'][0];
+                }
 
                 $orderObj->save();
             }

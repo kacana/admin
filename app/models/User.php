@@ -116,4 +116,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         $this->where('id', $id)->update($item);
     }
 
+    public function getUserByEmail($email){
+        return $this->where('email', $email)->first();
+    }
+
 }

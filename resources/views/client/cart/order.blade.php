@@ -20,6 +20,9 @@
                                 <th class="product-name">
                                     Sản phẩm
                                 </th>
+                                <th class="product-color center">
+                                    Màu sắc
+                                </th>
                                 <th class="product-price center">
                                     Giá
                                 </th>

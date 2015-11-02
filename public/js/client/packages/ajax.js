@@ -72,6 +72,15 @@ var ajaxPackage = {
             },
             processCart: function(otherData, callBack, errorCallBack){
                 Kacana.ajax.initFileUpload('/cart/processCart?'+otherData, 'post', '', callBack, errorCallBack)
+            },
+            addToCart: function(otherData, callBack, errorCallBack){
+                Kacana.ajax.initFileUpload('/cart/addProductToCart?'+otherData, 'post', '', callBack, errorCallBack)
+            },
+            updateCart: function(otherData, callBack, errorCallBack){
+                Kacana.ajax.initFileUpload('/cart/updateCart?'+otherData, 'post', '', callBack, errorCallBack)
+            },
+            changeCity: function(data, callBack, errorCallBack){
+                Kacana.ajax.init('/cart/showListWards?'+data, '', 'post', '', callBack, errorCallBack, []);
             }
 
         }

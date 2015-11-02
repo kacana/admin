@@ -26,7 +26,7 @@ class CartRequest extends Request{
             {
                 return [
                     'name'      => 'required',
-                    'email'     => 'required|email|unique:users,email',
+                    'email'     => 'required|email',
                     'phone'     => 'required',
                     'name_2'    => 'required',
                     'phone_2'   => 'required',

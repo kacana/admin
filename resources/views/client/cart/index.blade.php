@@ -16,6 +16,9 @@
                                             <th class="product-name center">
                                                 Sản phẩm
                                             </th>
+                                            <th class="product-color center">
+                                                Màu sắc
+                                            </th>
                                             <th class="product-price center">
                                                 Giá
                                             </th>
@@ -30,9 +33,17 @@
                                         </thead>
                                         <tbody>
                                         @foreach($cart as $item)
+
                                         <tr class="cart_table_item">
                                             <td class="product-name" align="center">
                                                 <strong>{{$item->name}}</strong>
+                                            </td>
+                                            <td class="product-color">
+                                                @if(isset($item->options['color']))
+                                                    <span class="color">{{$item->options['color'][0]}}</span>
+                                                @else
+                                                    <span class="color"> - </span>
+                                                @endif
                                             </td>
                                             <td class="product-price">
                                                 <span class="amount">{{formatMoney($item->price)}}</span>
@@ -64,7 +75,8 @@
                     <div class="featured-boxes">
                         <div class="col-md-8">
                             @if(count($cart)>0)
-                            <a type="button" class="btn btn-primary" onclick="Kacana.cart.updateCart()">Cập nhật giỏ hàng</a>
+                                <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+                            <a type="button" class="btn btn-primary" id="updateCart" onclick="Kacana.cart.updateCart()">Cập nhật giỏ hàng</a>
                             @endif
                             <a type="button" class="btn btn-primary" href="/">Tiếp tục mua hàng</a>
                         </div>
@@ -103,7 +115,7 @@
                             </div>
                             <br/>
                             <div class="pull-right">
-                                <button class="btn btn-primary" id="proceed" onclick="Kacana.cart.showFormUser()">Tiến hành kiểm tra</button>
+                                <button class="btn btn-primary" id="proceed" onclick="Kacana.cart.showFormUser()">Checkout</button>
                             </div>
                         </div>
                          @endif
@@ -168,14 +180,16 @@
                                     <div class="form-group">
                                         {!! Form::label('city_id', 'Thành phố', array('class'=>'control-label col-sm-3'))!!}
                                         <div class="col-sm-4">
-                                            {!! Form::select('city_id', $cities, '', array('class'=>'form-control')) !!}
+                                            {!! Form::select('city_id', $cities, '', array('class'=>'form-control', 'onchange'=>'Kacana.cart.changeCity()')) !!}
                                             <span id="error-city" class="text-red error"></span>
                                         </div>
                                         {!! Form::label('ward_id', 'Quận', array('class'=>'control-label col-sm-1'))!!}
-                                        <div class="col-sm-4">
-                                            {!! Form::select('ward_id', $wards, '', array('class'=>'form-control')) !!}
+
+                                        <div class="col-sm-4" id="ward-area">
+                                            {!! Form::select('ward_id', $wards, '', array('class'=>'form-control', 'id'=>'ward')) !!}
                                             <span id="error-ward" class="text-red error"></span>
                                         </div>
+                                        <input type="hidden" name="ward_id" id="ward_id"/>
                                     </div>
                                 </div>
                             </div>
@@ -186,7 +200,7 @@
                     <div class="row featured-boxes">
                         <div class="col-md-12">
                             <div class="actions-continue">
-                                {!! Form::submit('Hoàn tất đơn đặt hàng →', array('id'=>'process','class'=>'btn btn-lg btn-primary', 'onclick'=>'Kacana.cart.processCart()'))!!}
+                                {!! Form::submit('Đặt hàng →', array('id'=>'process','class'=>'btn btn-lg btn-primary', 'onclick'=>'Kacana.cart.processCart()'))!!}
                             </div>
                         </div>
                     </div>
