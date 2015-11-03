@@ -1685,6 +1685,12 @@ aside ul.nav-list > li > a {
 	font-weight: 300;
 }
 
+.slider-container .bottom-label-bold {
+	color: #FFF;
+	font-size: 40px;
+	font-weight: 400;
+}
+
 .slider-container .blackboard-text {
 	color: #BAB9BE;
 	font-size: 46px;
