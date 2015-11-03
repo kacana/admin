@@ -18,7 +18,7 @@
     <!-- Vendor CSS -->
     <!-- Bootstrap 3.3.4 -->
     <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap-theme.min.css">
+    {{--<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap-theme.min.css">--}}
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="/lib/fontawesome/css/font-awesome.css">
