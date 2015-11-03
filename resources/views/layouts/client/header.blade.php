@@ -85,7 +85,7 @@
                                         <div class="col-md-12">
                                             <table cellspacing="0" class="cart table-border">
                                                 <tbody>
-                                                @foreach($cart as $item)
+                                                @foreach(Cart::content() as $item)
                                                     <tr class="cart_table_item">
                                                         <td class="product-name" style="text-align: left; width:150px">
                                                             {{$item->name}}
