@@ -41,11 +41,11 @@
     </div>
     <div class="navbar-collapse nav-main-collapse collapse">
         <div class="container">
-            <ul class="social-icons">
-                <li class="facebook"><a href="http://www.facebook.com/" target="_blank" title="Facebook">Facebook</a></li>
-                <li class="twitter"><a href="http://www.twitter.com/" target="_blank" title="Twitter">Twitter</a></li>
-                <li class="linkedin"><a href="http://www.linkedin.com/" target="_blank" title="Linkedin">Linkedin</a></li>
-            </ul>
+            {{--<ul class="social-icons">--}}
+                {{--<li class="facebook"><a href="http://www.facebook.com/" target="_blank" title="Facebook">Facebook</a></li>--}}
+                {{--<li class="twitter"><a href="http://www.twitter.com/" target="_blank" title="Twitter">Twitter</a></li>--}}
+                {{--<li class="linkedin"><a href="http://www.linkedin.com/" target="_blank" title="Linkedin">Linkedin</a></li>--}}
+            {{--</ul>--}}
             <nav class="nav-main mega-menu">
                @if(count($menu_items)>0)
                 <ul class="nav nav-pills nav-main" id="mainMenu">
@@ -72,6 +72,58 @@
                         </li>
                         @endif
                     @endforeach
+                    <!-- cart -->
+                    <li class="dropdown mega-menu-item mega-menu-shop">
+                        <a class="dropdown-toggle mobile-redirect" href="shop-cart.html">
+                            <i class="fa fa-shopping-cart"></i> Cart ({{Cart::count()}}) - {{ formatMoney(Cart::total())}}
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="mega-menu-content">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table cellspacing="0" class="cart table-border">
+                                                <tbody>
+                                                @foreach($cart as $item)
+                                                    <tr class="cart_table_item">
+                                                        <td class="product-name" style="text-align: left; width:150px">
+                                                            {{$item->name}}
+                                                        </td>
+                                                        <td class="product-color">
+                                                            @if(isset($item->options['color']))
+                                                                <span class="color">{{$item->options['color'][0]}}</span>
+                                                            @else
+                                                                <span class="color"> - </span>
+                                                            @endif
+                                                        </td>
+                                                        <td><span class="amount">{{formatMoney($item->price)}}</span></td>
+                                                        <td class="product-quantity">
+                                                            <span>{{$item->qty}}</span>
+                                                        </td>
+                                                        <td class="product-subtotal" align="right">
+                                                            <span class="amount"><strong>{{formatMoney($item->subtotal)}}</strong></span>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                <tr>
+                                                    <td class="actions" colspan="6">
+                                                        <div class="actions-continue">
+                                                            <a href="/cart/showCart" class="btn pull-left btn-default">View All</a>
+
+                                                            <input type="submit" value="Checkout →" name="proceed" class="btn pull-right btn-primary">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
                 @endif
             </nav>
