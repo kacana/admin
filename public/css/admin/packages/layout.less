@@ -34,15 +34,30 @@
       padding-right:3px;
     }
   }
-  #table_filter, .nosort{display:none}
-  .table-striped>tbody>tr:first-child>td{border-top:2px solid #ddd!important}
-  table.dataTable.no-footer{border-bottom:2px solid #ddd !important}
-  .table>caption+thead>tr:first-child>th,
-  .table>colgroup+thead>tr:first-child>th,
-  .table>thead:first-child>tr:first-child>th,
-  .table>caption+thead>tr:first-child>td,
-  .table>colgroup+thead>tr:first-child>td,
-  .table>thead:first-child>tr:first-child>td{border-top:0;border-bottom: 0}
+  #table_filter{
+    display: none;
+  }
+  .table{
+    tbody{
+      tr{
+        &:first-child td
+        {
+          border-top:2px solid #ddd!important
+        }
+        td{
+          height: 70px;
+          display: table-cell;
+          vertical-align: middle;
+        }
+      }
+    }
+    .no-footer{border-bottom:2px solid #ddd !important}
+    thead th{
+      border: none;
+    }
+    border-bottom: 2px solid #dddddd !important;
+  }
+
 }
 
 
