@@ -35,7 +35,7 @@
                                         @foreach($cart as $item)
 
                                         <tr class="cart_table_item">
-                                            <td class="product-name" align="center">
+                                            <td class="product-name">
                                                 <strong>{{$item->name}}</strong>
                                             </td>
                                             <td class="product-color">
@@ -53,7 +53,7 @@
                                                     <input type="number" id="_{{$item->id}}" class="input-text qty qtywidth text" title="Qty" value="{{$item->qty}}" name="quantity" min="1" step="1">
                                                 </div>
                                             </td>
-                                            <td class="product-subtotal" align="right">
+                                            <td class="product-subtotal">
                                                 <span class="amount"><strong>{{formatMoney($item->subtotal)}}</strong></span>
                                             </td>
                                             <td class="product-remove">
