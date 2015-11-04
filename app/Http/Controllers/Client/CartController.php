@@ -13,6 +13,7 @@ use App\models\UserAddress;
 use Datatables;
 use Cart;
 use Form;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Request;
 use App\Http\Requests\CartRequest;
 
@@ -44,7 +45,7 @@ class CartController extends BaseController {
                         'name' => $pName,
                         'qty' => $qty,
                         'price' => $pPrice,
-                        'options' => array('color' => Color::showName($cId), 'image'=>$image),
+                        'options' => array('color' => Color::showName($cId), 'image'=>$image, 'pid'=>$pId),
                         ));
                 }
                 $result = ['status'=>'ok'];
@@ -52,7 +53,7 @@ class CartController extends BaseController {
                 $qty = Request::get('product_qty');
                 $product = Product::find($pId);
                 if($qty>0){
-                    Cart::add(array('id' => $pId, 'name' => $pName, 'qty' => $qty, 'price' => $pPrice, 'options'=>array('image'=>$product->image)));
+                    Cart::add(array('id' => $pId, 'name' => $pName, 'qty' => $qty, 'price' => $pPrice, 'options'=>array('image'=>$product->image, 'pid'=>$pId)));
                     $result = ['status'=>'ok'];
                 }else{
                     $result = ['status'=>'error', 'message'=>'Vui lòng chọn số lượng sản phẩm'];
@@ -137,10 +138,14 @@ class CartController extends BaseController {
             //save user
             $user = new User();
             $uid = 0;
+            $username = "";
+            $email = "";
             $existUser = $user->getUserByEmail($request->get('email'));
 
             if(!empty($existUser)){
                 $uid = $existUser->id;
+                $username = $existUser->name;
+                $email = $existUser->email;
             }else{
                 $item = array(
                     'name'  => $request->get('name'),
@@ -150,8 +155,9 @@ class CartController extends BaseController {
                 );
                 $createdUser = $user->createItem($item);
                 $uid = $createdUser->id;
+                $username = $createdUser->name;
+                $email = $createdUser->email;
             }
-
 
             //save address receive
             $userReceive = new AddressReceive();
@@ -183,8 +189,22 @@ class CartController extends BaseController {
 
                 $orderDetail = new OrderDetail();
                 if($orderDetail->createItems($createdOrder->id, Cart::content())){
+                    //send email
+                    $data = array(
+                        'username'      => $username,
+                        'linkWebsite'   => SITE_LINK,
+                        'receiveName'   => $address->name,
+                        'receiveAddress'=> $createdOrder->address,
+                        'receivePhone'  => $address->phone,
+                        'carts'         => Cart::content(),
+                        'total'         => Cart::total(),
+                    );
                     Cart::destroy();
-                    $re = array('status'=>'ok', 'id'=>$createdOrder->id);
+                    if($this->sendEmailOrder($email, $username, $data)){
+                        $re = array('status'=>'ok', 'id'=>$createdOrder->id);
+                    }else{
+                        $re = array('status'=>'error', 'message' => 'Bị lỗi trong quá trình gửi mail');
+                    }
                 };
             }
             echo json_encode($re);
@@ -212,5 +232,16 @@ class CartController extends BaseController {
         echo Form::select('ward_id', $lists,null, array('class'=>'form-control', 'id'=>'ward')) . '<span id="error-ward" class="text-red error"></span>';
     }
 
+    /*
+     *
+     */
+    public function sendEmailOrder($email, $username, $data)
+    {
+        $subject = "Thông tin đặt hàng";
+        Mail::send('client.emails.send-email-order', $data, function($message) use($email, $username, $subject){
+            $message->to($email, $username)->bcc(ADMIN_EMAIL)->subject($subject);
+        });
+        return true;
+    }
 
 }

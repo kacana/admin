@@ -123,6 +123,7 @@ Route::group(['domain'=>'{envDomain}{nameDomain}', ], function () {
     Route::post('cart/processCart',                         array('as'=>'processCart',       'uses'=>'Client\CartController@processCart'));
     Route::get('cart/don-dat-hang/{id}',                    array('as'=>'orderDetail',       'uses'=>'Client\CartController@orderDetail'));
     Route::post('/cart/showListWards',                      array('as'=>'showListWards',     'uses'=>'Client\CartController@showListWards'));
+
 });
 
 View::composer('layouts.client.header', function($view){

@@ -15,8 +15,8 @@ return [
 	*/
 
 	'mailgun' => [
-		'domain' => '',
-		'secret' => '',
+		'domain' => 'dev.kacana.com',
+		'secret' => 'bc7caaaf109a3f3fab07e210adf13b62',
 	],
 
 	'mandrill' => [

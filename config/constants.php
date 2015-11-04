@@ -11,3 +11,5 @@ define('CITY_ID_DEFAULT', 1);
 define('BUYER', 'buyer');
 define('GUESS', 'guess');
 define('ADMIN', 'admin');
+
+define('ADMIN_EMAIL', 'kacana.tuixach@gmail.com');
