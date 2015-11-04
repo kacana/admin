@@ -78,9 +78,7 @@
                         <a class="dropdown-toggle mobile-redirect" href="javascript:void(0)">
                             <i class="fa fa-opencart fa-6"></i>
                         </a>
-
                         <ul class="dropdown-menu">
-
                             <li>
                                 <div class="mega-menu-content">
                                     <div class="row">
