@@ -27,7 +27,6 @@
                         </div>
                         <div class="product-info">
                             <div class="product-title"> <a href="{{urlProductDetail($item)}}" title="{{$item->name}}">{{$item->name}}</a></div>
-
                         </div>
                         <div class="product-action">
                             <div class="product-price pull-left">{{formatMoney($item->price)}}</div>

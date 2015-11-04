@@ -59,7 +59,7 @@
                                 </div>
                             </div>
                         @endif
-                        <br/>
+                        <br/><br/>
                         <div class="cf">
                             <div class="lr">
                                 <input type="hidden" name="product_id" value="{{$item->id}}">
@@ -71,6 +71,9 @@
                                     <i class="fa fa-shopping-cart"></i>
                                     Thêm vào giỏ hàng
                                 </button>
+                            </div>
+                            <div>
+                                <button id="_btn_{{$item->id}}" onclick="Kacana.homepage.showPopupRequest({{$item->id}})" rel="popover" class="btn-advise btn btn-primary" data-original-title="Tư vấn" data-delay="100"><span>Tư vấn</span></button>
                             </div>
                         </div>
                     </form>
@@ -106,4 +109,12 @@
 
 
 @stop
+@section('javascript')
+    Kacana.homepage.init();
+    $(window).on('resize', function(){
+    $('.btn-advise').popover('destroy');
+    Kacana.homepage.initPopover();
+    })
+@stop
+@include('client.partials.popup-modal')
 
