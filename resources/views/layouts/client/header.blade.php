@@ -73,12 +73,14 @@
                         @endif
                     @endforeach
                     <!-- cart -->
+                    @if(Cart::count()>0)
                     <li class="dropdown mega-menu-item mega-menu-shop">
-                        <a class="dropdown-toggle mobile-redirect" href="shop-cart.html">
-                            <i class="fa fa-shopping-cart"></i> Cart ({{Cart::count()}}) - {{ formatMoney(Cart::total())}}
-                            <i class="fa fa-angle-down"></i>
+                        <a class="dropdown-toggle mobile-redirect" href="javascript:void(0)">
+                            <i class="fa fa-opencart fa-6"></i>
                         </a>
+
                         <ul class="dropdown-menu">
+
                             <li>
                                 <div class="mega-menu-content">
                                     <div class="row">
@@ -87,20 +89,13 @@
                                                 <tbody>
                                                 @foreach(Cart::content() as $item)
                                                     <tr class="cart_table_item">
-                                                        <td class="product-name" style="text-align: left; width:150px">
-                                                            {{$item->name}}
+                                                        <td class="product-image" style="text-align: left;width:80px">
+                                                            <img src="{{$item->options['image']}}" width="70px"/>
                                                         </td>
-                                                        <td class="product-color">
-                                                            @if(isset($item->options['color']))
-                                                                <span class="color">{{$item->options['color'][0]}}</span>
-                                                            @else
-                                                                <span class="color"> - </span>
-                                                            @endif
+                                                        <td class="product-name" style="text-align: left; width:210px">
+                                                            <span>{{limitString($item->name)}}</span>
                                                         </td>
-                                                        <td><span class="amount">{{formatMoney($item->price)}}</span></td>
-                                                        <td class="product-quantity">
-                                                            <span>{{$item->qty}}</span>
-                                                        </td>
+
                                                         <td class="product-subtotal" align="right">
                                                             <span class="amount"><strong>{{formatMoney($item->subtotal)}}</strong></span>
                                                         </td>
@@ -108,10 +103,8 @@
                                                 @endforeach
                                                 <tr>
                                                     <td class="actions" colspan="6">
-                                                        <div class="actions-continue">
-                                                            <a href="/cart/showCart" class="btn pull-left btn-default">View All</a>
-
-                                                            <input type="submit" value="Checkout →" name="proceed" class="btn pull-right btn-primary">
+                                                        <div>
+                                                            <a href="/cart/showCart" class="btn btn-primary">Chi tiết</a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -124,6 +117,13 @@
                             </li>
                         </ul>
                     </li>
+                    @else
+                        <li class="disabled">
+                            <a class="dropdown-toggle mobile-redirect" href="javascrip:void(0)">
+                                <i class="fa fa-opencart fa-4"></i>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
                 @endif
             </nav>

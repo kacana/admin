@@ -115,14 +115,14 @@
                             </div>
                             <br/>
                             <div class="pull-right">
-                                <button class="btn btn-primary" id="proceed" onclick="Kacana.cart.showFormUser()">Checkout</button>
+                                <button class="btn btn-primary" id="proceed" onclick="Kacana.cart.showFormUser()">Thanh toán</button>
                             </div>
                         </div>
                          @endif
                     </div>
                     @if(count($cart)>0)
-                        <div id="user-info" style="display: none">
-                    <div class="row featured-boxes cart" id="" >
+                        <div id="user-info" style="">
+                    <div class="row featured-boxes cart" id="checkout" >
                         <div class="col-md-6">
                             <div class="featured-box featured-box-secundary default">
                                 <div class="box-content">

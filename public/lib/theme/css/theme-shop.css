@@ -19,7 +19,10 @@ Version: 		3.7.0
 }
 
 #header nav.mega-menu .mega-menu-shop a {
-	color: #444;
+	color: #0088cc;
+}
+#header nav.mega-menu .mega-menu-shop a:hover{
+    background-color:transparent!important;
 }
 
 #header nav.mega-menu .mega-menu-shop table {
@@ -30,13 +33,15 @@ Version: 		3.7.0
 #header nav.mega-menu .mega-menu-shop .dropdown-menu {
 	width: 40%;
 	right: 8px;
-	border-radius: 6px 0 6px 6px;
+	border-radius: 6px 0px 6px 6px;
 }
 
 #header nav.mega-menu .mega-menu-shop .dropdown-menu li table tr td a {
 	background-color: transparent !important;
-	color: #333;
-	padding: 0;
+	/*color: #333;*/
+	/*padding: 0;*/
+    color:#fff;
+    padding:7px;
 	margin: 0;
 	display: block;
 }
@@ -47,6 +52,7 @@ Version: 		3.7.0
 
 #header nav.mega-menu .mega-menu-shop .dropdown-menu li table tr td a:hover {
 	text-decoration: none;
+    padding:7px;
 }
 
 #header nav.mega-menu .mega-menu-shop .fa-shopping-cart {
@@ -810,6 +816,7 @@ Version: 		3.7.0
 	border-radius: 0;
 }
 
+
 /* Responsive */
 @media (max-width: 991px) {
 	.shop .actions-continue {
@@ -832,3 +839,6 @@ Version: 		3.7.0
 		display: none !important;
 	}
 }
+a.btn-primary:hover{background-color:#337ab7}
+
+

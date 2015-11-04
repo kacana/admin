@@ -29,5 +29,11 @@ class ProductGallery extends Model  {
         return DB::table('product_gallery')->where('id', $id)->pluck('image');
     }
 
+    public function getImageFromProductAndColor($pid, $cid){
+        $gallery_id =  DB::table('product_color')->where(array('product_id'=>$pid, 'color_id'=>$cid))->pluck('gallery_id');
+        return DB::table('product_gallery')->where('id', $gallery_id)->pluck('image');
+
+    }
+
 
 }

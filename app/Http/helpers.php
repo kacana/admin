@@ -100,4 +100,16 @@ function urlProductDetail($item)
     }
 }
 
+function limitString($str, $len = 100){
+    $strLen = strlen($str);
+    $re = $str;
+    if($strLen <= $len){
+        $re = $str;
+    }else{
+        $re = substr($str, 0, $len);
+        $re .= "...";
+    }
+    return $re;
+}
+
 

@@ -22,6 +22,7 @@
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="/lib/fontawesome/css/font-awesome.css">
+    <link rel="stylesheet" href="http://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css"/>
 
     <link rel="stylesheet" href="/lib/owlcarousel/owl.carousel.min.css" media="screen">
     <link rel="stylesheet" href="/lib/owlcarousel/owl.theme.default.min.css" media="screen">

@@ -7,6 +7,7 @@ use App\models\OrderDetail;
 use App\models\Product;
 use App\models\AddressCity;
 use App\models\AddressWard;
+use App\models\ProductGallery;
 use App\models\User;
 use App\models\UserAddress;
 use Datatables;
@@ -36,19 +37,22 @@ class CartController extends BaseController {
                 foreach($options as $option){
                     $cId = explode('q', $option)[0];
                     $qty = explode('q', $option)[1];
+                    $productGallery = new ProductGallery();
+                    $image = showProductImg($productGallery->getImageFromProductAndColor($pId, $cId), $pId);
                     Cart::add(array(
                         'id' => $pId . $cId,
                         'name' => $pName,
                         'qty' => $qty,
                         'price' => $pPrice,
-                        'options' => array('color' => Color::showName($cId)),
+                        'options' => array('color' => Color::showName($cId), 'image'=>$image),
                         ));
                 }
                 $result = ['status'=>'ok'];
             }else{
                 $qty = Request::get('product_qty');
+                $product = Product::find($pId);
                 if($qty>0){
-                    Cart::add(array('id' => $pId, 'name' => $pName, 'qty' => $qty, 'price' => $pPrice));
+                    Cart::add(array('id' => $pId, 'name' => $pName, 'qty' => $qty, 'price' => $pPrice, 'options'=>array('image'=>$product->image)));
                     $result = ['status'=>'ok'];
                 }else{
                     $result = ['status'=>'error', 'message'=>'Vui lòng chọn số lượng sản phẩm'];

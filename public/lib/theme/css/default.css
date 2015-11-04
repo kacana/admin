@@ -1,4 +1,4 @@
-dèaulth3,
+h3,
 h4,
 h5 {
 	color: #0088cc;
@@ -345,7 +345,7 @@ section.video blockquote i.fa-quote-left {
 #header nav ul.nav-main li.dropdown.open .dropdown-toggle,
 #header nav ul.nav-main li.active a,
 #header nav ul.nav-main li > a:hover,
-#header nav ul.nav-main li.dropdown:hover a {
+#header nav ul.nav-main li.dropdown:hover a{
 	color: #FFF;
 	background-color: #0088cc !important;
 }
@@ -542,3 +542,4 @@ html[dir="rtl"] .tabs.tabs-vertical.tabs-right ul.nav-tabs li.active a:focus {
 	border-right-color: transparent;
 	border-left-color: #0088cc;
 }
+
