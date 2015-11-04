@@ -36,7 +36,7 @@
 
                                         <tr class="cart_table_item">
                                             <td class="product-name">
-                                                <strong>{{$item->name}}</strong>
+                                                <strong><a href="{{$item->options['urlDetail']}}">{{$item->name}}</a></strong>
                                             </td>
                                             <td class="product-color">
                                                 @if(isset($item->options['color']))

@@ -33,6 +33,8 @@ class CartController extends BaseController {
             $pName = Request::get('product_name');
             $pPrice = Request::get('product_price');
             $options = Request::get('qty');
+            $product = Product::find($pId);
+
             if($options!=''){
                 $options = explode(',', $options);
                 foreach($options as $option){
@@ -40,20 +42,31 @@ class CartController extends BaseController {
                     $qty = explode('q', $option)[1];
                     $productGallery = new ProductGallery();
                     $image = showProductImg($productGallery->getImageFromProductAndColor($pId, $cId), $pId);
+
                     Cart::add(array(
                         'id' => $pId . $cId,
                         'name' => $pName,
                         'qty' => $qty,
                         'price' => $pPrice,
-                        'options' => array('color' => Color::showName($cId), 'image'=>$image, 'pid'=>$pId),
+                        'options' => array('color' => Color::showName($cId), 'image'=>$image, 'urlDetail'=>urlProductDetail($product)),
                         ));
                 }
                 $result = ['status'=>'ok'];
             }else{
                 $qty = Request::get('product_qty');
-                $product = Product::find($pId);
                 if($qty>0){
-                    Cart::add(array('id' => $pId, 'name' => $pName, 'qty' => $qty, 'price' => $pPrice, 'options'=>array('image'=>$product->image, 'pid'=>$pId)));
+                    Cart::add(
+                        array(
+                            'id' => $pId,
+                            'name' => $pName,
+                            'qty' => $qty,
+                            'price' => $pPrice,
+                            'options'=>array(
+                                'image'=>$product->image,
+                                'urlDetail'=>urlProductDetail($product)
+                            )
+                        )
+                    );
                     $result = ['status'=>'ok'];
                 }else{
                     $result = ['status'=>'error', 'message'=>'Vui lòng chọn số lượng sản phẩm'];

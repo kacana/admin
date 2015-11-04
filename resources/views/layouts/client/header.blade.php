@@ -9,9 +9,9 @@
             <form id="searchForm" action="page-search-results.html" method="get">
                 <div class="input-group">
                     <input type="text" class="form-control search" name="q" id="q" placeholder="Tìm túi..." required>
-								<span class="input-group-btn">
-									<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-								</span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                    </span>
                 </div>
             </form>
         </div>
@@ -87,11 +87,11 @@
                                                 <tbody>
                                                 @foreach(Cart::content() as $item)
                                                     <tr class="cart_table_item">
-                                                        <td class="product-image" style="text-align: left;width:80px">
+                                                        <td class="product-image">
                                                             <img src="{{$item->options['image']}}" width="70px"/>
                                                         </td>
-                                                        <td class="product-name" style="text-align: left; width:210px">
-                                                            <span>{{limitString($item->name)}}</span>
+                                                        <td class="product-name">
+                                                            <span><a href="{{isset($item->options['urlDetail'])?$item->options['urlDetail']:'#'}}">{{limitString($item->name)}}</a></span>
                                                         </td>
 
                                                         <td class="product-subtotal" align="right">

@@ -22,7 +22,7 @@ Version: 		3.7.0
 	color: #0088cc;
 }
 #header nav.mega-menu .mega-menu-shop a:hover{
-    background-color:transparent!important;
+    background-color:transparent;
 }
 
 #header nav.mega-menu .mega-menu-shop table {

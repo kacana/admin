@@ -347,7 +347,7 @@ section.video blockquote i.fa-quote-left {
 #header nav ul.nav-main li > a:hover,
 #header nav ul.nav-main li.dropdown:hover a{
 	color: #FFF;
-	background-color: #0088cc !important;
+	background-color: #0088cc;
 }
 
 #header nav ul.nav-main ul.dropdown-menu li:hover > a {
