@@ -62,7 +62,7 @@ class CartController extends BaseController {
                             'qty' => $qty,
                             'price' => $pPrice,
                             'options'=>array(
-                                'image'=>$product->image,
+                                'image'=>showProductImg($product->image, $pId),
                                 'urlDetail'=>urlProductDetail($product)
                             )
                         )
