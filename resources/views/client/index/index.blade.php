@@ -22,7 +22,7 @@
                             <div class="col-md-4 product-item" >
                         <div class="product-image" >
                             <div class="product-image-inside" >
-                                <a href="{{urlProductDetail($item)}}" title="{{$item->name}}"><img src="{{$item->image}}" alt="{{$item->name}}"/></a>
+                                <a href="{{urlProductDetail($item)}}" title="{{$item->name}}"><img src="{{showProductImg($item->image, $item->id)}}" alt="{{$item->name}}"/></a>
                             </div>
                         </div>
                         <div class="product-info">
