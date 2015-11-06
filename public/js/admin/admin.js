@@ -1,4 +1,4 @@
-;var Kacana ={};;var ajaxPackage = {
+var Kacana ={};;;var ajaxPackage = {
     ajax: {
         init:function(url, dataType, type, dataPost, callBack, errorCallBack, options){
 

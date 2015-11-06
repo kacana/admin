@@ -54,7 +54,8 @@ var cartPackage = {
             Kacana.ajax.cart.addToCart(other_data, callBack, errorCallBack);
         },
         updateCart: function(){
-            Kacana.cart.classQty.click(function(){
+
+            Kacana.cart.classQty.on('keypress click',function(){
                 pid = $(this).attr('data-id');
                 qty = $(this).val();
                 var callBack = function(data){
