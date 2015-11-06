@@ -104,20 +104,12 @@ class CartController extends BaseController {
      * function mame decreaseQty
      * decrease quantity of product
      */
-    public function updateCart()
+    public function updateCart($env, $domain, $cid, $qty)
     {
-        if(Request::isMethod('post')){
-            $options = Request::get('options');
-            if(count($options)>0){
-                $options = explode(",", $options);
-                foreach($options as $item){
-                    $cId = explode('q', $item)[0];
-                    $qty = explode('q', $item)[1];
-                    $rowId = Cart::search(array('id'=>$cId));
-                    Cart::update($rowId[0], $qty);
-                }
-            }
-        }
+        $rowId = Cart::search(array('id'=>$cid));
+        Cart::update($rowId[0], $qty);
+        $result = array('subtotal'=>formatMoney(Cart::get($rowId[0])->subtotal),'total'=>formatMoney(Cart::total()));
+        echo json_encode($result);
     }
 
     /*

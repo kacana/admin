@@ -1,18 +1,28 @@
 var cartPackage = {
-    cart: {
-        init: function () {
 
+    cart: {
+        classQty: $(".qty"),
+        classRemove: $('.remove-cart'),
+        init: function () {
+            Kacana.cart.updateCart();
+            Kacana.cart.removeCart();
+            Kacana.cart.showFormUser();
         },
-        removeCart: function(id){
-            var callBack = function(data){
-                window.location.reload();
-            }
-            var errorCallBack = function(data){}
-            Kacana.ajax.cart.removeCart(id, callBack, errorCallBack);
+        removeCart: function(){
+            Kacana.cart.classRemove.click(function(){
+                id = $(this).attr('data-id');
+                var callBack = function(data){
+                    window.location.reload();
+                }
+                var errorCallBack = function(data){}
+                Kacana.ajax.cart.removeCart(id, callBack, errorCallBack);
+            })
         },
         showFormUser: function(){
-            $("#proceed").hide();
-            $("#user-info").show();
+            $("#proceed").click(function(){
+                $(this).hide();
+                $("#user-info").show();
+            })
         },
         addToCart: function(){
             $("#add-cart-btn").attr('disabled', true);
@@ -44,19 +54,16 @@ var cartPackage = {
             Kacana.ajax.cart.addToCart(other_data, callBack, errorCallBack);
         },
         updateCart: function(){
-            $("#updateCart").attr('disabled', true);
-            var object = [];
-            $('tr.cart_table_item').each(function(index){
-                object.push($(this).find('.qty').attr('id').substring(1) + "q" + $(this).find('.qty').val());
-            });
-
-            var formData = "options="+object+"&_token="+$("#token").val();
-
-            var callBack = function(data){
-                window.location.reload();
-            };
-            var errorCallBack = function(data){};
-            Kacana.ajax.cart.updateCart(formData, callBack, errorCallBack);
+            Kacana.cart.classQty.click(function(){
+                pid = $(this).attr('data-id');
+                qty = $(this).val();
+                var callBack = function(data){
+                    $(".amount-"+pid).html(data.subtotal);
+                    $(".total-amount").html(data.total);
+                };
+                var errorCallBack = function(data){};
+                Kacana.ajax.cart.updateCart(pid, qty, callBack, errorCallBack);
+            })
         },
         changeCity: function(){
             var id = $("#city_id").val();

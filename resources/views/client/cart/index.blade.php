@@ -50,14 +50,14 @@
                                             </td>
                                             <td class="product-quantity">
                                                 <div class="">
-                                                    <input type="number" id="_{{$item->id}}" class="input-text qty qtywidth text" title="Qty" value="{{$item->qty}}" name="quantity" min="1" step="1">
+                                                    <input type="number" data-id="{{$item->id}}" class="input-text qty qtywidth text" title="Qty" value="{{$item->qty}}" name="quantity" min="1" step="1">
                                                 </div>
                                             </td>
                                             <td class="product-subtotal">
-                                                <span class="amount"><strong>{{formatMoney($item->subtotal)}}</strong></span>
+                                                <span class="amount"><strong class="amount-{{$item->id}}">{{formatMoney($item->subtotal)}}</strong></span>
                                             </td>
                                             <td class="product-remove">
-                                                <button onclick="Kacana.cart.removeCart({{$item->id}})">
+                                                <button class="remove-cart" data-id="{{$item->id}}">
                                                     <i class="fa fa-times"></i>
                                                 </button>
                                             </td>
@@ -74,10 +74,6 @@
                     </div>
                     <div class="featured-boxes">
                         <div class="col-md-8">
-                            @if(count($cart)>0)
-                                <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-                            <a type="button" class="btn btn-primary" id="updateCart" onclick="Kacana.cart.updateCart()">Cập nhật giỏ hàng</a>
-                            @endif
                             <a type="button" class="btn btn-primary" href="/">Tiếp tục mua hàng</a>
                         </div>
                         @if(count($cart)>0)
@@ -91,7 +87,7 @@
                                             <strong>Tổng số tiền trong giỏ hàng</strong>
                                         </th>
                                         <td align="right">
-                                            <strong><span class="amount">{{formatMoney($total)}}</span></strong>
+                                            <strong><span class="amount total-amount">{{formatMoney($total)}}</span></strong>
                                         </td>
                                     </tr>
                                     <tr class="shipping">
@@ -107,7 +103,7 @@
                                             <strong>Tổng tiền đơn đặt hàng</strong>
                                         </th>
                                         <td align="right">
-                                            <strong><span class="amount">{{formatMoney($total)}}</span></strong>
+                                            <strong><span class="amount total-amount">{{formatMoney($total)}}</span></strong>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -115,13 +111,13 @@
                             </div>
                             <br/>
                             <div class="pull-right">
-                                <button class="btn btn-primary" id="proceed" onclick="Kacana.cart.showFormUser()">Thanh toán</button>
+                                <button class="btn btn-primary" id="proceed">Thanh toán</button>
                             </div>
                         </div>
                          @endif
                     </div>
                     @if(count($cart)>0)
-                        <div id="user-info" style="">
+                        <div id="user-info" style="display:none">
                     <div class="row featured-boxes cart" id="checkout" >
                         <div class="col-md-6">
                             <div class="featured-box featured-box-secundary default">
@@ -214,6 +210,6 @@
     </div>
 @stop
 @section('javascript')
-
+    Kacana.cart.init();
 @stop
 

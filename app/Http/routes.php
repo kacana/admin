@@ -119,7 +119,7 @@ Route::group(['domain'=>'{envDomain}{nameDomain}', ], function () {
     Route::get('cart/increaseQty/{pid}',                    array('as'=>'increaseQty',       'uses'=>'Client\CartController@increaseQty'));
     Route::get('cart/decreaseQty/{pid}',                    array('as'=>'decreaseQty',       'uses'=>'Client\CartController@decreaseQty'));
     Route::get('cart/removeCart/{pid}',                     array('as'=>'removeCart',        'uses'=>'Client\CartController@removeCart'));
-    Route::post('cart/updateCart',                          array('as'=>'updateCart',        'uses'=>'Client\CartController@updateCart'));
+    Route::get('cart/updateCart/{cid}/{qty}',               array('as'=>'updateCart',        'uses'=>'Client\CartController@updateCart'));
     Route::post('cart/processCart',                         array('as'=>'processCart',       'uses'=>'Client\CartController@processCart'));
     Route::get('cart/don-dat-hang/{id}',                    array('as'=>'orderDetail',       'uses'=>'Client\CartController@orderDetail'));
     Route::post('/cart/showListWards',                      array('as'=>'showListWards',     'uses'=>'Client\CartController@showListWards'));
