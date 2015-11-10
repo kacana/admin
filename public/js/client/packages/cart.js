@@ -9,13 +9,16 @@ var cartPackage = {
             Kacana.cart.showFormUser();
         },
         removeCart: function(){
-            Kacana.cart.classRemove.click(function(){
-                id = $(this).attr('data-id');
-                var callBack = function(data){
-                    window.location.reload();
-                }
-                var errorCallBack = function(data){}
-                Kacana.ajax.cart.removeCart(id, callBack, errorCallBack);
+            Kacana.cart.classRemove.click(function(e){
+                var id = $(this).attr('data-id');
+                $('#confirm').modal('show');
+                $('#delete').click(function() {
+                    var callBack = function(data){
+                        window.location.reload();
+                    }
+                    var errorCallBack = function(data){}
+                    Kacana.ajax.cart.removeCart(id, callBack, errorCallBack);
+                });
             })
         },
         showFormUser: function(){

@@ -42,8 +42,10 @@ var homepagePackage = {
                 $(window).on('resize', function(){
                     $('.btn-advise').popover('destroy');
                     Kacana.homepage.initPopover(id, data);
+                    return false;
                 })
                 Kacana.homepage.initPopover(id, data);
+                return false;
             };
             var errorCallBack = function(){};
             Kacana.ajax.homepage.showPopupRequest(id, callBack, errorCallBack);
