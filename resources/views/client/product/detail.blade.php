@@ -72,11 +72,12 @@
                                     Thêm vào giỏ hàng
                                 </button>
                             </div>
+                    </form>
                             <div>
-                                <button id="_btn_{{$item->id}}" onclick="Kacana.homepage.showPopupRequest({{$item->id}})" rel="popover" class="btn-advise btn btn-primary" data-original-title="Tư vấn" data-delay="100"><span>Tư vấn</span></button>
+                                <button id="{{$item->id}}" rel="popover" class="btn-advise btn btn-primary" data-delay="100"><span>Tư vấn</span></button>
                             </div>
                         </div>
-                    </form>
+
                 </div>
             </div>
             <div class="col-md-6">
@@ -106,15 +107,9 @@
 
     </div>
 </div>
-
-
 @stop
 @section('javascript')
-    Kacana.homepage.init();
-    $(window).on('resize', function(){
-    $('.btn-advise').popover('destroy');
-    Kacana.homepage.initPopover();
-    })
+    Kacana.productdetail.init();
 @stop
 @include('client.partials.popup-modal')
 

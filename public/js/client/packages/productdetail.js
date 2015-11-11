@@ -1,63 +1,42 @@
-var homepagePackage = {
-    homepage:{
-        homePageId: $('#homepage'),
-        adviseBtn: $(".btn-advise"),
+var productdetailPackage = {
+    productdetail:{
+        adviseBtnClass: $('.btn-advise'),
         actionSendBtn: $("#btn-create"),
         init: function(){
-            Kacana.homepage.reSizeProductImage();
-            Kacana.homepage.showPopupRequest();
-            Kacana.homepage.closeAdvisePopup();
-        },
-        reSizeProductImage: function(){
-            Kacana.homepage.homePageId.find('.product-item').each(function(){
-                var imageProduct = $(this).find('.product-image img');
-                    var height = imageProduct.prop('naturalHeight');
-                    var width = imageProduct.prop('naturalWidth');
-                    var widthParent = imageProduct.parents('.product-image').width();
-                    var heightParent = imageProduct.parents('.product-image').height();
-
-                    var tempHeight = height * ( widthParent/width );
-
-                    if(tempHeight > heightParent)
-                    {
-                        imageProduct.css('height', '100%');
-                    }
-                    else
-                        imageProduct.css('width', '100%');
-                });
+            Kacana.productdetail.showPopupRequest();
+            Kacana.productdetail.closeAdvisePopup();
         },
         getPopoverPlacement: function(pop, dom_el){
-                var width = window.innerWidth;
-                if (width<500) return 'bottom';
-                var left_pos = $(dom_el).offset().left;
-                if (width - left_pos > 400) return 'right';
-                return 'left';
+            var width = window.innerWidth;
+            if (width<500) return 'bottom';
+            var left_pos = $(dom_el).offset().left;
+            if (width - left_pos > 400) return 'right';
+            return 'left';
         },
         initPopover: function(id, data){
-            $('#_btn_'+id).popover({
+            $('#'+id).popover({
                 html: 'true',
-                title:'Tư vấn <a href="#" class="close" data-dismiss="alert">&times;</a>',
-                placement: Kacana.homepage.getPopoverPlacement,
+                title: 'Tư vấn <a href="#" class="close" data-dismiss="alert">&times;</a>',
+                placement: Kacana.productdetail.getPopoverPlacement,
                 content : data
             }).popover('show');
         },
         showPopupRequest: function(){
-
-            Kacana.homepage.adviseBtn.click(function(){
-                Kacana.homepage.adviseBtn.popover('destroy');
-                var id = $(this).attr('id').substr(5);
+            Kacana.productdetail.adviseBtnClass.click(function(e){
+                $(this).attr('disabled', true);
+                var id = $(this).attr('id');
                 var callBack = function(data){
                     $(window).on('resize', function(){
-                        $('.btn-advise').popover('destroy');
-                        Kacana.homepage.initPopover(id, data);
+                        Kacana.productdetail.initPopover(id, data);
+                        return false;
                     })
-                    Kacana.homepage.initPopover(id, data);
+                    Kacana.productdetail.initPopover(id, data);
                 };
                 var errorCallBack = function(){};
                 Kacana.ajax.homepage.showPopupRequest(id, callBack, errorCallBack);
             })
         },
-        sendRequest: function(){
+        sendRequest: function(id){
             $(this).attr('disabled', true);
             var form_data = $("#form-create-request-info").serialize();
             var callBack = function(data) {
@@ -89,9 +68,17 @@ var homepagePackage = {
             $(document).on("click", ".popover .close" , function(){
                 $(this).parents(".popover").popover('hide');
             });
+            $('body').on('click', function (e) {
+                Kacana.productdetail.adviseBtnClass.each(function () {
+                    if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                        $(this).popover('hide');
+                    }
+                });
+                Kacana.productdetail.adviseBtnClass.attr('disabled', false);
+            });
         }
     }
 
 };
 
-$.extend(true, Kacana, homepagePackage);
+$.extend(true, Kacana, productdetailPackage);

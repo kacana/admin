@@ -32,7 +32,7 @@
                             <div class="product-price pull-left">{{formatMoney($item->price)}}</div>
                             <!-- progress button -->
                             <div class="progress-button pull-right">
-                                <button id="_btn_{{$item->id}}" onclick="Kacana.homepage.showPopupRequest({{$item->id}})" rel="popover" class="btn-advise" data-original-title="Tư vấn" data-delay="100" ><span>Tư vấn</span></button>
+                                <button id="_btn_{{$item->id}}" rel="popover" class="btn-advise" data-delay="100" ><span>Tư vấn</span></button>
                             </div><!-- /progress-button -->
                         </div>
                     </div>
@@ -50,9 +50,5 @@
 
 @section('javascript')
     Kacana.homepage.init();
-    $(window).on('resize', function(){
-        $('.btn-advise').popover('destroy');
-        Kacana.homepage.initPopover();
-    })
 @stop
 @include('client.partials.popup-modal')
