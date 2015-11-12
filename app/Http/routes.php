@@ -110,8 +110,10 @@ Route::group(['domain'=>'{envDomain}{nameDomain}', ], function () {
 
     //product
     Route::group(['prefix'=>'san-pham'], function(){
-        Route::get('{id}-{slug}.html',                      array('as'=>'productDetail',    'uses'=>'Client\ProductController@productDetail'));
+        Route::get('{id}-{slug}.html',                      array('as'=>'productDetail',     'uses'=>'Client\ProductController@productDetail'));
     });
+    Route::get('{id}-{slug}.html',                          array('as'=>'listProductByCate', 'uses'=>'Client\ProductController@listProductByCate'));
+    Route::post('loadListProducts',                         array('as'=>'loadListProducts',  'uses'=>'Client\ProductController@loadListProducts'));
 
     //cart
     Route::post('cart/addProductToCart',                    array('as'=>'addProductToCart',  'uses'=>'Client\CartController@addProductToCart'));

@@ -126,4 +126,9 @@ class Tag extends Model  {
         }
         return $data;
     }
+
+    public function getIdChildsById($id){
+        return $this->where('parent_id', $id)->get()->lists('id');
+    }
+
 }
