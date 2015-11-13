@@ -100,6 +100,19 @@ function urlProductDetail($item)
     }
 }
 
+/*
+ * urlCategory
+ */
+function urlCategory($item)
+{
+    if(!empty($item)){
+        if(!empty($item->name)){
+            return URL::to($item->id . '-' . str_slug($item->name) . '.html');
+        }
+    }else{
+        return '';
+    }
+}
 function limitString($str, $len = 100){
     $strLen = strlen($str);
     $re = $str;

@@ -19,6 +19,7 @@ class IndexController extends BaseController {
         $data = array();
         foreach($mainTags as $t){
             $result['tag'] = $t->name;
+            $result['tag_url'] = urlCategory($t);
             $result['products'] = $product->getItemsByTag($t, $limit);
             $data[] = $result;
         }

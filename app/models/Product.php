@@ -179,4 +179,28 @@ class Product extends Model  {
             ->get();
         return $query;
     }
+
+    /*
+     *
+     */
+    public function getItems($limit, $page, $options){
+        $query = DB::table('product')
+            ->select('product.id', 'product.name', 'product.price', 'product.image')
+            ->join('product_tag', 'product.id', '=', 'product_tag.product_id');
+        if(is_array($options)){
+            if(isset($options['cateId'])){
+                $tag = new Tag();
+                $listChildId = $tag->getIdChildsById($options['cateId']);
+                $listChildId[] = $options['cateId'];
+                $query->whereIn('product_tag.tag_id', $listChildId);
+            }
+        }
+        $query->orderBy('created');
+        if($page > 0){
+            return $query->take($limit)->get();
+        }else{
+            return $query->paginate($limit);
+        }
+    }
+
 }
