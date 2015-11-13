@@ -82,7 +82,11 @@ var ajaxPackage = {
             changeCity: function(data, callBack, errorCallBack){
                 Kacana.ajax.init('/cart/showListWards?'+dataậ, '', 'post', '', callBack, errorCallBack, []);
             }
-
+        },
+        tagpage: {
+            loadProduct: function(tagId, page, callBack, errorCallBack){
+                Kacana.ajax.init('loadListProducts?cateId='+tagId+"&page="+page,'','post', '', callBack, errorCallBack, []);
+            }
         }
     }
 };

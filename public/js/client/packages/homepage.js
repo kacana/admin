@@ -91,7 +91,6 @@ var homepagePackage = {
             });
         }
     }
-
 };
 
 $.extend(true, Kacana, homepagePackage);

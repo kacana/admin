@@ -13,3 +13,4 @@ define('GUESS', 'guess');
 define('ADMIN', 'admin');
 
 define('ADMIN_EMAIL', 'kacana.tuixach@gmail.com');
+define('LIMIT_PER_PAGE', 20);

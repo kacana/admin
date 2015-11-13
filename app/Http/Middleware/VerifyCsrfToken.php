@@ -4,7 +4,7 @@ use Closure;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
 
 class VerifyCsrfToken extends BaseVerifier {
-
+    private $openRoutes = ['loadListProducts'];
 	/**
 	 * Handle an incoming request.
 	 *
@@ -14,6 +14,11 @@ class VerifyCsrfToken extends BaseVerifier {
 	 */
 	public function handle($request, Closure $next)
 	{
+        foreach($this->openRoutes as $route){
+            if($request->is($route)){
+                return $next($request);
+            }
+        }
 		return parent::handle($request, $next);
 	}
 

@@ -197,9 +197,9 @@ class Product extends Model  {
         }
         $query->orderBy('created');
         if($page > 0){
-            return $query->take($limit)->get();
-        }else{
             return $query->paginate($limit);
+        }else{
+            return $query->take($limit)->get();
         }
     }
 

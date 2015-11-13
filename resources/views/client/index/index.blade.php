@@ -11,7 +11,7 @@
                         {{$block['tag']}}
                     </div>
                     <div class="show-all col-sm-4" >
-                        Thêm <i class="fa fa-angle-right"></i>
+                        <a href="{{$block['tag_url']}}">Thêm <i class="fa fa-angle-right"></i></a>
                     </div>
                 </div>
             </div>

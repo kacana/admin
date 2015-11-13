@@ -2,6 +2,7 @@
 
 use App\models\Product;
 use App\models\Tag;
+use Illuminate\Support\Facades\Request;
 use Datatables;
 
 
@@ -41,7 +42,7 @@ class ProductController extends BaseController {
             $cateId = Request::input('cateId');
             $options = ['cateId'=>$cateId];
             $data['items'] = $product->getItems(LIMIT_PER_PAGE, $page, $options);
-            return View::make('client.product.ajax-pagination', $data);
+            return view('client.product.ajax-pagination', $data);
         }
     }
 }
