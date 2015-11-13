@@ -48,6 +48,11 @@ class OrderDetail extends Model  {
         return true;
     }
 
+    public function product()
+    {
+        return $this->belongsTo('App\models\Product');
+    }
+
     /*
      * function name: getItemsByOrderId
      */

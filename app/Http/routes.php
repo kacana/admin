@@ -89,6 +89,16 @@ Route::group(['domain'=>'admin.{envDomain}{nameDomain}','middleware' => 'auth'],
     Route::post('/user/editUserAddress',                    array('as'=>'editUserAddress',           'uses'=>'Admin\UserController@editUserAddress'));
     Route::get('/user/showListWards/{id}',                  array('as'=>'showListWards',             'uses'=>'Admin\UserController@showListWards'));
 
+    //Info request
+    Route::any('/advisory',                                     array('as'=>'index',                 'uses'=>'Admin\AdvisoryController@index'));
+    Route::any('/advisory/getAdvisory',                             array('as'=>'getAdvisory',                  'uses'=>'Admin\AdvisoryController@getAdvisory'));
+
+    //Order Request
+    Route::any('/order',                                     array('as'=>'listOrder',                 'uses'=>'Admin\OrderController@index'));
+    Route::any('/order/getList',                             array('as'=>'getList',                  'uses'=>'Admin\OrderController@getList'));
+
+
+
 });
 
 /*********************************************************

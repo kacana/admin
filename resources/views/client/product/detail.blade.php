@@ -1,16 +1,15 @@
 @extends('layouts.client.master')
 
 @section('content')
-<div role="main" class="main shop">
+<div role="main" id="product-detail" class="main shop">
     <div class="container">
         <hr class="tall">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="summary entry-summary">
-                    <h1 class="shorter"><strong>{{$item->name}}</strong></h1>
+                    <h1 class="shorter">{{$item->name}}</h1>
 
                     <p class="price">
-                        <span class="old-price">{{formatMoney($item->price)}}</span><br/>
                         <span class="amount">{{formatMoney($item->sell_price)}}</span>
                     </p>
 
@@ -80,7 +79,7 @@
 
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 col-md-offset-1">
                 <div class="owl-carousel" data-plugin-options='{"items": 1}'>
                     @if($item->galleries && count($item->galleries)>0)
                         <?php $count = 1;?>

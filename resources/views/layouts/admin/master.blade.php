@@ -87,7 +87,7 @@
 
                 @yield('content')
 
-            </div><!-- /.content-wrapper -->mámáter
+            </div><!-- /.content-wrapper -->
 
             <footer class="main-footer">
                 @include('layouts.admin.footer')

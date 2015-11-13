@@ -26,9 +26,9 @@
         </li>
 
         <li class="header">Quản Lý Đơn Hàng</li>
-        <li class="treeview {{($controller == 'UserController')?'active':''}}"><a href="{{URL::to('/user')}}"><i class="fa fa-info-circle"></i><span>Tư vấn</span></a>
+        <li class="treeview {{($controller == 'AdvisoryController')?'active':''}}"><a href="{{URL::to('/advisory')}}"><i class="fa fa-info-circle"></i><span>Tư vấn</span></a>
         </li>
-        <li class="treeview {{($controller == 'UserController')?'active':''}}"><a href="{{URL::to('/user')}}"><i class="fa fa-opencart fa-6"></i><span>Đơn hàng</span></a>
+        <li class="treeview {{($controller == 'OrderController')?'active':''}}"><a href="{{URL::to('/order')}}"><i class="fa fa-opencart fa-6"></i><span>Đơn hàng</span></a>
         </li>
 
         {{--<li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>--}}
