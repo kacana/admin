@@ -5,8 +5,11 @@
         <div class="block-tag" >
             <div class="block-tag-header" >
                 <div class="container">
-                    <div class="tag-name col-sm-8" >
-                        {{ $tag->name }}
+                    <div class="col-sm-8" >
+                        <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-list" aria-hidden="true"></span> Filter
+                        </button>
+                        @include('client.product.sidebar')
                     </div>
                 </div>
             </div>

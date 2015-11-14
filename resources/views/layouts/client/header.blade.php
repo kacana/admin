@@ -56,19 +56,19 @@
                     @foreach($menu_items as $item)
                         @if(isset($item['childs']) && sizeof($item['childs']) > 0)
                         <li class="dropdown">
-                            <a class="dropdown-toggle" href="#">
+                            <a class="dropdown-toggle" href="{{$item['tag_url']}}">
                                {{ $item['name'] }}
                                 <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown-menu">
                                 @foreach($item['childs'] as $child)
-                                <li><a href="about-us.html">{{ $child->name }}</a></li>
+                                <li><a href="{{urlCategory($child)}}">{{ $child->name }}</a></li>
                                 @endforeach
                             </ul>
                         </li>
                         @else
                         <li>
-                            <a href="#">{{ $item['name'] }}</a>
+                            <a href="{{$item['tag_url']}}">{{ $item['name'] }}</a>
                         </li>
                         @endif
                     @endforeach

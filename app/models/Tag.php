@@ -118,6 +118,7 @@ class Tag extends Model  {
             foreach($main_tags as $tag){
                 $childs = DB::table('tag')->where(array('type'=> 2, 'parent_id'=>$tag->id))->get();
                 $item['id'] = $tag->id;
+                $item['tag_url'] = urlCategory($tag);
                 $item['type'] = $tag->type;
                 $item['name'] = $tag->name;
                 $item['childs'] = $childs;
