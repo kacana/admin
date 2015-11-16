@@ -67,6 +67,67 @@ function showSelectStatus($id, $status, $active, $inactive){
     return $str;
 }
 
+function showSelectStatusOrder($id, $status){
+    $str = "<div class='btn-group' data-id='".$id."'>";
+
+    $statusProperty = [];
+
+    switch ($status){
+        case 0 :{
+            $statusProperty['text'] = 'Khách đặt hàng';
+            $statusProperty['class'] = 'btn-info';
+            $statusProperty['icon'] = 'fa-arrow-right';
+            break;
+        }
+        case 1 :{
+            $statusProperty['text'] = 'đơn hàng đã confirm';
+            $statusProperty['class'] = 'btn-primary';
+            $statusProperty['icon'] = 'fa-arrow-circle-o-right';
+            break;
+        }
+        case 2 :{
+            $statusProperty['text'] = 'Đặt Hàng';
+            $statusProperty['class'] = 'btn-primary';
+            $statusProperty['icon'] = 'fa-check';
+            break;
+        }
+        case 3:{
+            $statusProperty['text'] = 'Về tới kho';
+            $statusProperty['class'] = 'btn-primary';
+            $statusProperty['icon'] = 'fa-check-circle';
+            break;
+        }
+        case 4 :{
+            $statusProperty['text'] = 'Shipping';
+            $statusProperty['class'] = 'btn-primary';
+            $statusProperty['icon'] = 'fa-send';
+            break;
+        }
+        case 100 :{
+            $statusProperty['text'] = 'Khách nhận hàng';
+            $statusProperty['class'] = 'btn-success';
+            $statusProperty['icon'] = 'fa-smile-o';
+            break;
+        }
+        case 101 :{
+            $statusProperty['text'] = 'huỷ đơn hàng';
+            $statusProperty['class'] = 'btn-danger';
+            $statusProperty['icon'] = 'fa-question';
+            break;
+        }
+    }
+
+    $str .= "<a class='btn ".$statusProperty['class']." btn-sm dropdown-toggle' data-toggle='dropdown'>";
+    $str .= "<i class='fa ".$statusProperty['icon']."'></i> <span class='status'>".$statusProperty['text']."</span> <span class='caret'></span></a>";
+    $str.= "<ul class='dropdown-menu'>";
+    $str.= "<li><a href='#change_status' data-status='1' ><i class='fa fa-arrow-circle-o-right'></i>đơn hàng đã confirm</a></li>";
+    $str.= "<li><a href='#change_status' data-status='1' ><i class='fa fa-question'></i>huỷ đơn hàng</a></li>";
+    $str.= "</ul>";
+    $str.= "</div>";
+
+    return $str;
+}
+
 /*
  * get controller name base on Route::currentRouteAction()
  */
