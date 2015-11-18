@@ -12,6 +12,8 @@ var tagpagePackage = {
             var stopped = false;
             $(window).scroll(function(){
                 $tagId = $("#tag-id").val();
+                $colorId = $("#color-id").val();
+                $brandId = $("#brand-id").val();
                 $element = $("#content");
                 $loading = $("#loading");
 
@@ -38,7 +40,7 @@ var tagpagePackage = {
                         is_busy = false;
                     };
                     var errorCallBack = function(data){};
-                    Kacana.ajax.tagpage.loadProduct($tagId, page, callBack, errorCallBack);
+                    Kacana.ajax.tagpage.loadProduct($tagId, $colorId, $brandId, page, callBack, errorCallBack);
                     return false;
                 }
             })
@@ -77,14 +79,61 @@ var tagpagePackage = {
             })
         },
         loadFilter: function(){
-            $(".as-filter-option").click(function(){
-                hash = window.location.hash.replace("#", "");
+            $.urlParam = function(name, url){
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(url);
+                if($.isArray(results)){
+                    return results[1];
+                }else{
+                    return 0;
+                }
+            },
+            $(".as-filter-option").click(function(e){
+                $(this).parent('.as-filter-item').addClass('as-filter-active current');
+                e.preventDefault();
+                var pageUrl = $(this).attr('href');
+                var dataPost = '';
+
+                var tag = $.urlParam('tag', pageUrl);
+                var color = $.urlParam('color', pageUrl);
+                var brand = $.urlParam('brand', pageUrl);
+
+                if(color == 0){
+                    color = $.urlParam('color', location.href);
+                }
+
+                if(brand == 0){
+                    brand = $.urlParam('brand', location.href);
+                }
+
+                if(tag == 0){
+                    tag = $.urlParam('tag', location.href);
+                }
+                if(tag!=0 && pageUrl.indexOf('tag')==-1){
+                    pageUrl += '&tag='+tag;
+                }
+
+                if(color!=0 && pageUrl.indexOf('color')==-1){
+                    pageUrl += '&color='+color;
+                }
+                if(brand!=0 && pageUrl.indexOf('brand')==-1){
+                    pageUrl += '&brand='+brand;
+                }
+
+                $("#color-id").val(color);
+                $("#brand-id").val(brand);
+                $("#tag-id").val(tag);
+                dataPost += 'cateId='+tag+'&color='+color+"&brand="+brand;
+
                 var callBack = function(data) {
-                    $element.html(data);
+                    $("#content").html(data);
                     Kacana.homepage.init();
                 };
                 var errorCallBack = function(data){};
-                Kacana.ajax.tagpage.loadFilter(hash, callBack, errorCallBack);
+                Kacana.ajax.tagpage.loadFilter(dataPost, callBack, errorCallBack);
+
+                if(pageUrl != window.location){
+                    window.history.pushState({path:pageUrl}, '',pageUrl);
+                }
                 return false;
             });
         }

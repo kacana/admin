@@ -41,6 +41,8 @@
         </div>
     </div>
     <input type="hidden" name="" value="{{$tag->id}}" id="tag-id"/>
+    <input type="hidden" name="" value="" id="color-id"/>
+    <input type="hidden" name="" value="" id="brand-id"/>
 @stop
 
 @section('javascript')

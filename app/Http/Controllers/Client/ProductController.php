@@ -36,7 +36,6 @@ class ProductController extends BaseController {
     }
 
     public function loadListProducts(){
-
         if(Request::ajax()){
             $product = new Product();
             $page = Request::input('page', 1);
@@ -51,11 +50,12 @@ class ProductController extends BaseController {
     public function filterProduct(){
         if(Request::ajax()){
             $product = new Product();
+            $tag = Request::input('cateId');
             $page = Request::input('page', 1);
-            $cate_id = Request::input('c');
-            $brand = Request::input('b');
-            $color = Request::input('cl');
-            $options = ['cateId' => $cate_id, 'brand'=>$brand, 'color'=>$color];
+            $brand = Request::input('brand');
+            $color = Request::input('color');
+            $options = ['cateId' => $tag, 'brand'=>$brand, 'color'=>$color];
+            $data['page'] = $page;
             $data['items'] = $product->getItems(LIMIT_PER_PAGE, $page, $options);
             return view('client.product.ajax-pagination', $data);
         }

@@ -1,3 +1,6 @@
+@if(isset($page) && $page==1 && count($items)<1)
+    <div>Sản phẩm đang được cập nhật...</div>
+@endif
 @foreach($items as $item)
     <div class="col-md-4 product-item" >
         <div class="product-image" >

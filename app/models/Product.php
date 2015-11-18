@@ -194,11 +194,11 @@ class Product extends Model  {
                 $query->join('product_tag', 'product.id', '=', 'product_tag.product_id');
                 $query->whereIn('product_tag.tag_id', $listChildId);
             }
-            if(isset($options['color'])){
+            if(isset($options['color']) && $options['color']!=0){
                 $query->join('product_color', 'product.id', '=', 'product_color.product_id');
                 $query->where('product_color.color_id',$options['color']);
             }
-            if(isset($options['brand'])){
+            if(isset($options['brand']) && $options['brand']!=0){
                 $query->join('product_brand', 'product.id', '=', 'product_brand.product_id');
                 $query->where('product_brand.brand_id', $options['brand']);
             }
