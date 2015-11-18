@@ -5,7 +5,7 @@
     <section>
         <div class="custom-box">
             <div class="box-header">
-                <h3 class="box-title">Đơn </h3>
+                <h3 class="box-title">Đơn hàng</h3>
             </div><!-- /.box-header -->
         </div>
     </section>
@@ -49,8 +49,9 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Name</th>
+                                <th>Phone</th>
                                 <th>Address</th>
-                                <th>Price</th>
+                                <th>Total</th>
                                 <th>Status</th>
                                 <th>Created</th>
                                 <th class="nosort"></th>
@@ -64,10 +65,7 @@
     </section>
 
 @stop
+
 @section('javascript')
-    Kacana.product.listProducts();
-@stop
-@extends('admin.product.edit-modal')
-@section('javascript')
-    Kacana.product.init();
+    Kacana.order.init();
 @stop

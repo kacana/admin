@@ -7,34 +7,41 @@ use Datatables;
 class OrderController extends BaseController {
 
     public function index($env, $domain){
+        return view('admin.order.index');
+    }
+
+    public function getList(){
+
         $orders = Order::all();
         foreach($orders as $order){
             $order->orderDetail;
             $order->user;
         }
 
-        return Datatables::of($order)
-            ->edit_column('image', function($row) {
-                if(!empty($row->image)){
-                    return showImage($row->image, PRODUCT_IMAGE . $row->id);
+        return Datatables::of($orders)
+            ->add_column('name', function($row) {
+                if(!empty($row->user)){
+                    return $row->user->name;
+                }
+            })
+            ->add_column('phone', function($row) {
+                if(!empty($row->user)){
+                    return $row->user->phone;
                 }
             })
             ->edit_column('status', function($row){
-                return showSelectStatus($row->id, $row->status, 'Kacana.product.setStatus('.$row->id.', 1)', 'Kacana.product.setStatus('.$row->id.', 0)');
+                return showSelectStatusOrder($row->id, $row->status);
             })
             ->edit_column('created', function($row){
                 return showDate($row->created);
             })
-            ->edit_column('updated', function($row){
-                return showDate($row->updated);
-            })
             ->add_column('action', function ($row) {
-                return showActionButton("/product/editProduct/".$row->id, 'Kacana.product.removeProduct('.$row->id.')', false, false);
+                return showActionButton("/order/edit/".$row->id, false, false, false);
             })
             ->make(true);
     }
 
-    public function getLists(RequestInfoRequest $request){
-        $orders = Order::all();
+    public function edit($env, $domain, $id){
+        return view('admin.order.edit');
     }
 }
