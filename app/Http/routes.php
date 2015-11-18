@@ -124,6 +124,7 @@ Route::group(['domain'=>'{envDomain}{nameDomain}', ], function () {
     });
     Route::get('{id}-{slug}.html',                          array('as'=>'listProductByCate', 'uses'=>'Client\ProductController@listProductByCate'));
     Route::post('loadListProducts',                         array('as'=>'loadListProducts',  'uses'=>'Client\ProductController@loadListProducts'));
+    Route::post('loadFilter',                            array('as'=>'filterProduct',     'uses'=>'Client\ProductController@filterProduct'));
 
     //cart
     Route::post('cart/addProductToCart',                    array('as'=>'addProductToCart',  'uses'=>'Client\CartController@addProductToCart'));
@@ -143,5 +144,5 @@ View::composer('layouts.client.header', function($view){
 });
 
 View::composer('client.product.sidebar', function($view){
-    $view->with('links', Tag::getTags());
+    $view->with('links',Tag::getTags())->with('brands', \App\models\Branch::all())->with('colors', \App\models\Color::all());
 });

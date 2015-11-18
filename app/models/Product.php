@@ -185,14 +185,22 @@ class Product extends Model  {
      */
     public function getItems($limit, $page, $options){
         $query = DB::table('product')
-            ->select('product.id', 'product.name', 'product.price', 'product.image')
-            ->join('product_tag', 'product.id', '=', 'product_tag.product_id');
+            ->select('product.id', 'product.name', 'product.price', 'product.image');
         if(is_array($options)){
             if(isset($options['cateId'])){
                 $tag = new Tag();
                 $listChildId = $tag->getIdChildsById($options['cateId']);
                 $listChildId[] = $options['cateId'];
+                $query->join('product_tag', 'product.id', '=', 'product_tag.product_id');
                 $query->whereIn('product_tag.tag_id', $listChildId);
+            }
+            if(isset($options['color'])){
+                $query->join('product_color', 'product.id', '=', 'product_color.product_id');
+                $query->where('product_color.color_id',$options['color']);
+            }
+            if(isset($options['brand'])){
+                $query->join('product_brand', 'product.id', '=', 'product_brand.product_id');
+                $query->where('product_brand.brand_id', $options['brand']);
             }
         }
         $query->orderBy('created');

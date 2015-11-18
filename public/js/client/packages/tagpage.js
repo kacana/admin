@@ -2,6 +2,8 @@ var tagpagePackage = {
     tagpage:{
         init: function(){
             Kacana.tagpage.loadProduct();
+            Kacana.tagpage.showFilter();
+            Kacana.tagpage.loadFilter();
         },
 
         loadProduct: function(){
@@ -40,6 +42,51 @@ var tagpagePackage = {
                     return false;
                 }
             })
+        },
+        showFilter:function(){
+            $(".as-filter-button").click(function(){
+                if($(this).attr('aria-expanded')=='false'){
+                    $("#as-search-filters").removeClass('as-filter-animation');
+                    $("#as-search-filters").css({"position":"relative"});
+                    $(".as-search-filters").attr('aria-hidden', false);
+                    $("#content").addClass('col-sm-9');
+                }else{
+                    $("#as-search-filters").addClass('as-filter-animation');
+                    $("#as-search-filters").css({"position":"fixed"});
+                    $(".as-search-filters").attr('aria-hidden', true);
+                    $("#content").removeClass('col-sm-9');
+                }
+            });
+
+            $(".as-search-accordion-header").on('click',function(){
+                if($(this).hasClass("as-accordion-isexpanded")){
+                    $(this).removeClass('as-accordion-isexpanded');
+                    $(this).next().addClass('ase-materializer-gone ase-materializer-hide').removeClass("ase-materializer-show");
+                }else{
+                    $(this).addClass('as-accordion-isexpanded');
+                    $(this).next().addClass('ase-materializer-show').removeClass("ase-materializer-gone").removeClass("ase-materializer-hide");
+                }
+            })
+
+            $(".as-search-filter-child2").on('click', function(){
+                if($("#as-seach-filter-childs2").hasClass('ase-materializer-gone')){
+                    $("#as-seach-filter-childs2").removeClass('ase-materializer-gone');
+                }else{
+                    $("#as-seach-filter-childs2").addClass('ase-materializer-gone');
+                }
+            })
+        },
+        loadFilter: function(){
+            $(".as-filter-option").click(function(){
+                hash = window.location.hash.replace("#", "");
+                var callBack = function(data) {
+                    $element.html(data);
+                    Kacana.homepage.init();
+                };
+                var errorCallBack = function(data){};
+                Kacana.ajax.tagpage.loadFilter(hash, callBack, errorCallBack);
+                return false;
+            });
         }
     }
 };

@@ -1,20 +1,20 @@
 @extends('layouts.client.master')
 
 @section('content')
-    <div id="homepage" >
+    <div id="homepage">
         <div class="block-tag" >
             <div class="block-tag-header" >
                 <div class="container">
-                    <div class="col-sm-8" >
-                        <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="dropdown">
+                    <div class="col-sm-8 as-accessories-filter-tile column large-6 small-4">
+                        <button type="button" aria-expanded="false" class="as-filter-button btn btn-default" aria-controls="as-search-filters" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-list" aria-hidden="true"></span> Filter
                         </button>
-                        @include('client.product.sidebar')
                     </div>
                 </div>
             </div>
-            <div class="block-tag-body" >
-                <div class="container" id="content">
+            <div class="block-tag-body as-accessories-results">
+                @include('client.product.sidebar')
+                <div class="container column taglist" id="content">
                     @forelse($items as $item)
                         <div class="col-md-4 product-item" >
                             <div class="product-image" >

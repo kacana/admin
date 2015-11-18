@@ -36,11 +36,26 @@ class ProductController extends BaseController {
     }
 
     public function loadListProducts(){
+
         if(Request::ajax()){
             $product = new Product();
             $page = Request::input('page', 1);
             $cateId = Request::input('cateId');
             $options = ['cateId'=>$cateId];
+            $data['tag'] = $cateId;
+            $data['items'] = $product->getItems(LIMIT_PER_PAGE, $page, $options);
+            return view('client.product.ajax-pagination', $data);
+        }
+    }
+
+    public function filterProduct(){
+        if(Request::ajax()){
+            $product = new Product();
+            $page = Request::input('page', 1);
+            $cate_id = Request::input('c');
+            $brand = Request::input('b');
+            $color = Request::input('cl');
+            $options = ['cateId' => $cate_id, 'brand'=>$brand, 'color'=>$color];
             $data['items'] = $product->getItems(LIMIT_PER_PAGE, $page, $options);
             return view('client.product.ajax-pagination', $data);
         }

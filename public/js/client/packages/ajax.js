@@ -86,6 +86,9 @@ var ajaxPackage = {
         tagpage: {
             loadProduct: function(tagId, page, callBack, errorCallBack){
                 Kacana.ajax.init('loadListProducts?cateId='+tagId+"&page="+page,'','post', '', callBack, errorCallBack, []);
+            },
+            loadFilter: function(hash, callBack, errorCallBack){
+                Kacana.ajax.init('loadFilter?'+hash, '', 'post', '', callBack, errorCallBack, []);
             }
         }
     }
