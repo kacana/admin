@@ -29,7 +29,7 @@
                                     @if(isset($link['childs']) && sizeof($link['childs'])>0)
                                         <ul id="as-seach-filter-childs{{$link['id']}}" class="as-search-filter-childs ase-materializer-gone">
                                             <li class="as-filter-child-item">
-                                                <a href="{{$link['tag_url']}}?page=1&tag={{$link['id']}}" class="as-filter-option" aria-disabled="false" tabindex="0" data-tracking="accType=controller, " role="checkbox" aria-checked="false">
+                                                <a href="{{$link['tag_url']}}?page=1&tag={{$link['id']}}" data-type="tag={{$link['id']}}" class="as-filter-option" aria-disabled="false" tabindex="0" role="checkbox" aria-checked="false">
                                                     <span class="as-filter-name">
                                                         <span class="as-search-filter-content">
                                                             <span class="as-search-filter-text">Tất cả</span>
@@ -71,10 +71,10 @@
                     </div>
                     <materializer data-show-height="computed" data-hide-height="0" id="as-accordion-id1" class="as-search-facet-materializer ase-materializer ase-materializer-gone ase-materializer-hide" data-shown-init="true">
                         <div class="as-accordion-box-animation">
-                            <ul class="as-search-filter-items as-filter-text-type">
+                            <ul class="as-search-filter-items as-filter-text-type brand">
                                 @forelse($brands as $brand)
                                     <li class="as-filter-item">
-                                        <a href="{{Request::url()}}?page=1&brand={{$brand->id}}" class="as-filter-option" aria-disabled="false" tabindex="0" data-tracking="accType=controller, " role="checkbox" aria-checked="false">
+                                        <a href="{{Request::url()}}?page=1&brand={{$brand->id}}" data-type='brand={{$brand->id}}' class="as-filter-option" aria-disabled="false" tabindex="0" data-tracking="accType=controller, " role="checkbox" aria-checked="false">
                                             <span class="as-filter-name">
                                                 <span class="as-search-filter-content">
                                                     <span class="as-search-filter-text">{{$brand->name}}</span>

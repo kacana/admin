@@ -87,9 +87,38 @@ var tagpagePackage = {
                     return 0;
                 }
             },
+            $.removeParam = function(key, sourceURL) {
+                var rtn = sourceURL.split("?")[0],
+                    param,
+                    params_arr = [],
+                    queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
+                if (queryString !== "") {
+                    params_arr = queryString.split("&");
+                    for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+                        param = params_arr[i].split("=")[0];
+                        if (param === key) {
+                            params_arr.splice(i, 1);
+                        }
+                    }
+                    rtn = rtn + "?" + params_arr.join("&");
+                }
+                return rtn;
+            },
             $(".as-filter-option").click(function(e){
-                $(this).parent('.as-filter-item').addClass('as-filter-active current');
+                $(this).parents('.brand').find('.as-filter-item').removeClass('as-filter-active current');
+                var datatype = '';
+                if($(this).attr('aria-checked') == 'true'){
+                    $(this).parent('.as-filter-item').removeClass('as-filter-active current');
+                    $(this).attr('aria-checked', 'false');
+                    datatype = $(this).attr('data-type');
+                }else{
+                    $(this).parents('.brand').children('a').attr('aria-checked', 'false');
+                    $(this).parent('.as-filter-item').addClass('as-filter-active current');
+                    $(this).attr('aria-checked', 'true');
+                }
+
                 e.preventDefault();
+
                 var pageUrl = $(this).attr('href');
                 var dataPost = '';
 
@@ -115,12 +144,19 @@ var tagpagePackage = {
                 if(color!=0 && pageUrl.indexOf('color')==-1){
                     pageUrl += '&color='+color;
                 }
+
                 if(brand!=0 && pageUrl.indexOf('brand')==-1){
                     pageUrl += '&brand='+brand;
                 }
 
-                $("#color-id").val(color);
+                console.log(datatype);
+                if(datatype!='' && datatype ==("brand="+brand)){
+                    brand="";
+                    pageUrl = $.removeParam("brand", pageUrl);
+                }
                 $("#brand-id").val(brand);
+                $("#color-id").val(color);
+
                 $("#tag-id").val(tag);
                 dataPost += 'cateId='+tag+'&color='+color+"&brand="+brand;
 
@@ -135,6 +171,7 @@ var tagpagePackage = {
                     window.history.pushState({path:pageUrl}, '',pageUrl);
                 }
                 return false;
+
             });
         }
     }
