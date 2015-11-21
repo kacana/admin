@@ -46,6 +46,7 @@ var tagpagePackage = {
             })
         },
         showFilter:function(){
+
             $(".as-filter-button").click(function(){
                 if($(this).attr('aria-expanded')=='false'){
                     $("#as-search-filters").removeClass('as-filter-animation');
@@ -105,16 +106,18 @@ var tagpagePackage = {
                 return rtn;
             },
             $(".as-filter-option").click(function(e){
-                $(this).parents('.brand').find('.as-filter-item').removeClass('as-filter-active current');
-                var datatype = '';
+                var datatype = $(this).attr('data-type');
+                $parents = $(this).parents('.'+datatype).find('.as-filter-item');
+                $parents.removeClass('as-filter-active current');
+
                 if($(this).attr('aria-checked') == 'true'){
                     $(this).parent('.as-filter-item').removeClass('as-filter-active current');
                     $(this).attr('aria-checked', 'false');
-                    datatype = $(this).attr('data-type');
                 }else{
-                    $(this).parents('.brand').children('a').attr('aria-checked', 'false');
+                    $parents.find('a').attr('aria-checked', 'false');
                     $(this).parent('.as-filter-item').addClass('as-filter-active current');
                     $(this).attr('aria-checked', 'true');
+                    datatype = '';
                 }
 
                 e.preventDefault();
@@ -138,7 +141,10 @@ var tagpagePackage = {
                     tag = $.urlParam('tag', location.href);
                 }
                 if(tag!=0 && pageUrl.indexOf('tag')==-1){
-                    pageUrl += '&tag='+tag;
+                    //console.log(location.href);
+                    //pageUrl += '&tag='+tag;
+                    pageUrl = $.removeParam("brand", location.href);
+                    pageUrl = $.removeParam('color', pageUrl);
                 }
 
                 if(color!=0 && pageUrl.indexOf('color')==-1){
@@ -149,15 +155,21 @@ var tagpagePackage = {
                     pageUrl += '&brand='+brand;
                 }
 
-                console.log(datatype);
-                if(datatype!='' && datatype ==("brand="+brand)){
+                if(datatype=='brand'){
                     brand="";
                     pageUrl = $.removeParam("brand", pageUrl);
+                }else if(datatype=='color'){
+                    color = "";
+                    pageUrl = $.removeParam("color", pageUrl);
+                }else if(datatype == 'tag'){
+                    tag="";
+                    pageUrl = $.removeParam("tag", pageUrl);
                 }
+
                 $("#brand-id").val(brand);
                 $("#color-id").val(color);
-
                 $("#tag-id").val(tag);
+
                 dataPost += 'cateId='+tag+'&color='+color+"&brand="+brand;
 
                 var callBack = function(data) {
