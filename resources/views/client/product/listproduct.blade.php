@@ -2,13 +2,16 @@
 
 @section('content')
     <div id="homepage">
-        <div class="block-tag" >
+        <div class="block-tag" id="as-search-results">
             <div class="block-tag-header" >
                 <div class="container">
                     <div class="col-sm-8 as-accessories-filter-tile column large-6 small-4">
                         <button type="button" aria-expanded="false" class="as-filter-button btn btn-default" aria-controls="as-search-filters" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-list" aria-hidden="true"></span> Filter
                         </button>
+                    </div>
+                    <div class="column large-6  small-8 as-search-sort-padding">
+                        @include('client.product.sort')
                     </div>
                 </div>
             </div>
@@ -39,10 +42,12 @@
                 </div>
             </div>
         </div>
+        <div class="loader-response"><i class="fa fa-circle-o-notch fa-spin fa-3x"></i></div>
     </div>
     <input type="hidden" name="" value="{{$tag->id}}" id="tag-id"/>
     <input type="hidden" name="" value="" id="color-id"/>
     <input type="hidden" name="" value="" id="brand-id"/>
+    <input type="hidden" name="" value="" id="sort"/>
 @stop
 
 @section('javascript')

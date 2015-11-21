@@ -26,11 +26,11 @@ class ProductController extends BaseController {
      * @params:
      * @return: view
      */
-    public function listProductByCate($env, $domain, $cateId){
+    public function listProductByCate($env, $domain, $tagId){
         $page = 1;
-        $options = ['cateId' => $cateId];
+        $options = ['tagId' => $tagId];
         $product = new Product;
-        $data['tag'] = Tag::findOrFail($cateId);
+        $data['tag'] = Tag::findOrFail($tagId);
         $data['items'] = $product->getItems(LIMIT_PER_PAGE, $page, $options);
         return view('client.product.listproduct', $data);
     }
@@ -39,9 +39,9 @@ class ProductController extends BaseController {
         if(Request::ajax()){
             $product = new Product();
             $page = Request::input('page', 1);
-            $cateId = Request::input('cateId');
-            $options = ['cateId'=>$cateId];
-            $data['tag'] = $cateId;
+            $tagId = Request::input('tagId');
+            $options = ['tagId'=>$tagId];
+            $data['tag'] = $tagId;
             $data['items'] = $product->getItems(LIMIT_PER_PAGE, $page, $options);
             return view('client.product.ajax-pagination', $data);
         }
@@ -50,11 +50,12 @@ class ProductController extends BaseController {
     public function filterProduct(){
         if(Request::ajax()){
             $product = new Product();
-            $tag = Request::input('cateId');
+            $tag = Request::input('tagId');
             $page = Request::input('page', 1);
             $brand = Request::input('brand');
             $color = Request::input('color');
-            $options = ['cateId' => $tag, 'brand'=>$brand, 'color'=>$color];
+            $sort = Request::input('sort');
+            $options = ['tagId' => $tag, 'brand'=>$brand, 'color'=>$color, 'sort'=>$sort];
             $data['page'] = $page;
             $data['items'] = $product->getItems(LIMIT_PER_PAGE, $page, $options);
             return view('client.product.ajax-pagination', $data);

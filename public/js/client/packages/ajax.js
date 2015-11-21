@@ -84,8 +84,8 @@ var ajaxPackage = {
             }
         },
         tagpage: {
-            loadProduct: function(tagId, colorId, brandId, page, callBack, errorCallBack){
-                Kacana.ajax.init('loadListProducts?cateId='+tagId+"&page="+page+"&color="+colorId+"&brand="+brandId,'','post', '', callBack, errorCallBack, []);
+            loadProduct: function(options,callBack, errorCallBack){
+                Kacana.ajax.init('loadListProducts?'+options,'','post', '', callBack, errorCallBack, []);
             },
             loadFilter: function(hash, callBack, errorCallBack){
                 Kacana.ajax.init('loadFilter?'+ hash, '', 'post', '', callBack, errorCallBack, []);

@@ -187,10 +187,10 @@ class Product extends Model  {
         $query = DB::table('product')
             ->select('product.id', 'product.name', 'product.price', 'product.image');
         if(is_array($options)){
-            if(isset($options['cateId'])){
+            if(isset($options['tagId'])){
                 $tag = new Tag();
-                $listChildId = $tag->getIdChildsById($options['cateId']);
-                $listChildId[] = $options['cateId'];
+                $listChildId = $tag->getIdChildsById($options['tagId']);
+                $listChildId[] = $options['tagId'];
                 $query->join('product_tag', 'product.id', '=', 'product_tag.product_id');
                 $query->whereIn('product_tag.tag_id', $listChildId);
             }
@@ -202,8 +202,27 @@ class Product extends Model  {
                 $query->join('product_brand', 'product.id', '=', 'product_brand.product_id');
                 $query->where('product_brand.brand_id', $options['brand']);
             }
+            if(isset($options['sort'])  && $options['sort']!=''){
+                switch($options['sort']){
+                    case 'newest':
+                        $query->orderBy('updated');
+                        break;
+                    case 'lh':
+                        $query->orderBy('price', 'asc');
+                        break;
+                    case 'hl':
+                        $query->orderBy('price', 'desc');
+                        break;
+                    default:
+                        $query->orderBy('updated');
+                }
+            }else{
+                $query->orderBy('updated');
+            }
+        }else{
+            $query->orderBy('updated');
         }
-        $query->orderBy('created');
+
         if($page > 0){
             return $query->paginate($limit);
         }else{

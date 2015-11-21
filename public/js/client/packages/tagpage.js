@@ -4,20 +4,32 @@ var tagpagePackage = {
             Kacana.tagpage.loadProduct();
             Kacana.tagpage.showFilter();
             Kacana.tagpage.loadFilter();
+            Kacana.tagpage.showSortOptions();
+            Kacana.tagpage.sort();
+            Kacana.tagpage.showLoading();
+            Kacana.tagpage.removeLoading();
         },
-
+        showLoading: function(){
+            $("#as-search-results").addClass('as-search-fade');
+            $(".loader-response").show();
+        },
+        removeLoading: function(){
+            $("#as-search-results").removeClass('as-search-fade');
+            $(".loader-response").hide();
+        },
         loadProduct: function(){
             var is_busy = false;
             var page = 1;
             var stopped = false;
+            var $element = $("#content");
+
             $(window).scroll(function(){
                 $tagId = $("#tag-id").val();
                 $colorId = $("#color-id").val();
                 $brandId = $("#brand-id").val();
-                $element = $("#content");
-                $loading = $("#loading");
+                $sort = $("#sort").val();
 
-                if($(window).scrollTop() + $(window).height() >= $element.height()){
+                if($(this).scrollTop()>= $element.height()){
                     //neu dang gui ajax thi ngung
                     if(is_busy == true){
                         return false;
@@ -31,22 +43,22 @@ var tagpagePackage = {
                     //tang so trang len
                     page++;
                     //hien thi loading
-                    $loading.removeClass('hidden');
+                    Kacana.tagpage.showLoading();
                     //gui ajax
                     var callBack = function(data) {
                         $element.append(data);
                         Kacana.homepage.init();
-                        $loading.addClass('hidden');
+                        Kacana.tagpage.removeLoading();
                         is_busy = false;
                     };
                     var errorCallBack = function(data){};
-                    Kacana.ajax.tagpage.loadProduct($tagId, $colorId, $brandId, page, callBack, errorCallBack);
+                    options = 'tagId='+$tagId+"&color="+$colorId+"&brand="+$brandId+"&page="+page+"&sort="+$sort;
+                    Kacana.ajax.tagpage.loadProduct(options, callBack, errorCallBack);
                     return false;
                 }
             })
         },
         showFilter:function(){
-
             $(".as-filter-button").click(function(){
                 if($(this).attr('aria-expanded')=='false'){
                     $("#as-search-filters").removeClass('as-filter-animation');
@@ -106,6 +118,7 @@ var tagpagePackage = {
                 return rtn;
             },
             $(".as-filter-option").click(function(e){
+                Kacana.tagpage.showLoading();
                 var datatype = $(this).attr('data-type');
                 $parents = $(this).parents('.'+datatype).find('.as-filter-item');
                 $parents.removeClass('as-filter-active current');
@@ -119,7 +132,6 @@ var tagpagePackage = {
                     $(this).attr('aria-checked', 'true');
                     datatype = '';
                 }
-
                 e.preventDefault();
 
                 var pageUrl = $(this).attr('href');
@@ -128,6 +140,7 @@ var tagpagePackage = {
                 var tag = $.urlParam('tag', pageUrl);
                 var color = $.urlParam('color', pageUrl);
                 var brand = $.urlParam('brand', pageUrl);
+                var sort = '';
 
                 if(color == 0){
                     color = $.urlParam('color', location.href);
@@ -140,9 +153,11 @@ var tagpagePackage = {
                 if(tag == 0){
                     tag = $.urlParam('tag', location.href);
                 }
+
+                sort = $.urlParam('s', location.href);
+                console.log(sort);
+
                 if(tag!=0 && pageUrl.indexOf('tag')==-1){
-                    //console.log(location.href);
-                    //pageUrl += '&tag='+tag;
                     pageUrl = $.removeParam("brand", location.href);
                     pageUrl = $.removeParam('color', pageUrl);
                 }
@@ -153,6 +168,10 @@ var tagpagePackage = {
 
                 if(brand!=0 && pageUrl.indexOf('brand')==-1){
                     pageUrl += '&brand='+brand;
+                }
+
+                if(sort!='' && pageUrl.indexOf('sort') == -1){
+                    pageUrl += '&s='+sort;
                 }
 
                 if(datatype=='brand'){
@@ -170,10 +189,11 @@ var tagpagePackage = {
                 $("#color-id").val(color);
                 $("#tag-id").val(tag);
 
-                dataPost += 'cateId='+tag+'&color='+color+"&brand="+brand;
+                dataPost += 'tagId='+tag+'&color='+color+"&brand="+brand+"&sort="+sort;
 
                 var callBack = function(data) {
                     $("#content").html(data);
+                    Kacana.tagpage.removeLoading();
                     Kacana.homepage.init();
                 };
                 var errorCallBack = function(data){};
@@ -185,7 +205,58 @@ var tagpagePackage = {
                 return false;
 
             });
+        },
+        showSortOptions: function(){
+            $("#as-sort-button").click(function(){
+                if($(this).attr('aria-expanded')=='false'){
+                   $("#as-sort-drawer").addClass('as-open-drawer');
+                    $("#angle-change").removeClass('fa-angle-down').addClass('fa-angle-up');
+                }else{
+                    $("#as-sort-drawer").removeClass('as-open-drawer');
+                    $("#angle-change").removeClass('fa-angle-up').addClass('fa-angle-down');
+                }
+            })
+        },
+        sort: function(){
+            $(".as-search-sort-links").click(function(e){
+                Kacana.tagpage.showLoading();
+                $(".as-search-sort-links").removeClass('as-search-selected-option');
+                $(this).addClass('as-search-selected-option');
+                $("#as-sort-selected").html($(this).find('.title-body').find('span').html());
+                $("#as-sort-button").trigger('click');
+
+                e.preventDefault();
+
+                var pageUrl = $(this).attr('href');
+                var currentUrl = location.href;
+                var sort = $.urlParam('s', pageUrl);
+
+                if(sort!='' && currentUrl.indexOf('s')==-1){
+                    pageUrl=currentUrl +'&s='+sort;
+                }
+
+                brand = $("#brand-id").val();
+                color = $("#color-id").val();
+                tag = $("#tag-id").val();
+                $("#sort").val(sort);
+
+                dataPost = 'tagId='+tag+'&color='+color+"&brand="+brand+"&sort="+sort;
+
+                var callBack = function(data) {
+                    $("#content").html(data);
+                    Kacana.tagpage.removeLoading();
+                    Kacana.homepage.init();
+                };
+                var errorCallBack = function(data){};
+                Kacana.ajax.tagpage.loadFilter(dataPost, callBack, errorCallBack);
+
+                if(pageUrl != window.location){
+                    window.history.pushState({path:pageUrl}, '',pageUrl);
+                }
+                return false;
+            })
         }
+
     }
 };
 
