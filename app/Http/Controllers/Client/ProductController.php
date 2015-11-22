@@ -28,7 +28,11 @@ class ProductController extends BaseController {
      */
     public function listProductByCate($env, $domain, $tagId){
         $page = 1;
-        $options = ['tagId' => $tagId];
+        $tag = Request::input('tagId');
+        $brand = Request::input('brand');
+        $color = Request::input('color');
+        $sort = Request::input('sort');
+        $options = ['tagId' => $tag, 'brand'=>$brand, 'color'=>$color, 'sort'=>$sort];
         $product = new Product;
         $data['tag'] = Tag::findOrFail($tagId);
         $data['items'] = $product->getItems(LIMIT_PER_PAGE, $page, $options);
