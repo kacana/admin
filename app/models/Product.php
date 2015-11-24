@@ -170,10 +170,14 @@ class Product extends Model  {
     }
 
     public function getItemsByTag($tag, $limit){
+        $tag_model = new Tag();
+        $listChildId = $tag_model->getIdChildsById($tag->id);
+        $listChildId[] = $tag->id;
+
         $query = DB::table('product')
             ->select('product.id', 'product.name', 'product.price', 'product.image')
             ->join('product_tag', 'product.id', '=', 'product_tag.product_id')
-            ->where('product_tag.tag_id', $tag->id)
+            ->whereIn('product_tag.tag_id', $listChildId)
             ->orderBy('created')
             ->take($limit)
             ->get();
