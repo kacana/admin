@@ -17,7 +17,7 @@
             </div>
             <div class="block-tag-body as-accessories-results">
                 @include('client.product.sidebar')
-                <div class="container column taglist" id="content">
+                <div class="container taglist" id="content">
                     @forelse($items as $item)
                         <div class="col-md-4 product-item" >
                             <div class="product-image" >
