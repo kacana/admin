@@ -75,6 +75,7 @@ Route::group(['domain'=>'admin.{envDomain}{nameDomain}','middleware' => 'auth'],
     Route::get('/tag/setStatusTag/{id}/{status}',           array('as'=>'setStatusTag',             'uses'=>'Admin\TagController@setStatusTag'));
     Route::get('/tag/setType/{id}/{type}',                  array('as'=>'setType',                  'uses'=>'Admin\TagController@setType'));
     Route::get('/tag/removeTag/{id}',                       array('as'=>'removeTag',                'uses'=>'Admin\TagController@removeTag'));
+    Route::get('/tag/getProducts/{id}',                     array('as'=>'getProducts',              'uses'=>'Admin\TagController@getProducts'));
 
     //user
     Route::any('/user',                                     array('as'=>'listUsers',                 'uses'=>'Admin\UserController@index'));

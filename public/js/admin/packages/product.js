@@ -121,7 +121,7 @@ var productPackage = {
       tag:{
           init: function(){
               Kacana.product.tag.initTreeTags();
-              Kacana.product.tag.uploadImage();
+              Kacana.product.tag.listProducts();
           },
           initTreeTags: function(){
             $("#tree-tags").tree({
@@ -197,46 +197,16 @@ var productPackage = {
               };
               Kacana.ajax.tag.createTag(form_data, callBack, errorCallBack);
           },
-          showEditForm: function(id){
-              var callBack = function(data){
-                  $("#myModal").html(data);
-                  $("#myModal").modal('show');
-              };
-              var errorCallBack = function(){};
-              Kacana.ajax.tag.showEditForm(id, callBack, errorCallBack);
+          listProducts: function(){
+              var tagId = $("#tagId").val();
+              var columns = ['id', 'name', 'image', 'price', 'sell_price', 'status', 'created', 'updated', 'action'];
+              var btable = Kacana.datatable.init('table', columns, '/tag/getProducts/'+tagId);
+
+              $("#search-form").on('submit', function(e){
+                  btable.search($("#search-name").val()).draw() ;
+                  e.preventDefault();
+              })
           },
-          editTag: function(){
-              var form_data = $("#form-edit-tag").serialize();
-              var callBack = function (data) {
-                  data = JSON.parse(data);
-                  $("#myModal").modal('hide');
-
-                  var $tree = $("#tree-tags");
-                  var node = $tree.tree('getNodeById', data.id);
-
-                  $tree.tree('updateNode', node, data.name);
-
-                  if(json_result['parent_id']!=0){
-                      $tree.tree('openNode', $tree.tree('getNodeById', data.parent_id), true);
-                  }
-              };
-              var errorCallBack = function(data){
-                  json_result = JSON.parse(data);
-                  if(typeof(json_result['name'])!=''){
-                      $("#error-name").html(json_result['name']);
-                  }
-              };
-              Kacana.ajax.tag.editTag(form_data, callBack, errorCallBack);
-          },
-          //setStatusTag: function(id, status){
-          //    $.ajax({
-          //        type:'get',
-          //        url:'/tag/setStatusTag/'+id+'/'+ status,
-          //        success:function(result){
-          //            window.location.reload();
-          //        }
-          //    })
-          //},
           removeTag: function(idTag){
               $('#delete').click(function (e) {
                   $('#confirm').modal('show');
@@ -264,17 +234,6 @@ var productPackage = {
               var errorCallBack = function(){};
               Kacana.ajax.tag.setType(idTag, type, callBack, errorCallBack);
           },
-
-          uploadImage: function(){
-              $(document).on('click','.upload', function(){
-                  idTag = $(this).data('id');
-                  var callBack = function(data){
-                  };
-                  var errorCallBack = function(){};
-                 // Kacana.ajax.tag.uploadImage(idTag, callBack, errorCallBack);
-              })
-
-          }
       }
 
   }

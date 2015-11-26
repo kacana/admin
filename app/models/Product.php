@@ -234,4 +234,15 @@ class Product extends Model  {
         }
     }
 
+    public function getProductsByTag($id){
+        $tag = new Tag();
+        $listChildId = $tag->getIdChildsById($id);
+        $listChildId[] = $id;
+        $query = Product::join('product_tag', 'product.id', '=', 'product_tag.product_id')
+            ->whereIn('product_tag.tag_id', $listChildId)
+            ->orderBy('created')
+            ->get();
+        return $query;
+    }
+
 }

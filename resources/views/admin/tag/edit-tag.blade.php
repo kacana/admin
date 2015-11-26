@@ -39,6 +39,7 @@
                             <a class="btn btn-default" href="/product/tag">Huỷ</a>
                             <button type="submit" id="btn-update" class="btn btn-primary">Cập nhật</button>
                         </div>
+                        <input id="tagId" value="{{ $tag->id }}" type="hidden"/>
                         {!! Form::close() !!}
                     </div><!-- /.box -->
                 </div>
@@ -70,5 +71,8 @@
             </div>
         </div>
     </section>
+@stop
+@section('javascript')
+    Kacana.product.tag.init();
 @stop
 

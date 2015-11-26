@@ -11,7 +11,7 @@
  */
 function showImage($image, $folder)
 {
-    return "<img width='50' height='50' src='".$folder."/". $image ."'/>";
+    return "<img width='50' height='50' src='".LINK_IMAGE.$folder."/". $image ."'/>";
 }
 
 function showProductImg($image, $id)

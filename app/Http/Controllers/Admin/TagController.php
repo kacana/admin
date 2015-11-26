@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\TagRequest;
+use App\models\Product;
 use Datatables;
 use App\models\Tag;
 
@@ -190,6 +191,36 @@ class TagController extends BaseController {
         $tag = Tag::find($id);
         $result = $tag->updateItem($id, array('type' => $type));
         echo json_encode($result);
+    }
+
+    /**
+     * Get Products
+     *
+     * @param int $id
+     */
+    public function getProducts($env, $domain, $id){
+        $product_model = new Product();
+        $products = $product_model->getProductsByTag($id);
+
+        return Datatables::of($products)
+            ->edit_column('image', function($row) {
+                if(!empty($row->image)){
+                    return showImage($row->image, PRODUCT_IMAGE . $row->id);
+                }
+            })
+            ->edit_column('status', function($row){
+                return showSelectStatus($row->id, $row->status, 'Kacana.product.setStatus('.$row->id.', 1)', 'Kacana.product.setStatus('.$row->id.', 0)');
+            })
+            ->edit_column('created', function($row){
+                return showDate($row->created);
+            })
+            ->edit_column('updated', function($row){
+                return showDate($row->updated);
+            })
+            ->add_column('action', function ($row) {
+                return showActionButton("/product/editProduct/".$row->id, 'Kacana.product.removeProduct('.$row->id.')', false, false);
+            })
+            ->make(true);
     }
 
 }
