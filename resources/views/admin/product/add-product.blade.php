@@ -14,7 +14,6 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Thêm sản phẩm</h3>
                     </div><!-- /.box-header -->
-
                         @if ($errors->count()> 0)
                             <div class="alert alert-danger alert-dismissible">
                                 <ul>
@@ -52,12 +51,29 @@
                             {!! Form::text('sell_price', null, array('class' => 'form-control', 'placeholder' => 'Giá bán sản phẩm')) !!}
                         </div>
 
+                        <!-- property -->
+                        <div class="form-group">
+                            {!! Form::label('property', 'Đặc tính sản phẩm') !!}
+                            {!! Form::textarea('property') !!}
+                        </div>
+
+                        <!-- property description -->
+                        <div class="form-group">
+                            {!! Form::label('property_description', 'Miêu tả đặc tính sản phẩm') !!}
+                            {!! Form::textarea('property_description') !!}
+                        </div>
+
                         <!-- description -->
                         <div class="form-group">
                             {!! Form::label('description', 'Mô tả sản phẩm') !!}
                             {!! Form::textarea('description') !!}
                         </div>
 
+                        <!-- meta -->
+                        <div class="form-group">
+                            {!! Form::label('meta', 'Meta') !!}<br/>
+                            {!! Form::textarea('meta', null, array('class'=>'form-control', 'style'=>'height:80px')) !!}
+                        </div>
                         <!-- tags -->
                         <div class="form-group">
                             {!! Form::label('tags', 'Tags') !!}
@@ -80,6 +96,9 @@
     CKEDITOR.replace('description',{
         filebrowserImageUploadUrl: "/lib/ckeditor/plugins/imgupload/imgupload.php"
     });
+    CKEDITOR.replace('property');
+    CKEDITOR.replace('property_description');
+
     $("#tree-tags").tree({
         closedIcon: $('<i class="fa fa-plus-square-o"></i>'),
         openedIcon: $('<i class="fa fa-minus-square-o"></i>'),

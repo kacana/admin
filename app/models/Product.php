@@ -22,7 +22,7 @@ class Product extends Model  {
      */
     public function tag()
     {
-        return $this->belongsToMany('App\models\Tag');
+        return $this->belongsToMany('App\models\Tag', 'product_tag', 'product_id', 'tag_id');
     }
 
     /**
@@ -33,21 +33,27 @@ class Product extends Model  {
         return $this->hasMany('App\models\ProductGallery');
     }
 
+    /**
+     * Get the galleries associated with product
+     */
     public function color()
     {
-        return $this -> belongsToMany('App\models\Color', 'product_color')->withPivot('gallery_id');
+        return $this -> belongsToMany('App\models\Color', 'product_color', 'product_id', 'color_id')->withPivot('gallery_id');
     }
 
     /**
-     *
-     * @param $item
+     * Create Item
+     * @param array $item
+     * @return void
      */
     public function createItem($item)
     {
         $product = new Product;
-
         $product->name = $item['name'];
         $product->description = $item['description'];
+        $product->property = $item['property'];
+        $product->property_description = $item['property_description'];
+        $product->meta = $item['meta'];
         $product->price = $item['price'];
         $product->sell_price = $item['sell_price'];
         $product->created = date('Y-m-d H:i:s');
@@ -55,22 +61,29 @@ class Product extends Model  {
         $product->save();
 
         //update image after save product
-        if (isset($item['image']) && ($item['image']!=='undefined')) {
-            $this->updateImage($item['image'], $product->id);
-        }
+        if($product->save()){
+            if (isset($item['image']) && ($item['image']!=='undefined')) {
+                $this->updateImage($item['image'], $product->id);
+            }
 
-        //update description with image
-        if(!empty($item['description'])){
-            $this->updateDescWithImg($item['description'], $product->id);
-        }
-        //add tags
-        if(!empty($item['tags'])){
-            foreach($item['tags'] as $k=>$v){
-                $product->tag()->attach($v);
+            //update description with image
+            if(!empty($item['description'])){
+                $this->updateDescWithImg($item['description'], $product->id);
+            }
+            //add tags
+            if(!empty($item['tags'])){
+                $product->tag()->sync($item['tags']);
             }
         }
     }
 
+    /*
+     * Update Image
+     *
+     * @param string $image
+     * @param int $id
+     * @return void
+     */
     function updateImage($image, $id)
     {
         $original_name = explode(".", $image->getClientOriginalName());
@@ -91,7 +104,12 @@ class Product extends Model  {
     }
 
     /*
-     * using when input description with image
+     * Update Description with image
+     *
+     * @param string $description
+     * @param int $id
+     * @param boolean $is_edit
+     * @return void
      */
     function updateDescWithImg($descriptions, $id, $is_edit=false)
     {
@@ -136,37 +154,33 @@ class Product extends Model  {
      * update information
      *
      * @param id
-     * @param options = array()
-     * @return true or false
+     * @param array $s
+     * @return boolean
      */
-    public function updateItem($id, $options){
+    public function updateItem($id, $inputs){
         $product = Product::find($id);
-        $options['updated'] = date('Y-m-d H:i:s');
-        if(isset($options['_token'])){
-            unset($options['_token']);
+
+        $item['updated'] = date('Y-m-d H:i:s');
+        $item['name'] = $inputs['name'];
+        $item['property_description'] = $inputs['property_description'];
+        $item['property'] = $inputs['property'];
+        $item['meta'] = $inputs['meta'];
+        $item['price'] = $inputs['price'];
+        $item['sell_price'] = $inputs['sell_price'];
+
+        if (isset($inputs['image']) && ($inputs['image']!=='undefined')) {
+            $this->updateImage($inputs['image'], $id);
         }
 
-        if (isset($options['image']) && ($options['image']!=='undefined')) {
-            $this->updateImage($options['image'], $id);
-            unset($options['image']);
-        }else{
-            unset($options['image']);
-        }
-
-        if(!empty($options['description'])){
-            $this->updateDescWithImg($options['description'], $id, true);
-            unset($options['description']);
+        if(!empty($inputs['description'])){
+            $this->updateDescWithImg($inputs['description'], $id, true);
         }
         //add tags
         $product->tag()->detach();
-        if(!empty($options['tags'])) {
-            foreach ($options['tags'] as $k => $v) {
-                $product->tag()->attach($v);
-            }
-            unset($options['tags']);
+        if(!empty($inputs['tags'])) {
+            $product->tag()->sync($inputs['tags']);
         }
-
-        $this->where('id', $id)->update($options);
+        $this->where('id', $id)->update($item);
     }
 
     public function getItemsByTag($tag, $limit){
@@ -185,7 +199,12 @@ class Product extends Model  {
     }
 
     /*
+     * Get Items
      *
+     * @param int $limit
+     * @param int $page
+     * @param array $options
+     * @return array
      */
     public function getItems($limit, $page, $options){
         $query = DB::table('product')
@@ -234,6 +253,12 @@ class Product extends Model  {
         }
     }
 
+    /*
+     * Get Products By Tag
+     *
+     * @param int $id
+     * @return array
+     */
     public function getProductsByTag($id){
         $tag = new Tag();
         $listChildId = $tag->getIdChildsById($id);

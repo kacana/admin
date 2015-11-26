@@ -33,6 +33,12 @@ class ProductController extends BaseController {
                     return showImage($row->image, PRODUCT_IMAGE . $row->id);
                 }
             })
+            ->edit_column('price', function($row){
+                return formatMoney($row->price);
+            })
+            ->edit_column('sell_price', function($row){
+                return formatMoney($row->sell_price);
+            })
             ->edit_column('status', function($row){
                 return showSelectStatus($row->id, $row->status, 'Kacana.product.setStatus('.$row->id.', 1)', 'Kacana.product.setStatus('.$row->id.', 0)');
             })
@@ -57,14 +63,11 @@ class ProductController extends BaseController {
     public function createProduct(ProductRequest $request)
     {
         $product = new Product;
-        if(isset($_POST)) {
-            if ($request->all()) {
-                $product->createItem($request->all());
-                return redirect('product')->with('success', 'Tạo sản phẩm thành công!');
-            }
+        if($request->isMethod('post')) {
+            $product->createItem($request->all());
+            return redirect('product')->with('success', 'Tạo sản phẩm thành công!');
         }
         return view('admin.product.add-product');
-
 
     }
 
@@ -76,16 +79,13 @@ class ProductController extends BaseController {
      */
     public function editProduct($env, $domain, $id, ProductRequest $request)
     {
-        $product = Product::find($id);
-        if($product){
-            if($request->all()){
-                $product->updateItem($id, $request->all());
-                $product = Product::find($id);
-            }
-            return view('admin.product.edit-product',$product);
-        }else{
-            return redirect('product');
+        if($request->isMethod('put')){
+            $product = new Product;
+            $product->updateItem($id, $request->all());
+            return redirect('product')->with('success', 'Cập nhật sản phẩm thành công!');
         }
+        $product = Product::find($id);
+        return view('admin.product.edit-product', $product);
     }
 
     /**
