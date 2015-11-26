@@ -34,7 +34,7 @@
                                         <div class="lf f62 cf">
                                             <div class="lf f50">&nbsp;</div>
                                             <div align="center">
-                                                <select data-id="{{$color->id}}" class="product_qty">
+                                                <select data-id="{{$color->id}}" class="product_qty select-custom">
                                                     @for($i=0; $i<=10; $i++)
                                                     <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
@@ -71,7 +71,7 @@
                                     Thêm vào giỏ hàng
                                 </button>
                             </div>
-                    </form>
+                        </form>
                             <div>
                                 <button id="{{$item->id}}" rel="popover" class="btn-advise btn btn-primary" data-delay="100"><span>Tư vấn</span></button>
                             </div>
@@ -95,7 +95,7 @@
                     @endif
                 </div>
             </div>
-        </div>
+        </div>se
         <hr class="tall" />
         <div class="row">
             <div class="col-md-12">

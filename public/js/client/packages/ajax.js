@@ -80,12 +80,15 @@ var ajaxPackage = {
                 Kacana.ajax.init('/cart/updateCart/'+cid+'/'+qty, 'json', 'get','', callBack, errorCallBack, []);
             },
             changeCity: function(data, callBack, errorCallBack){
-                Kacana.ajax.init('/cart/showListWards?'+dataậ, '', 'post', '', callBack, errorCallBack, []);
+                Kacana.ajax.init('/cart/showListWards?'+data, '', 'post', '', callBack, errorCallBack, []);
             }
         },
         tagpage: {
-            loadProduct: function(tagId, page, callBack, errorCallBack){
-                Kacana.ajax.init('loadListProducts?cateId='+tagId+"&page="+page,'','post', '', callBack, errorCallBack, []);
+            loadProduct: function(options,callBack, errorCallBack){
+                Kacana.ajax.init('loadListProducts?'+options,'','post', '', callBack, errorCallBack, []);
+            },
+            loadFilter: function(hash, callBack, errorCallBack){
+                Kacana.ajax.init('loadFilter?'+ hash, '', 'post', '', callBack, errorCallBack, []);
             }
         }
     }

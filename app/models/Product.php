@@ -170,10 +170,14 @@ class Product extends Model  {
     }
 
     public function getItemsByTag($tag, $limit){
+        $tag_model = new Tag();
+        $listChildId = $tag_model->getIdChildsById($tag->id);
+        $listChildId[] = $tag->id;
+
         $query = DB::table('product')
             ->select('product.id', 'product.name', 'product.price', 'product.image')
             ->join('product_tag', 'product.id', '=', 'product_tag.product_id')
-            ->where('product_tag.tag_id', $tag->id)
+            ->whereIn('product_tag.tag_id', $listChildId)
             ->orderBy('created')
             ->take($limit)
             ->get();
@@ -185,17 +189,44 @@ class Product extends Model  {
      */
     public function getItems($limit, $page, $options){
         $query = DB::table('product')
-            ->select('product.id', 'product.name', 'product.price', 'product.image')
-            ->join('product_tag', 'product.id', '=', 'product_tag.product_id');
+            ->select('product.id', 'product.name', 'product.price', 'product.image');
         if(is_array($options)){
-            if(isset($options['cateId'])){
+            if(isset($options['tagId'])){
                 $tag = new Tag();
-                $listChildId = $tag->getIdChildsById($options['cateId']);
-                $listChildId[] = $options['cateId'];
+                $listChildId = $tag->getIdChildsById($options['tagId']);
+                $listChildId[] = $options['tagId'];
+                $query->join('product_tag', 'product.id', '=', 'product_tag.product_id');
                 $query->whereIn('product_tag.tag_id', $listChildId);
             }
+            if(isset($options['color']) && $options['color']!=0){
+                $query->join('product_color', 'product.id', '=', 'product_color.product_id');
+                $query->where('product_color.color_id',$options['color']);
+            }
+            if(isset($options['brand']) && $options['brand']!=0){
+                $query->join('product_brand', 'product.id', '=', 'product_brand.product_id');
+                $query->where('product_brand.brand_id', $options['brand']);
+            }
+            if(isset($options['sort'])  && $options['sort']!=''){
+                switch($options['sort']){
+                    case 'newest':
+                        $query->orderBy('updated');
+                        break;
+                    case 'lh':
+                        $query->orderBy('price', 'asc');
+                        break;
+                    case 'hl':
+                        $query->orderBy('price', 'desc');
+                        break;
+                    default:
+                        $query->orderBy('updated');
+                }
+            }else{
+                $query->orderBy('updated');
+            }
+        }else{
+            $query->orderBy('updated');
         }
-        $query->orderBy('created');
+
         if($page > 0){
             return $query->paginate($limit);
         }else{
