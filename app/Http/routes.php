@@ -71,7 +71,7 @@ Route::group(['domain'=>'admin.{envDomain}{nameDomain}','middleware' => 'auth'],
     Route::any('/tag/showFormCreate/{id}',                  array('as'=>'showCreateFormTag',        'uses'=>'Admin\TagController@showFormCreate'));
     Route::post('/tag/createTag',                           array('as'=>'createTag',                'uses'=>'Admin\TagController@createTag'));
     Route::get('/tag/showEditFormTag/{id}',                 array('as'=>'showEditFormTag',          'uses'=>'Admin\TagController@showEditFormTag'));
-    Route::post('/tag/editTag',                             array('as'=>'editTag',                  'uses'=>'Admin\TagController@editTag'));
+    Route::match(['get', 'put'],'/tag/editTag/{id}',        array('as'=>'editTag',                  'uses'=>'Admin\TagController@editTag'));
     Route::get('/tag/setStatusTag/{id}/{status}',           array('as'=>'setStatusTag',             'uses'=>'Admin\TagController@setStatusTag'));
     Route::get('/tag/setType/{id}/{type}',                  array('as'=>'setType',                  'uses'=>'Admin\TagController@setType'));
     Route::get('/tag/removeTag/{id}',                       array('as'=>'removeTag',                'uses'=>'Admin\TagController@removeTag'));

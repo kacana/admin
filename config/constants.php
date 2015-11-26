@@ -4,6 +4,7 @@ define('SITE_LINK', 'http://'.$_SERVER['HTTP_HOST'].'/');
 define('PRODUCT_IMAGE', 'images/product/');
 define('BRANCH_IMAGE', 'images/branch/');
 define('USER_IMAGE', 'images/user/');
+define('TAG_IMAGE', 'images/tag/');
 define('PREFIX_IMG_PRODUCT', 'name_');
 define('CITY_ID_DEFAULT', 1);
 

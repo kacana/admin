@@ -23,6 +23,7 @@ class TagRequest extends Request{
                 return [];
             }
             case 'POST':
+            case 'PUT':
             {
                 return [
                     'name'  => 'required',

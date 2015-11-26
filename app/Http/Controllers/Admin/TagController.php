@@ -110,17 +110,19 @@ class TagController extends BaseController {
     }
 
     /**
-     * edit tag
+     * Edit tag
      *
-     * @param TagRequest $request
+     * @param int $id
      * @return Response
      */
-    public function editTag(TagRequest $request)
+    public function editTag($env, $domain, TagRequest $request, $id)
     {
-        $id = $request->get('id');
+        if($request->isMethod('put')){
+            $tagModel = new Tag;
+            $tag = $tagModel->updateItem($id, $request->all());
+        }
         $tag = Tag::find($id);
-        $result = $tag->updateItem($id, $request->all());
-        echo json_encode($result);
+        return view('admin.tag.edit-tag', compact('tag'));
     }
 
     /**
@@ -189,4 +191,5 @@ class TagController extends BaseController {
         $result = $tag->updateItem($id, array('type' => $type));
         echo json_encode($result);
     }
+
 }
