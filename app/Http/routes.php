@@ -143,6 +143,10 @@ View::composer('layouts.client.header', function($view){
     $view->with('menu_items', Tag::getTags());
 });
 
+View::composer('layouts.client.footer', function($view){
+    $view->with('menu_items', Tag::getTags());
+});
+
 View::composer('client.product.sidebar', function($view){
     $view->with('links', Tag::getTags());
 });
