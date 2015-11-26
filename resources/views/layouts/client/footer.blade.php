@@ -1,13 +1,11 @@
 <footer id="footer">
     <div class="container">
         <div class="row">
-            <div class="footer-ribbon">
-                <span>Get in Touch</span>
-            </div>
+
             <div class="col-md-3">
                 <div class="newsletter">
-                    <h4>Newsletter</h4>
-                    <p>Keep up on our always evolving product features and technology. Enter your e-mail and subscribe to our newsletter.</p>
+                    <h4>ĐĂNG KÝ NHẬN TIN</h4>
+                    <p>Đăng ký nhận tin từ  và nhận voucher 50.000 VND</p>
 
                     <div class="alert alert-success hidden" id="newsletterSuccess">
                         <strong>Success!</strong> You've been added to our email list.
@@ -17,7 +15,7 @@
 
                     <form id="newsletterForm" action="php/newsletter-subscribe.php" method="POST">
                         <div class="input-group">
-                            <input class="form-control" placeholder="Email Address" name="newsletterEmail" id="newsletterEmail" type="text">
+                            <input class="form-control" placeholder="Địa chỉ email của bạn" name="newsletterEmail" id="newsletterEmail" type="text">
 										<span class="input-group-btn">
 											<button class="btn btn-default" type="submit">Go!</button>
 										</span>
@@ -25,29 +23,28 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-3">
-                <h4>Latest Tweets</h4>
-                <div id="tweet" class="twitter" data-plugin-tweets data-plugin-options='{"username": "", "count": 2}'>
-                    <p>Please wait...</p>
-                </div>
-            </div>
-            <div class="col-md-4">
+
+            <div class="col-md-4 col-md-offset-1">
                 <div class="contact-details">
-                    <h4>Contact Us</h4>
+                    <h4>Liên Hệ</h4>
                     <ul class="contact">
-                        <li><p><i class="fa fa-map-marker"></i> <strong>Address:</strong> 1234 Street Name, City Name, United States</p></li>
-                        <li><p><i class="fa fa-phone"></i> <strong>Phone:</strong> (123) 456-7890</p></li>
-                        <li><p><i class="fa fa-envelope"></i> <strong>Email:</strong> <a href="mailto:mail@example.com">mail@example.com</a></p></li>
+                        <li><p><i class="fa fa-map-marker"></i> <strong>Địa Chỉ:</strong> 43 Tản Đà, Phường 10, Quận 5, Hồ Chí Minh</p></li>
+                        <li><p><i class="fa fa-phone"></i> <strong>Điện Thoại :</strong> 0906.054.206 - 01695.393.076</p></li>
+                        <li><p><i class="fa fa-envelope"></i> <strong>Email:</strong> <a href="mailto:annaphamkt@gmail.com">annaphamkt@gmail.com</a></p></li>
+                        <li><p><i class="fa fa-facebook"></i> <strong>Facebook:</strong> <a target="_blank" href="https://www.facebook.com/profile.php?id=100009296741412">facebook.com/kacana</a></p></li>
                     </ul>
                 </div>
             </div>
-            <div class="col-md-2">
-                <h4>Follow Us</h4>
-                <div class="social-icons">
-                    <ul class="social-icons">
-                        <li class="facebook"><a href="http://www.facebook.com/" target="_blank" data-placement="bottom" data-tooltip title="Facebook">Facebook</a></li>
-                        <li class="twitter"><a href="http://www.twitter.com/" target="_blank" data-placement="bottom" data-tooltip title="Twitter">Twitter</a></li>
-                        <li class="linkedin"><a href="http://www.linkedin.com/" target="_blank" data-placement="bottom" data-tooltip title="Linkedin">Linkedin</a></li>
+
+            <div class="col-md-3 col-md-offset-1">
+                <div class="contact-details">
+                    <h4>Sản phẩm</h4>
+                    <ul class="contact">
+                        @foreach($menu_items as $item)
+                                <li>
+                                    <a href="{{$item['tag_url']}}">{{ $item['name'] }}</a>
+                                </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -57,8 +54,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-1">
-                    <a href="index.html" class="logo">
-                        <img alt="Porto Website Template" class="img-responsive" src="img/logo-footer.png">
+                    <a href="/" class="logo">
+                        <img alt="Porto Website Template" class="img-responsive" src="/images/client/homepage/logo.png">
                     </a>
                 </div>
                 <div class="col-md-7">
@@ -69,7 +66,7 @@
                         <ul>
                             <li><a href="page-faq.html">FAQ's</a></li>
                             <li><a href="sitemap.html">Sitemap</a></li>
-                            <li><a href="contact-us.html">Contact</a></li>
+                            <li><a href="contact-us.html">Liên Hệ</a></li>
                         </ul>
                     </nav>
                 </div>
