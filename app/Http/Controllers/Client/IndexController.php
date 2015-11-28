@@ -23,7 +23,6 @@ class IndexController extends BaseController {
             $result['products'] = $product->getItemsByTag($t, $limit);
             $data[] = $result;
         }
-
 		return view('client.index.index', array('items'=>$data));
 	}
 

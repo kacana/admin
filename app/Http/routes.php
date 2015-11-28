@@ -10,7 +10,6 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-use App\models\Tag;
 
 Route::pattern('id', '\d+');
 Route::pattern('pid', '\d+');
@@ -141,18 +140,4 @@ Route::group(['domain'=>'{envDomain}{nameDomain}', ], function () {
     Route::get('cart/don-dat-hang/{id}',                    array('as'=>'orderDetail',       'uses'=>'Client\CartController@orderDetail'));
     Route::post('/cart/showListWards',                      array('as'=>'showListWards',     'uses'=>'Client\CartController@showListWards'));
 
-});
-
-View::composer('layouts.client.header', function($view){
-    $view->with('menu_items', Tag::getTags());
-});
-
-View::composer('layouts.client.footer', function($view){
-    $view->with('menu_items', Tag::getTags());
-});
-
-View::composer('client.product.sidebar', function($view){
-    $segment = Request::segment(3);
-
-    $view->with('links',Tag::getTags())->with('brands', \App\models\Branch::all())->with('colors', \App\models\Color::all())->with('url_tag',$segment);
 });
