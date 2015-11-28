@@ -18,11 +18,14 @@ class AppServiceProvider extends ServiceProvider {
 		//menu on header
         View::composer('layouts.client.header', function($view){
             $params = Route::current()->parameters();
-            $tag_id = isset($params['id']) ? $params['id'] : '';
+            $routeName = Route::currentRouteName();
             $id_active = "";
-            if($tag_id!=""){
-                $tag = Tag::find($tag_id);
-                $id_active = ($tag->parent_id!=0)?$tag->parent_id:$tag_id;
+            if($routeName == 'listProductByCate'){
+                $tag_id = isset($params['id']) ? $params['id'] : '';
+                if($tag_id!=""){
+                    $tag = Tag::find($tag_id);
+                    $id_active = ($tag->parent_id!=0)?$tag->parent_id:$tag_id;
+                }
             }
             $view->with('menu_items', Tag::getTags())->with('id_active', $id_active);
         });
