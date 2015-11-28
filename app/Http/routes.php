@@ -96,8 +96,10 @@ Route::group(['domain'=>'admin.{envDomain}{nameDomain}','middleware' => 'auth'],
 
     //Order Request
     Route::any('/order',                                     array('as'=>'listOrder',                 'uses'=>'Admin\OrderController@index'));
-    Route::any('/order/getList',                             array('as'=>'getList',                  'uses'=>'Admin\OrderController@getList'));
-    Route::any('/order/edit/{id}',                             array('as'=>'edit',                  'uses'=>'Admin\OrderController@edit'));
+    Route::any('/order/getList',                             array('as'=>'getList',                   'uses'=>'Admin\OrderController@getList'));
+    Route::any('/order/edit/{id}',                           array('as'=>'edit',                    'uses'=>'Admin\OrderController@edit'));
+    Route::any('/order/orderDetails/{id}',                   array('as'=>'orderDetails',                  'uses'=>'Admin\OrderController@getListOrderDetail'));
+    Route::get('/order/deleteOrderDetail/{id}',                   array('as'=>'orderDetails',                  'uses'=>'Admin\OrderController@deleteOrderDetail'));
 
 
 

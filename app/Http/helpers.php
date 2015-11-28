@@ -42,8 +42,9 @@ function showActionButton($link_edit, $link_delete, $is_edit_popup=false, $is_de
     }else{
         $str = "<a class='btn btn-default btn-xs' href='".$link_edit."'><i class='fa fa-pencil'></i></a>";
     }
+
     if($is_delete == true) {
-        $str .="<a href='javascript:void(0)' onclick='".$link_delete."'><i class='fa fa-remove'></i></a>";
+        $str ="<a href='javascript:void(0)' onclick='".$link_delete."'><i class='fa fa-remove'></i></a>";
     }
     return $str;
 }

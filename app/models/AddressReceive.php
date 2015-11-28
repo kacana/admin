@@ -65,5 +65,24 @@ class AddressReceive extends Model {
         return $addReceive;
     }
 
+    /*
+     * Update
+     * @param array $inputs
+     * @return boolean
+     */
+    public function updateAddress($inputs){
+        $id = isset($inputs['id']) ? $inputs['id']:'';
+        if($id!=''){
+            $add_receive = AddressReceive::find($id);
+            $add_receive->street = $inputs['street'];
+            $add_receive->city_id = $inputs['city_id'];
+            $add_receive->ward_id = $inputs['ward_id'];
+            if($add_receive->save()){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }

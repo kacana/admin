@@ -41,11 +41,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
-     * Get the user address for user
+     * Get the user address associated with user
      */
     public function userAddress()
     {
         return $this->hasMany('App\models\UserAddress');
+    }
+
+    /*
+     * Get the order associated with user
+     */
+    public function order()
+    {
+        return $this->hasMany('App\models\Order');
     }
 
     public function createItem($item)
@@ -118,6 +126,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function getUserByEmail($email){
         return $this->where('email', $email)->first();
+    }
+
+    /*
+     * Get User By Order Id
+     *
+     * @param int $id
+     * @return array
+     */
+    public function getUserByOrderId($id){
+
     }
 
 }

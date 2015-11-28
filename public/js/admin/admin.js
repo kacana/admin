@@ -147,8 +147,21 @@ var Kacana ={};;;var ajaxPackage = {
             changeCity: function(id, callBack, errorCallBack){
                 Kacana.ajax.init('/user/showListWards/'+id, '', 'get', '', callBack, errorCallBack, []);
             }
+        },
+        /*****************************************************************************
+         *
+         *          FUNCTION AJAX FOR ORDER MANAGEMENT
+         *
+         * ***************************************************************************/
+        order:{
+            changeCity: function(id, callBack, errorCallBack){
+                Kacana.ajax.init('/user/showListWards/'+id, '', 'get', '', callBack, errorCallBack, []);
+            },
+            deleteOrderDetail: function(id, callBack, errorCallBack){
+                Kacana.ajax.init('/order/deleteOrderDetail/'+id,'', 'get', '', callBack, errorCallBack, []);
+            }
         }
-    }
+     }
 };
 
 $.extend(true, Kacana, ajaxPackage);;var datatablePackage = {
@@ -188,7 +201,32 @@ $.extend(true, Kacana, datatablePackage);;var orderPackage = {
                 e.preventDefault();
             })
         },
-
+        listOrderDetails: function(){
+            var orderId = $('#order-id').val();
+            var columns = ['id','name', 'price', 'quantity', 'subtotal', 'created', 'action'];
+            Kacana.datatable.init('table', columns, '/order/orderDetails/'+orderId);
+        },
+        deleteOrderDetail: function(){
+            $(document).on("click", '.delete',function(){
+                id = $(this).data('id');
+                $('#confirm').modal('show');
+                var callBack = function(data){
+                    window.location.reload();
+                };
+                var errorCallBack = function(){};
+                $('#delete').click(function (e) {
+                    Kacana.ajax.order.deleteOrderDetail(id, callBack, errorCallBack);
+                });
+            })
+        },
+        changeCity: function(){
+            city_id = $("#city_id").find('option:selected').val();
+            var callBack = function(data){
+                $("#ward").html(data);
+            };
+            var errorCallBack = function(){};
+            Kacana.ajax.order.changeCity(city_id, callBack, errorCallBack);
+        },
         removeProduct: function(idProduct){
             $('#confirm').modal('show');
             var callBack = function(data){
