@@ -39,6 +39,7 @@
                     @empty
                         <div>Dữ liệu đang cập nhật...</div>
                     @endforelse
+                    <div class="b-t"></div>
                 </div>
             </div>
         </div>

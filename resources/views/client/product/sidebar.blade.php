@@ -16,12 +16,12 @@
                                 @forelse($links as $link)
                                 <li class="as-filter-item">
                                     @if(sizeof($link['childs'])>0)
-                                        <a href="javascript:void(0)">
+                                        <a href="javascript:void(0)" class="as-search-filter-child" data-id="{{$link['id']}}">
                                             <span class="as-filter-name">
                                                 <span class="as-search-filter-content">
                                                     <span class="as-search-filter-text">{{$link['name']}}
                                                         @if(sizeof($link['childs'])>0)
-                                                            <i class="as-search-filter-child{{$link['id']}} fa fa-angle-down"></i>
+                                                            <i class="fa fa-angle-down"></i>
                                                         @endif
                                                     </span>
                                                </span>
