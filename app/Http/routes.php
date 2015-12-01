@@ -10,7 +10,6 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-use App\models\Tag;
 
 Route::pattern('id', '\d+');
 Route::pattern('pid', '\d+');
@@ -71,10 +70,11 @@ Route::group(['domain'=>'admin.{envDomain}{nameDomain}','middleware' => 'auth'],
     Route::any('/tag/showFormCreate/{id}',                  array('as'=>'showCreateFormTag',        'uses'=>'Admin\TagController@showFormCreate'));
     Route::post('/tag/createTag',                           array('as'=>'createTag',                'uses'=>'Admin\TagController@createTag'));
     Route::get('/tag/showEditFormTag/{id}',                 array('as'=>'showEditFormTag',          'uses'=>'Admin\TagController@showEditFormTag'));
-    Route::post('/tag/editTag',                             array('as'=>'editTag',                  'uses'=>'Admin\TagController@editTag'));
+    Route::match(['get', 'put'],'/tag/editTag/{id}',        array('as'=>'editTag',                  'uses'=>'Admin\TagController@editTag'));
     Route::get('/tag/setStatusTag/{id}/{status}',           array('as'=>'setStatusTag',             'uses'=>'Admin\TagController@setStatusTag'));
     Route::get('/tag/setType/{id}/{type}',                  array('as'=>'setType',                  'uses'=>'Admin\TagController@setType'));
     Route::get('/tag/removeTag/{id}',                       array('as'=>'removeTag',                'uses'=>'Admin\TagController@removeTag'));
+    Route::get('/tag/getProducts/{id}',                     array('as'=>'getProducts',              'uses'=>'Admin\TagController@getProducts'));
 
     //user
     Route::any('/user',                                     array('as'=>'listUsers',                 'uses'=>'Admin\UserController@index'));
@@ -95,8 +95,10 @@ Route::group(['domain'=>'admin.{envDomain}{nameDomain}','middleware' => 'auth'],
 
     //Order Request
     Route::any('/order',                                     array('as'=>'listOrder',                 'uses'=>'Admin\OrderController@index'));
-    Route::any('/order/getList',                             array('as'=>'getList',                  'uses'=>'Admin\OrderController@getList'));
-    Route::any('/order/edit/{id}',                             array('as'=>'edit',                  'uses'=>'Admin\OrderController@edit'));
+    Route::any('/order/getList',                             array('as'=>'getList',                   'uses'=>'Admin\OrderController@getList'));
+    Route::any('/order/edit/{id}',                           array('as'=>'edit',                    'uses'=>'Admin\OrderController@edit'));
+    Route::any('/order/orderDetails/{id}',                   array('as'=>'orderDetails',                  'uses'=>'Admin\OrderController@getListOrderDetail'));
+    Route::get('/order/deleteOrderDetail/{id}',                   array('as'=>'orderDetails',                  'uses'=>'Admin\OrderController@deleteOrderDetail'));
 
 
 
@@ -138,18 +140,4 @@ Route::group(['domain'=>'{envDomain}{nameDomain}', ], function () {
     Route::get('cart/don-dat-hang/{id}',                    array('as'=>'orderDetail',       'uses'=>'Client\CartController@orderDetail'));
     Route::post('/cart/showListWards',                      array('as'=>'showListWards',     'uses'=>'Client\CartController@showListWards'));
 
-});
-
-View::composer('layouts.client.header', function($view){
-    $view->with('menu_items', Tag::getTags());
-});
-
-View::composer('layouts.client.footer', function($view){
-    $view->with('menu_items', Tag::getTags());
-});
-
-View::composer('client.product.sidebar', function($view){
-    $segment = Request::segment(3);
-
-    $view->with('links',Tag::getTags())->with('brands', \App\models\Branch::all())->with('colors', \App\models\Color::all())->with('url_tag',$segment);
 });

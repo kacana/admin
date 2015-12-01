@@ -8,11 +8,11 @@ class AddressCity extends Model {
     public $timestamps = false;
 
     /**
-     * Get the user associated with product
+     * Get the ward owns with this city
      */
     public function ward()
     {
-        return $this->hasMany('App\models\AddressWard');
+        return $this->hasMany('App\models\AddressWard', 'city_id', 'id');
     }
 
     /**

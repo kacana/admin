@@ -17,7 +17,7 @@
             </div>
             <div class="block-tag-body as-accessories-results">
                 @include('client.product.sidebar')
-                <div class="container taglist" id="content">
+                <div class="container taglist as-search-results-tiles" id="content">
                     @forelse($items as $item)
                         <div class="col-md-4 product-item" >
                             <div class="product-image" >
@@ -39,6 +39,7 @@
                     @empty
                         <div>Dữ liệu đang cập nhật...</div>
                     @endforelse
+                    <div class="b-t"></div>
                 </div>
             </div>
         </div>

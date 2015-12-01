@@ -14,23 +14,8 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Cập nhật sản phẩm</h3>
                     </div><!-- /.box-header -->
-                    @if($_POST)
-                        @if ($errors->count() > 0)
-                            <div class="alert alert-danger alert-dismissible">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                    @else
-                        <div class="alert alert-success alert-dismissible">
-                            Cập nhật sản phẩm thành công
-                        </div>
-                    @endif
 
-                    {!! Form::open(array('id' =>'form-edit-product', 'onsubmit'=>true, 'enctype'=>"multipart/form-data")) !!}
+                    {!! Form::open(array('method'=>'put','id' =>'form-edit-product', 'onsubmit'=>true, 'enctype'=>"multipart/form-data")) !!}
                     <div class="modal-body">
                         <!-- name -->
                         <div class="form-group">
@@ -60,10 +45,28 @@
                             {!! Form::text('sell_price', $sell_price, array('required', 'class' => 'form-control', 'placeholder' => 'Giá bán sản phẩm')) !!}
                         </div>
 
+                        <!-- property -->
+                        <div class="form-group">
+                            {!! Form::label('property', 'Đặc tính sản phẩm') !!}
+                            {!! Form::textarea('property', $property) !!}
+                        </div>
+
+                        <!-- property description -->
+                        <div class="form-group">
+                            {!! Form::label('property_description', 'Miêu tả đặc tính sản phẩm') !!}
+                            {!! Form::textarea('property_description', $property_description) !!}
+                        </div>
+
                         <!-- description -->
                         <div class="form-group">
                             {!! Form::label('description', 'Mô tả sản phẩm') !!}
                             {!! Form::textarea('description', $description) !!}
+                        </div>
+
+                        <!-- meta -->
+                        <div class="form-group">
+                            {!! Form::label('meta', 'Meta') !!}<br/>
+                            {!! Form::textarea('meta', $meta, array('class'=>'form-control', 'style'=>'height:80px')) !!}
                         </div>
 
                         <!-- tags -->
@@ -87,6 +90,9 @@
     CKEDITOR.replace('description',{
         filebrowserImageUploadUrl: "/lib/ckeditor/plugins/imgupload/imgupload.php"
     });
+    CKEDITOR.replace('property');
+    CKEDITOR.replace('property_description');
+
     $("#tree-tags").tree({
         closedIcon: $('<i class="fa fa-plus-square-o"></i>'),
         openedIcon: $('<i class="fa fa-minus-square-o"></i>'),

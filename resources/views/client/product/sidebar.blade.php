@@ -16,12 +16,12 @@
                                 @forelse($links as $link)
                                 <li class="as-filter-item">
                                     @if(sizeof($link['childs'])>0)
-                                        <a href="javascript:void(0)">
+                                        <a href="javascript:void(0)" class="as-search-filter-child" data-id="{{$link['id']}}">
                                             <span class="as-filter-name">
                                                 <span class="as-search-filter-content">
                                                     <span class="as-search-filter-text">{{$link['name']}}
                                                         @if(sizeof($link['childs'])>0)
-                                                            <i class="as-search-filter-child{{$link['id']}} fa fa-angle-down"></i>
+                                                            <i class="fa fa-angle-down"></i>
                                                         @endif
                                                     </span>
                                                </span>
@@ -70,37 +70,7 @@
                 </div>
             </li>
             <!-- //end category-->
-            <!-- brands -->
-            <li class="as-accordion-box">
-                <div class="as-search-facet Category ">
-                    <div class="as-search-accordion-header" data-ase-materializer="as-accordion-id0" data-ase-click="toggle">
-                        <span id="as-accordion-label-id1" class="as-search-accordion-title">Brand</span>
-                        <button id="as-accordion-header-button0" tabindex="0" class="as-accordion-button" aria-controls="as-accordion-id0" aria-expanded="true" data-toggle="dropdown">
-                            <span class="as-accordion-close"></span>
-                        </button>
-                    </div>
-                    <materializer data-show-height="computed" data-hide-height="0" id="as-accordion-id1" class="as-search-facet-materializer ase-materializer ase-materializer-gone ase-materializer-hide" data-shown-init="true">
-                        <div class="as-accordion-box-animation">
-                            <ul class="as-search-filter-items as-filter-text-type brand">
-                                @forelse($brands as $brand)
-                                    <li class="as-filter-item">
-                                        <a href="{{Request::url()}}?page=1&brand={{$brand->id}}" data-type='brand' class="as-filter-option" aria-disabled="false" tabindex="0" data-tracking="accType=controller, " role="checkbox" aria-checked="false">
-                                            <span class="as-filter-name">
-                                                <span class="as-search-filter-content">
-                                                    <span class="as-search-filter-text">{{$brand->name}}</span>
-                                               </span>
-                                           </span>
-                                        </a>
-                                    </li>
-                                @empty
-                                    <li>Dữ liệu đang được cập nhật...</li>
-                                @endforelse
-                            </ul>
-                        </div>
-                    </materializer>
-                </div>
-            </li>
-            <!-- //end brand -->
+
             <!-- color -->
             <li class="as-accordion-box">
                 <div class="as-search-facet Category ">

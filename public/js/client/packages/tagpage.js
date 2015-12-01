@@ -36,6 +36,7 @@ var tagpagePackage = {
                     }
                     //neu het du lieu thi ngung
                     if(stopped == true){
+                        Kacana.tagpage.removeLoading();
                         return false;
                     }
                     //thiet lap dang gui ajax
@@ -46,10 +47,15 @@ var tagpagePackage = {
                     Kacana.tagpage.showLoading();
                     //gui ajax
                     var callBack = function(data) {
-                        $element.append(data);
-                        Kacana.homepage.init();
-                        Kacana.tagpage.removeLoading();
-                        is_busy = false;
+                        if(data!=''){
+                            $element.append(data);
+                            Kacana.homepage.init();
+                            Kacana.tagpage.removeLoading();
+                        }else{
+                            stopped=true;
+                            Kacana.tagpage.removeLoading();
+                        }
+
                     };
                     var errorCallBack = function(data){};
                     options = 'tagId='+$tagId+"&color="+$colorId+"&brand="+$brandId+"&page="+page+"&sort="+$sort;
@@ -83,11 +89,12 @@ var tagpagePackage = {
                 }
             })
 
-            $(".as-search-filter-child2").on('click', function(){
-                if($("#as-seach-filter-childs2").hasClass('ase-materializer-gone')){
-                    $("#as-seach-filter-childs2").removeClass('ase-materializer-gone');
+            $(".as-search-filter-child").on('click', function(){
+                link_id = $(this).data('id');
+                if($("#as-seach-filter-childs"+link_id).hasClass('ase-materializer-gone')){
+                    $("#as-seach-filter-childs"+link_id).removeClass('ase-materializer-gone');
                 }else{
-                    $("#as-seach-filter-childs2").addClass('ase-materializer-gone');
+                    $("#as-seach-filter-childs"+link_id).addClass('ase-materializer-gone');
                 }
             })
         },

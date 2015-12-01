@@ -205,7 +205,7 @@ body {
 
 #header nav ul.nav-main ul.dropdown-menu li:hover > a {
 	filter: none;
-	background: #999;
+	/*background: #999;*/
 }
 
 #header nav ul.nav-main ul.dropdown-menu li:last-child > a {

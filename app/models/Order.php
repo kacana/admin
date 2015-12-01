@@ -26,23 +26,27 @@ class Order extends Model  {
     }
 
     /**
-     * Get the order detail associated with order
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * Get the user that owns the order
      */
     public function user()
     {
-        return $this->belongsTo('App\models\User');
+        return $this->belongsTo('App\models\User', 'user_id');
     }
 
     /**
-     * Get the addressReceive associated with order
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     * Get the addressReceive that owns the order
      */
     public function addressReceive()
     {
-        return $this->belongsTo('App\models\AddressReceive');
+        return $this->belongsTo('App\models\AddressReceive', 'address_id');
     }
 
+    /*
+     * Create item
+     *
+     * @param array $item
+     * @return $object
+     */
     public function createItem($item){
         $object = new Order();
         foreach($item as $k=>$v){
@@ -53,5 +57,9 @@ class Order extends Model  {
         $object->save();
         return $object;
     }
+
+    /*
+     *
+     */
 
 }

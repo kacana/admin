@@ -49,20 +49,19 @@
             <nav class="nav-main mega-menu">
                @if(count($menu_items)>0)
                 <ul class="nav nav-pills nav-main" id="mainMenu">
-
-                    <li class="active">
+                    <li class="{{ ($id_active == 0)?'active':'' }}">
                         <a class="dropdown-toggle" href="/">Trang chủ</a>
                     </li>
                     @foreach($menu_items as $item)
                         @if(isset($item['childs']) && sizeof($item['childs']) > 0)
-                        <li class="dropdown">
+                        <li class="dropdown {{ ($id_active == $item['id'])?'active':''}}" >
                             <a class="dropdown-toggle" href="{{$item['tag_url']}}">
                                {{ $item['name'] }}
                                 <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown-menu">
                                 @foreach($item['childs'] as $child)
-                                <li><a href="{{urlCategory($child)}}">{{ $child->name }}</a></li>
+                                    <li><a href="{{urlCategory($child)}}">{{ $child->name }}</a></li>
                                 @endforeach
                             </ul>
                         </li>
@@ -91,7 +90,7 @@
                                                             <img src="{{$item->options['image']}}" width="70px"/>
                                                         </td>
                                                         <td class="product-name">
-                                                            <span><a href="{{isset($item->options['urlDetail'])?$item->options['urlDetail']:'#'}}">{{limitString($item->name)}}</a></span>
+                                                            <span><a class="a-b" href="{{isset($item->options['urlDetail'])?$item->options['urlDetail']:'#'}}">{{limitString($item->name)}}</a></span>
                                                         </td>
 
                                                         <td class="product-subtotal" align="right">

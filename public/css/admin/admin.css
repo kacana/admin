@@ -1,5 +1,6 @@
 body {
   font-family: "Roboto";
+  font-weight: 500;
 }
 h1,
 h2,
@@ -7,6 +8,9 @@ h3,
 h4,
 h5 {
   font-family: "Roboto";
+}
+.btn {
+  font-weight: 600;
 }
 @font-face {
   font-family: 'Roboto';
@@ -77,24 +81,25 @@ h5 {
   padding-left: 0;
   padding-right: 3px;
 }
-.content-wrapper #table_filter,
-.content-wrapper .nosort {
+.content-wrapper #table_filter {
   display: none;
 }
-.content-wrapper .table-striped > tbody > tr:first-child > td {
-  border-top: 2px solid #dddddd !important;
-}
-.content-wrapper table.dataTable.no-footer {
+.content-wrapper .table {
   border-bottom: 2px solid #dddddd !important;
 }
-.content-wrapper .table > caption + thead > tr:first-child > th,
-.content-wrapper .table > colgroup + thead > tr:first-child > th,
-.content-wrapper .table > thead:first-child > tr:first-child > th,
-.content-wrapper .table > caption + thead > tr:first-child > td,
-.content-wrapper .table > colgroup + thead > tr:first-child > td,
-.content-wrapper .table > thead:first-child > tr:first-child > td {
-  border-top: 0;
-  border-bottom: 0;
+.content-wrapper .table tbody tr:first-child td {
+  border-top: 2px solid #dddddd !important;
+}
+.content-wrapper .table tbody tr td {
+  height: 70px;
+  display: table-cell;
+  vertical-align: middle;
+}
+.content-wrapper .table .no-footer {
+  border-bottom: 2px solid #dddddd !important;
+}
+.content-wrapper .table thead th {
+  border: none;
 }
 .treeview-tags {
   margin: 10px;

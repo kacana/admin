@@ -6,14 +6,17 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use DB;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrderDetail extends Model  {
+    use SoftDeletes;
     /**
      * The database table used by the model.
      *
      * @var string
      */
     protected $table = 'order_detail';
+    protected $dates = ['delete_at'];
     public $timestamps = false;
 
     /**
@@ -22,7 +25,7 @@ class OrderDetail extends Model  {
      */
     public function order()
     {
-        return $this->belongsTo('App\models\Order');
+        return $this->belongsTo('App\models\Order', 'order_id');
     }
 
     public function createItems($orderId, $carts){
@@ -54,9 +57,28 @@ class OrderDetail extends Model  {
     }
 
     /*
-     * function name: getItemsByOrderId
+     * Get Items By Order Id
+     *
+     * @param int $id
+     * @return array
      */
-    public function getItemsByOrderId($orderId){
-        return $this->where('order_id', $orderId)->get();
+    public function getItemsByOrderId($id){
+        return $this->where('order_id', $id)->get();
+    }
+
+    /*
+     * Delete item
+     * @param int $id
+     */
+    public function deleteItem($id){
+        $order_detail = OrderDetail::find($id);
+        $order = $order_detail->order;
+        $subtotal = $order_detail->subtotal;
+        if($order_detail->delete()){
+            $order->total = $order->total - $subtotal;
+            $order->save();
+            return true;
+        }
+        return false;
     }
 }

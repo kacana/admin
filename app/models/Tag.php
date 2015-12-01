@@ -53,17 +53,19 @@ class Tag extends Model  {
     /**
      * update information
      *
-     * @param id
-     * @param options = array()
-     * @return true or false
+     * @param int id
+     * @param array $inputs
+     * @return object
      */
-    public function updateItem($id, $options){
+    public function updateItem($id, $inputs){
+        $item['updated'] = date('Y-m-d H:i:s');
+        $item['name'] = $inputs['name'];
+        $item['description'] = $inputs['description'];
 
-        $options['updated'] = date('Y-m-d H:i:s');
-        if(isset($options['_token'])){
-            unset($options['_token']);
+        if (isset($inputs['image'])) {
+            $this->updateImage($inputs['image'], $id);
         }
-        $this->where('id', $id)->update($options);
+        $this->where('id', $id)->update($item);
         $tag = Tag::find($id);
         return $tag;
     }
@@ -130,6 +132,32 @@ class Tag extends Model  {
 
     public function getIdChildsById($id){
         return $this->where('parent_id', $id)->get()->lists('id');
+    }
+
+    /**
+     * Update Image
+     *
+     * @param int $id
+     * @param string $image
+     * @return void
+     */
+    private function updateImage($image, $id)
+    {
+        $original_name = explode(".", $image->getClientOriginalName());
+        $original_name = $original_name[0];
+
+        $new_name = PREFIX_IMG_PRODUCT . str_slug($original_name, "-") . '.' . $image->getClientOriginalExtension();
+
+        $path = public_path(TAG_IMAGE . $id);
+
+        if(!file_exists($path)){
+            mkdir($path, 0777, true);
+        }else{
+            chmod($path, 0777);
+        }
+        Image::make($image->getRealPath())->save($path . '/' . $new_name);
+
+        return $this->where('id', $id)->update(array('image' => $new_name));
     }
 
 }

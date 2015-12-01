@@ -147,8 +147,21 @@ var ajaxPackage = {
             changeCity: function(id, callBack, errorCallBack){
                 Kacana.ajax.init('/user/showListWards/'+id, '', 'get', '', callBack, errorCallBack, []);
             }
+        },
+        /*****************************************************************************
+         *
+         *          FUNCTION AJAX FOR ORDER MANAGEMENT
+         *
+         * ***************************************************************************/
+        order:{
+            changeCity: function(id, callBack, errorCallBack){
+                Kacana.ajax.init('/user/showListWards/'+id, '', 'get', '', callBack, errorCallBack, []);
+            },
+            deleteOrderDetail: function(id, callBack, errorCallBack){
+                Kacana.ajax.init('/order/deleteOrderDetail/'+id,'', 'get', '', callBack, errorCallBack, []);
+            }
         }
-    }
+     }
 };
 
 $.extend(true, Kacana, ajaxPackage);
