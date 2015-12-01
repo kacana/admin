@@ -1,5 +1,5 @@
 @extends('layouts.client.master')
-
+<? $images = [];?>
 @section('content')
 <div role="main" id="product-detail" class="main shop">
     <div class="container">
@@ -85,9 +85,10 @@
                         <?php $count = 1;?>
                         @foreach($item->galleries as $gallery)
                             <?php if($count==5)break;?>
+                            <? $images[$count] = $gallery->image;?>
                             <div>
                                 <div class="thumbnail">
-                                    <img alt="{{$item->name}}" class="img-responsive img-rounded" src="{{showProductImg($gallery->image, $item->id)}}">
+                                    <img alt="{{$item->name}}" class="img-responsive img-rounded" src="{{$gallery->image}}">
                                 </div>
                             </div>
                             <?php $count++;?>
@@ -95,13 +96,13 @@
                     @endif
                 </div>
             </div>
-        </div>se
+        </div>
         <hr class="tall" />
         <div class="row">
-            <div class="col-md-12">
+            <span class="col-md-12">
                 <h2>Thông tin chi tiết</h2>
-                <div><?php echo $item->description?></div>
-            </div>
+                <div class="col-md-12"><?php echo $item->description?></div>
+            </span>
         </div>
 
     </div>
